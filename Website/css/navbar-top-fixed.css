@@ -1,0 +1,13 @@
+/* Show it is fixed to the top */
+body {
+  min-height: 75rem;
+  padding-top: 4.5rem;
+}
+
+.firstcolor {
+  background-color: #8FC93E;
+}
+
+.secondcolor {
+  background-color: #105E7F;
+}
