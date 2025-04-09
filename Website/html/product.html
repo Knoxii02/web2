@@ -16,7 +16,10 @@
             justify-content: center;
             overflow: hidden;
             background-color: #f8f9fa;
+<<<<<<< HEAD
             padding-top: 10px; /* Abstand oben hinzugefügt */
+=======
+>>>>>>> df7b543 (fixe CD/buch)
         }
         
         .related-product-img-container img {
@@ -24,6 +27,7 @@
             max-width: 100%;
             object-fit: contain;
         }
+<<<<<<< HEAD
         
         /* Neue Styles für klickbare Produktkarten */
         .product-card {
@@ -37,6 +41,8 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
+=======
+>>>>>>> df7b543 (fixe CD/buch)
     </style>
 </head>
 
@@ -64,6 +70,7 @@
             <!-- Produktbild mit Galerie -->
             <div class="col-md-6 mb-4">
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <div class="position-relative" style="height: 400px; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center;">
                     <img id="mainProductImage" src="../bilder/Klett-Kasten.jpg" alt="Produktbild" class="img-fluid" style="max-height: 100%; max-width: 100%; object-fit: contain;">
                     
@@ -87,11 +94,24 @@
                         </button>
                     </div>
 >>>>>>> a97cb6a (changed product site)
+=======
+                <div class="position-relative" style="height: 400px; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center;">
+                    <img id="mainProductImage" src="../bilder/Klett-Kasten.jpg" alt="Produktbild" class="img-fluid" style="max-height: 100%; max-width: 100%; object-fit: contain;">
+                    
+                    <!-- Navigationspfeile mit festen Positionen -->
+                    <button class="btn btn-light rounded-circle position-absolute" style="left: 10px; top: 50%; transform: translateY(-50%);" onclick="previousImage()">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="btn btn-light rounded-circle position-absolute" style="right: 10px; top: 50%; transform: translateY(-50%);" onclick="nextImage()">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+>>>>>>> df7b543 (fixe CD/buch)
                 </div>
                 
                 <!-- Produktvarianten -->
                 <div class="mt-3 d-flex justify-content-center">
                     <div class="btn-group" role="group">
+<<<<<<< HEAD
 <<<<<<< HEAD
                         <button type="button" class="btn btn-outline-primary active" id="buchVariant" onclick="switchVariant('buch')">Buch</button>
                         <button type="button" class="btn btn-outline-primary" id="cdVariant" onclick="switchVariant('cd')">CD</button>
@@ -99,6 +119,10 @@
                         <button type="button" class="btn btn-outline-primary active">Buch</button>
                         <button type="button" class="btn btn-outline-primary">CD</button>
 >>>>>>> a97cb6a (changed product site)
+=======
+                        <button type="button" class="btn btn-outline-primary active" id="buchVariant" onclick="switchVariant('buch')">Buch</button>
+                        <button type="button" class="btn btn-outline-primary" id="cdVariant" onclick="switchVariant('cd')">CD</button>
+>>>>>>> df7b543 (fixe CD/buch)
                     </div>
                 </div>
             </div>
@@ -108,35 +132,48 @@
                 <div class="mb-4">
                     <h4>Beschreibung</h4>
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <p id="productDescription">Dieser praxisorientierte Ratgeber bietet Ihnen bewährte Methoden und Strategien für eine erfolgreiche Erziehung. Mit zahlreichen Beispielen aus dem Alltag und konkreten Handlungsempfehlungen unterstützt Sie dieses Werk dabei, Kinder altersgerecht zu fördern und eine vertrauensvolle Beziehung aufzubauen.</p>
 =======
                     <p>Dieser praxisorientierte Ratgeber bietet Ihnen bewährte Methoden und Strategien für eine erfolgreiche Erziehung. Mit zahlreichen Beispielen aus dem Alltag und konkreten Handlungsempfehlungen unterstützt Sie dieses Werk dabei, Kinder altersgerecht zu fördern und eine vertrauensvolle Beziehung aufzubauen.</p>
 >>>>>>> a97cb6a (changed product site)
+=======
+                    <p id="productDescription">Dieser praxisorientierte Ratgeber bietet Ihnen bewährte Methoden und Strategien für eine erfolgreiche Erziehung. Mit zahlreichen Beispielen aus dem Alltag und konkreten Handlungsempfehlungen unterstützt Sie dieses Werk dabei, Kinder altersgerecht zu fördern und eine vertrauensvolle Beziehung aufzubauen.</p>
+>>>>>>> df7b543 (fixe CD/buch)
                     <p>Ideal für Eltern, Erzieher/innen und alle, die mit Kindern arbeiten.</p>
                 </div>
                 
                 <!-- Lieferbarkeit -->
                 <div class="mb-4">
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <h5 class="text-success" id="deliveryInfo">Lieferbar ab 15.04.2025</h5>
 =======
                     <h5 class="text-success">Lieferbar ab 15.04.2025</h5>
 >>>>>>> a97cb6a (changed product site)
+=======
+                    <h5 class="text-success" id="deliveryInfo">Lieferbar ab 15.04.2025</h5>
+>>>>>>> df7b543 (fixe CD/buch)
                 </div>
                 
                 <!-- Preis -->
                 <div class="mb-4">
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <h3 id="productPrice">24,95 €</h3>
 =======
                     <h3>24,95 €</h3>
 >>>>>>> a97cb6a (changed product site)
+=======
+                    <h3 id="productPrice">24,95 €</h3>
+>>>>>>> df7b543 (fixe CD/buch)
                 </div>
                 
                 <!-- Menge und Warenkorb -->
                 <div class="d-flex align-items-center">
                     <div class="input-group mr-3" style="max-width: 150px;">
                         <div class="input-group-prepend">
+<<<<<<< HEAD
 <<<<<<< HEAD
                             <button class="btn btn-outline-secondary" type="button" id="decrementButton">-</button>
                         </div>
@@ -145,11 +182,18 @@
                             <button class="btn btn-outline-secondary" type="button" id="incrementButton">+</button>
 =======
                             <button class="btn btn-outline-secondary" type="button">-</button>
+=======
+                            <button class="btn btn-outline-secondary" type="button" id="decrementButton">-</button>
+>>>>>>> df7b543 (fixe CD/buch)
                         </div>
-                        <input type="number" class="form-control text-center" value="1" min="1">
+                        <input type="number" class="form-control text-center" id="quantityInput" value="1" min="1">
                         <div class="input-group-append">
+<<<<<<< HEAD
                             <button class="btn btn-outline-secondary" type="button">+</button>
 >>>>>>> a97cb6a (changed product site)
+=======
+                            <button class="btn btn-outline-secondary" type="button" id="incrementButton">+</button>
+>>>>>>> df7b543 (fixe CD/buch)
                         </div>
                     </div>
                     
@@ -178,7 +222,9 @@
                         <p class="card-text">19,95 €</p>
 =======
                 <div class="card h-100">
-                    <img src="../img/placeholder-related1.jpg" class="card-img-top" alt="Verwandtes Produkt 1">
+                    <div class="related-product-img-container">
+                        <img src="../bilder/Cuipsi-Quader1 klein.jpg" class="card-img-top" alt="Verwandtes Produkt 1">
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">Kindgerechte Förderung im Alltag</h5>
                         <p class="card-text">19,95 €</p>
@@ -200,7 +246,9 @@
                         <p class="card-text">22,95 €</p>
 =======
                 <div class="card h-100">
-                    <img src="../img/placeholder-related2.jpg" class="card-img-top" alt="Verwandtes Produkt 2">
+                    <div class="related-product-img-container">
+                        <img src="../bilder/Komplettlogo.jpg" class="card-img-top" alt="Verwandtes Produkt 2">
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">Spielerisch Lernen</h5>
                         <p class="card-text">22,95 €</p>
@@ -222,7 +270,9 @@
                         <p class="card-text">18,50 €</p>
 =======
                 <div class="card h-100">
-                    <img src="../img/placeholder-related3.jpg" class="card-img-top" alt="Verwandtes Produkt 3">
+                    <div class="related-product-img-container">
+                        <img src="../bilder/Buch Praenumerik.jpg" class="card-img-top" alt="Verwandtes Produkt 3">
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">Kreativität fördern</h5>
                         <p class="card-text">18,50 €</p>
@@ -244,7 +294,9 @@
                         <p class="card-text">24,95 €</p>
 =======
                 <div class="card h-100">
-                    <img src="../img/placeholder-related4.jpg" class="card-img-top" alt="Verwandtes Produkt 4">
+                    <div class="related-product-img-container">
+                        <img src="../bilder/Buch Praenumerik.jpg" class="card-img-top" alt="Verwandtes Produkt 4">
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">Kommunikation mit Kindern</h5>
                         <p class="card-text">24,95 €</p>
@@ -275,6 +327,9 @@
     <!-- Bildergalerie-Funktionalität -->
     <script>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> df7b543 (fixe CD/buch)
         // Produktvarianten
         const variants = {
             buch: {
@@ -302,6 +357,7 @@
         let currentVariant = 'buch';
         
         // Bilder-Navigation
+<<<<<<< HEAD
         let currentImageIndex = 0;
         
         function nextImage() {
@@ -367,18 +423,70 @@
             "../bilder/Logo Elf klein 2.jpg",
             "../bilder/Musterbeispiel 1.jpg"
         ];
+=======
+>>>>>>> df7b543 (fixe CD/buch)
         let currentImageIndex = 0;
         
         function nextImage() {
-            currentImageIndex = (currentImageIndex + 1) % productImages.length;
-            document.getElementById('mainProductImage').src = productImages[currentImageIndex];
+            const images = variants[currentVariant].images;
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            document.getElementById('mainProductImage').src = images[currentImageIndex];
         }
         
         function previousImage() {
-            currentImageIndex = (currentImageIndex - 1 + productImages.length) % productImages.length;
-            document.getElementById('mainProductImage').src = productImages[currentImageIndex];
+            const images = variants[currentVariant].images;
+            currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+            document.getElementById('mainProductImage').src = images[currentImageIndex];
         }
+<<<<<<< HEAD
 >>>>>>> a97cb6a (changed product site)
+=======
+        
+        // Funktion zum Umschalten der Varianten
+        function switchVariant(variant) {
+            // Variante aktualisieren
+            currentVariant = variant;
+            currentImageIndex = 0;
+            
+            // UI-Elemente aktualisieren
+            document.getElementById('productDescription').textContent = variants[variant].description;
+            document.getElementById('deliveryInfo').textContent = variants[variant].delivery;
+            document.getElementById('productPrice').textContent = variants[variant].price;
+            document.getElementById('mainProductImage').src = variants[variant].images[0];
+            
+            // Button-Styling aktualisieren
+            document.getElementById('buchVariant').classList.toggle('active', variant === 'buch');
+            document.getElementById('cdVariant').classList.toggle('active', variant === 'cd');
+        }
+        
+        // Funktionalität für die Mengenbuttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const quantityInput = document.getElementById('quantityInput');
+            const incrementButton = document.getElementById('incrementButton');
+            const decrementButton = document.getElementById('decrementButton');
+            
+            // Erhöhen der Menge
+            incrementButton.addEventListener('click', function() {
+                let value = parseInt(quantityInput.value);
+                quantityInput.value = value + 1;
+            });
+            
+            // Verringern der Menge, aber nicht unter 1
+            decrementButton.addEventListener('click', function() {
+                let value = parseInt(quantityInput.value);
+                if (value > 1) {
+                    quantityInput.value = value - 1;
+                }
+            });
+            
+            // Stellt sicher, dass der Wert nicht unter 1 fallen kann, wenn manuell geändert
+            quantityInput.addEventListener('change', function() {
+                if (this.value < 1) {
+                    this.value = 1;
+                }
+            });
+        });
+>>>>>>> df7b543 (fixe CD/buch)
     </script>
 </body>
 
