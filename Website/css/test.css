@@ -18,10 +18,67 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
+    background-color: #DDDBF1;
 }
 
+/* Farbdefinitionen */
+.primary-color {
+    background-color: #0D1321; /* Dunkles Rotbraun */
+}
+
+.secondary-color {
+    background-color: #637074; /* Graublau */
+}
+
+.accent-color {
+    background-color: #DDDBF1; /* Hellviolett */
+}
+
+.success-color {
+    background-color: #9CD08F; /* Hellgrün */
+}
+
+.highlight-color {
+    background-color: #72B01D; /* Grasgrün */
+}
+
+/* Navbar */
+.navbar {
+    background-color: #637074; /* Sekundärfarbe */
+    color: #FFFFFF; /* Weißer Text */
+}
+
+.navbar a.nav-link {
+    color: #FFFFFF; /* Weißer Text */
+}
+
+.navbar a.nav-link:hover {
+    color: #72B01D; /* Highlight-Farbe */
+}
+
+/* Footer */
 footer {
     margin-top: auto;
-    background-color: #f8f9fa; /* Optional: Hintergrundfarbe für den Footer */
+    background-color: #0D1321; /* Primärfarbe */
+    color: #FFFFFF; /* Weißer Text */
     padding: 1rem 0;
+}
+
+footer a {
+    color: #CABAC8; /* Akzentfarbe */
+}
+
+footer a:hover {
+    color: #9CD08F; /* Erfolgsfarbe */
+}
+
+/* Buttons */
+button, .btn {
+    background-color: #72B01D; /* Highlight-Farbe */
+    color: #FFFFFF; /* Weißer Text */
+    border: none;
+}
+
+button:hover, .btn:hover {
+    background-color: #9CD08F; /* Erfolgsfarbe */
 }
