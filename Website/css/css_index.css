@@ -1,0 +1,122 @@
+/* Grundlegende Farben */
+:root {
+    --primary-color: #220C10;
+    --secondary-color: #637074;
+    --accent-color: #CABAC8;
+    --success-color: #9CD08F;
+    --highlight-color: #72B01D;
+}
+
+/* Carousel Styling */
+.carousel {
+    margin-bottom: 30px;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+/* Card Styling */
+.card {
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* YouTube Video Container */
+.embed-responsive {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+/* Verwandte Produkte Styling */
+.related-product-img-container {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #f8f9fa;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.related-product-img-container img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    padding: 10px;
+}
+
+/* Button Styling */
+.btn-outline-primary {
+    color: var(--highlight-color);
+    border-color: var(--highlight-color);
+    opacity: 1; /* Macht den Button permanent sichtbar */
+    transition: all 0.3s ease;
+    background-color: transparent;
+    margin-top: auto; /* Schiebt den Button ans untere Ende der Card */
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--highlight-color);
+    border-color: var(--highlight-color);
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Text Styling */
+.card-title {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.card-text {
+    color: var(--secondary-color);
+    line-height: 1.6;
+}
+
+/* Preise Styling */
+.card-text:last-child {
+    color: var(--highlight-color);
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+/* Container Spacing */
+.container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* Responsive Anpassungen */
+@media (max-width: 768px) {
+    .carousel-item img {
+        height: 300px;
+    }
+    
+    .related-product-img-container {
+        height: 150px;
+    }
+}
+
+/* Card Body Anpassung für bessere Button-Positionierung */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Produkt Card spezifische Anpassungen */
+.related-product-img-container + .card-body {
+    padding: 1rem;
+}
