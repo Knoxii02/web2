@@ -6,7 +6,7 @@
 }
 
 .card {
-    max-width: 300px;
+    max-width: 250px;
     margin: 0 auto;
 }
 
@@ -17,6 +17,7 @@
 
 .card-body {
     padding: 1rem;
+    text-align: center;
 }
 
 .card-title {
@@ -28,9 +29,32 @@
 }
 
 .card-footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     padding: 0.75rem;
 }
 
 .btn-sm {
     font-size: 0.8rem;
+}
+
+.dropdown {
+    margin-left: 2rem;
+}
+
+.dropdown-menu {
+    margin-left: 1rem;
+}
+
+label {
+    margin-left: 2rem;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    max-width: 1200px;
 }
