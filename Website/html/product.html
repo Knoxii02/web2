@@ -16,12 +16,26 @@
             justify-content: center;
             overflow: hidden;
             background-color: #f8f9fa;
+            padding-top: 10px; /* Abstand oben hinzugefügt */
         }
         
         .related-product-img-container img {
             max-height: 100%;
             max-width: 100%;
             object-fit: contain;
+        }
+        
+        /* Neue Styles für klickbare Produktkarten */
+        .product-card {
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 15px; /* Rundere Ecken */
+            overflow: hidden; /* Damit die Bilder innerhalb des border-radius bleiben */
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
     </style>
 </head>
@@ -115,56 +129,52 @@
         <div class="row">
             <!-- Verwandtes Produkt 1 -->
             <div class="col-md-3 col-6 mb-4">
-                <div class="card h-100">
+                <div class="card h-100 product-card" onclick="location.href='product.html?id=1'">
                     <div class="related-product-img-container">
                         <img src="../bilder/Cuipsi-Quader1 klein.jpg" class="card-img-top" alt="Verwandtes Produkt 1">
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">Kindgerechte Förderung im Alltag</h5>
                         <p class="card-text">19,95 €</p>
-                        <a href="#" class="btn btn-sm btn-outline-primary">Details</a>
                     </div>
                 </div>
             </div>
             
             <!-- Verwandtes Produkt 2 -->
             <div class="col-md-3 col-6 mb-4">
-                <div class="card h-100">
+                <div class="card h-100 product-card" onclick="location.href='product.html?id=2'">
                     <div class="related-product-img-container">
                         <img src="../bilder/Komplettlogo.jpg" class="card-img-top" alt="Verwandtes Produkt 2">
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">Spielerisch Lernen</h5>
                         <p class="card-text">22,95 €</p>
-                        <a href="#" class="btn btn-sm btn-outline-primary">Details</a>
                     </div>
                 </div>
             </div>
             
             <!-- Verwandtes Produkt 3 -->
             <div class="col-md-3 col-6 mb-4">
-                <div class="card h-100">
+                <div class="card h-100 product-card" onclick="location.href='product.html?id=3'">
                     <div class="related-product-img-container">
                         <img src="../bilder/Buch Praenumerik.jpg" class="card-img-top" alt="Verwandtes Produkt 3">
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">Kreativität fördern</h5>
                         <p class="card-text">18,50 €</p>
-                        <a href="#" class="btn btn-sm btn-outline-primary">Details</a>
                     </div>
                 </div>
             </div>
             
             <!-- Verwandtes Produkt 4 -->
             <div class="col-md-3 col-6 mb-4">
-                <div class="card h-100">
+                <div class="card h-100 product-card" onclick="location.href='product.html?id=4'">
                     <div class="related-product-img-container">
                         <img src="../bilder/Buch Praenumerik.jpg" class="card-img-top" alt="Verwandtes Produkt 4">
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">Kommunikation mit Kindern</h5>
                         <p class="card-text">24,95 €</p>
-                        <a href="#" class="btn btn-sm btn-outline-primary">Details</a>
                     </div>
                 </div>
             </div>
