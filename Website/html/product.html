@@ -6,7 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Erziehen-Lernen-Fördern</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="../css/test.css">
+    <style>
+        .related-product-img-container {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background-color: #f8f9fa;
+            padding-top: 10px; /* Abstand oben hinzugefügt */
+        }
+        
+        .related-product-img-container img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        
+        /* Neue Styles für klickbare Produktkarten */
+        .product-card {
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-radius: 15px; /* Rundere Ecken */
+            overflow: hidden; /* Damit die Bilder innerhalb des border-radius bleiben */
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+    </style>
 </head>
 
 <body>
@@ -24,6 +55,132 @@
         </div>
     </nav>
 
+    <!-- Produktbereich -->
+    <div class="container my-5">
+        <!-- Produktname -->
+        <h1 class="mb-4">Erziehen Lernen: Der praktische Ratgeber</h1>
+        
+        <div class="row">
+            <!-- Produktbild mit Galerie -->
+            <div class="col-md-6 mb-4">
+                <div class="position-relative" style="height: 400px; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center;">
+                    <img id="mainProductImage" src="../bilder/Klett-Kasten.jpg" alt="Produktbild" class="img-fluid" style="max-height: 100%; max-width: 100%; object-fit: contain;">
+                    
+                    <!-- Navigationspfeile mit festen Positionen -->
+                    <button class="btn btn-light rounded-circle position-absolute" style="left: 10px; top: 50%; transform: translateY(-50%);" onclick="previousImage()">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="btn btn-light rounded-circle position-absolute" style="right: 10px; top: 50%; transform: translateY(-50%);" onclick="nextImage()">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                
+                <!-- Produktvarianten -->
+                <div class="mt-3 d-flex justify-content-center">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-primary active" id="buchVariant" onclick="switchVariant('buch')">Buch</button>
+                        <button type="button" class="btn btn-outline-primary" id="cdVariant" onclick="switchVariant('cd')">CD</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Produktbeschreibung -->
+            <div class="col-md-6">
+                <div class="mb-4">
+                    <h4>Beschreibung</h4>
+                    <p id="productDescription">Dieser praxisorientierte Ratgeber bietet Ihnen bewährte Methoden und Strategien für eine erfolgreiche Erziehung. Mit zahlreichen Beispielen aus dem Alltag und konkreten Handlungsempfehlungen unterstützt Sie dieses Werk dabei, Kinder altersgerecht zu fördern und eine vertrauensvolle Beziehung aufzubauen.</p>
+                    <p>Ideal für Eltern, Erzieher/innen und alle, die mit Kindern arbeiten.</p>
+                </div>
+                
+                <!-- Lieferbarkeit -->
+                <div class="mb-4">
+                    <h5 class="text-success" id="deliveryInfo">Lieferbar ab 15.04.2025</h5>
+                </div>
+                
+                <!-- Preis -->
+                <div class="mb-4">
+                    <h3 id="productPrice">24,95 €</h3>
+                </div>
+                
+                <!-- Menge und Warenkorb -->
+                <div class="d-flex align-items-center">
+                    <div class="input-group mr-3" style="max-width: 150px;">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-secondary" type="button" id="decrementButton">-</button>
+                        </div>
+                        <input type="number" class="form-control text-center" id="quantityInput" value="1" min="1">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" id="incrementButton">+</button>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary">
+                        <i class="fas fa-shopping-cart mr-2"></i>In den Warenkorb
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Verwandte Produkte -->
+    <div class="container mb-5">
+        <h2 class="mb-4">Das könnte Sie auch interessieren</h2>
+        
+        <div class="row">
+            <!-- Verwandtes Produkt 1 -->
+            <div class="col-md-3 col-6 mb-4">
+                <div class="card h-100 product-card" onclick="location.href='product.html?id=1'">
+                    <div class="related-product-img-container">
+                        <img src="../bilder/Cuipsi-Quader1 klein.jpg" class="card-img-top" alt="Verwandtes Produkt 1">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Kindgerechte Förderung im Alltag</h5>
+                        <p class="card-text">19,95 €</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Verwandtes Produkt 2 -->
+            <div class="col-md-3 col-6 mb-4">
+                <div class="card h-100 product-card" onclick="location.href='product.html?id=2'">
+                    <div class="related-product-img-container">
+                        <img src="../bilder/Komplettlogo.jpg" class="card-img-top" alt="Verwandtes Produkt 2">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Spielerisch Lernen</h5>
+                        <p class="card-text">22,95 €</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Verwandtes Produkt 3 -->
+            <div class="col-md-3 col-6 mb-4">
+                <div class="card h-100 product-card" onclick="location.href='product.html?id=3'">
+                    <div class="related-product-img-container">
+                        <img src="../bilder/Buch Praenumerik.jpg" class="card-img-top" alt="Verwandtes Produkt 3">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Kreativität fördern</h5>
+                        <p class="card-text">18,50 €</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Verwandtes Produkt 4 -->
+            <div class="col-md-3 col-6 mb-4">
+                <div class="card h-100 product-card" onclick="location.href='product.html?id=4'">
+                    <div class="related-product-img-container">
+                        <img src="../bilder/Buch Praenumerik.jpg" class="card-img-top" alt="Verwandtes Produkt 4">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Kommunikation mit Kindern</h5>
+                        <p class="card-text">24,95 €</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <footer class="text-center text-lg-start mt-5">
         <div class="container p-4">
             <p>Kontakt: <a href="mailto:info@erziehen-lernen-foerdern.de">info@erziehen-lernen-foerdern.de</a></p>
@@ -39,6 +196,95 @@
     <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    
+    <!-- Bildergalerie-Funktionalität -->
+    <script>
+        // Produktvarianten
+        const variants = {
+            buch: {
+                description: "Dieser praxisorientierte Ratgeber bietet Ihnen bewährte Methoden und Strategien für eine erfolgreiche Erziehung. Mit zahlreichen Beispielen aus dem Alltag und konkreten Handlungsempfehlungen unterstützt Sie dieses Werk dabei, Kinder altersgerecht zu fördern und eine vertrauensvolle Beziehung aufzubauen.",
+                price: "24,95 €",
+                delivery: "Lieferbar ab 15.04.2025",
+                images: [
+                    "../bilder/Cuipsi.jpg",
+                    "../bilder/Logo Elf klein 2.jpg",
+                    "../bilder/Musterbeispiel 1.jpg"
+                ]
+            },
+            cd: {
+                description: "Die Audio-CD-Version enthält die wichtigsten Inhalte des Ratgebers als Hörbuch, gesprochen von professionellen Sprechern. Ideal zum Anhören unterwegs oder für Personen, die Informationen lieber auditiv aufnehmen.",
+                price: "19,95 €",
+                delivery: "Lieferbar ab 01.05.2025",
+                images: [
+                    "../bilder/Musterbeispiel 1.jpg",
+                    "../bilder/Logo Elf klein 2.jpg"
+                ]
+            }
+        };
+        
+        // Aktuelle Variante
+        let currentVariant = 'buch';
+        
+        // Bilder-Navigation
+        let currentImageIndex = 0;
+        
+        function nextImage() {
+            const images = variants[currentVariant].images;
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            document.getElementById('mainProductImage').src = images[currentImageIndex];
+        }
+        
+        function previousImage() {
+            const images = variants[currentVariant].images;
+            currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+            document.getElementById('mainProductImage').src = images[currentImageIndex];
+        }
+        
+        // Funktion zum Umschalten der Varianten
+        function switchVariant(variant) {
+            // Variante aktualisieren
+            currentVariant = variant;
+            currentImageIndex = 0;
+            
+            // UI-Elemente aktualisieren
+            document.getElementById('productDescription').textContent = variants[variant].description;
+            document.getElementById('deliveryInfo').textContent = variants[variant].delivery;
+            document.getElementById('productPrice').textContent = variants[variant].price;
+            document.getElementById('mainProductImage').src = variants[variant].images[0];
+            
+            // Button-Styling aktualisieren
+            document.getElementById('buchVariant').classList.toggle('active', variant === 'buch');
+            document.getElementById('cdVariant').classList.toggle('active', variant === 'cd');
+        }
+        
+        // Funktionalität für die Mengenbuttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const quantityInput = document.getElementById('quantityInput');
+            const incrementButton = document.getElementById('incrementButton');
+            const decrementButton = document.getElementById('decrementButton');
+            
+            // Erhöhen der Menge
+            incrementButton.addEventListener('click', function() {
+                let value = parseInt(quantityInput.value);
+                quantityInput.value = value + 1;
+            });
+            
+            // Verringern der Menge, aber nicht unter 1
+            decrementButton.addEventListener('click', function() {
+                let value = parseInt(quantityInput.value);
+                if (value > 1) {
+                    quantityInput.value = value - 1;
+                }
+            });
+            
+            // Stellt sicher, dass der Wert nicht unter 1 fallen kann, wenn manuell geändert
+            quantityInput.addEventListener('change', function() {
+                if (this.value < 1) {
+                    this.value = 1;
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
