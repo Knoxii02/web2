@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Erziehen-Lernen-Fördern</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
     <link rel="stylesheet" href="../css/base.css">
     <style>
         .related-product-img-container {
@@ -66,11 +68,11 @@
                     <img id="mainProductImage" src="../bilder/Klett-Kasten.jpg" alt="Produktbild" class="img-fluid" style="max-height: 100%; max-width: 100%; object-fit: contain;">
                     
                     <!-- Navigationspfeile mit festen Positionen -->
-                    <button class="btn btn-light rounded-circle position-absolute" style="left: 10px; top: 50%; transform: translateY(-50%);" onclick="previousImage()">
-                        <i class="fas fa-chevron-left"></i>
+                    <button class="btn btn-light rounded-circle position-absolute d-flex align-items-center justify-content-center" style="left: 10px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; padding: 0;" onclick="previousImage()">
+                        <i class="bi bi-chevron-left" style="font-size: 18px;"></i>
                     </button>
-                    <button class="btn btn-light rounded-circle position-absolute" style="right: 10px; top: 50%; transform: translateY(-50%);" onclick="nextImage()">
-                        <i class="fas fa-chevron-right"></i>
+                    <button class="btn btn-light rounded-circle position-absolute d-flex align-items-center justify-content-center" style="right: 10px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; padding: 0;" onclick="nextImage()">
+                        <i class="bi bi-chevron-right" style="font-size: 18px;"></i>
                     </button>
                 </div>
                 
@@ -114,7 +116,7 @@
                     </div>
                     
                     <button class="btn btn-primary">
-                        <i class="fas fa-shopping-cart mr-2"></i>In den Warenkorb
+                        <i class="bi bi-cart mr-2"></i>In den Warenkorb
                     </button>
                 </div>
             </div>
