@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Filter functionality
     const dropdownItems = document.querySelectorAll('.dropdown-item');
-    const products = document.querySelectorAll('[data-category]');
+    const row = document.querySelector('.row');
     
     dropdownItems.forEach(item => {
         item.addEventListener('click', function(e) {
@@ -11,9 +10,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // Update dropdown button text
             document.getElementById('kategorieDropdown').textContent = this.textContent;
             
-            products.forEach(product => {
+            // Filter products
+            document.querySelectorAll('[data-category]').forEach(product => {
                 if (selectedCategory === 'alle' || product.dataset.category === selectedCategory) {
-                    product.style.display = '';
+                    product.style.display = 'block';
                 } else {
                     product.style.display = 'none';
                 }
