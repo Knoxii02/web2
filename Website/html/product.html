@@ -132,7 +132,7 @@
             <div class="col-md-3 col-6 mb-4">
                 <div class="card h-100 product-card" onclick="location.href='product.html?id=1'">
                     <div class="related-product-img-container">
-                        <img src="../bilder/Cuipsi-Quader1 klein.jpg" class="card-img-top" alt="Verwandtes Produkt 1">
+                        <img src="../bilder/Arbeitsheft ZR 20.jpg" class="card-img-top" alt="Verwandtes Produkt 1">
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">Kindgerechte Förderung im Alltag</h5>
@@ -145,7 +145,7 @@
             <div class="col-md-3 col-6 mb-4">
                 <div class="card h-100 product-card" onclick="location.href='product.html?id=2'">
                     <div class="related-product-img-container">
-                        <img src="../bilder/Komplettlogo.jpg" class="card-img-top" alt="Verwandtes Produkt 2">
+                        <img src="../bilder/Arbeitsheft ZR 100.jpg" class="card-img-top" alt="Verwandtes Produkt 2">
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">Spielerisch Lernen</h5>
@@ -207,9 +207,9 @@
                 price: "24,95 €",
                 delivery: "Lieferbar ab 15.04.2025",
                 images: [
-                    "../bilder/Cuipsi.jpg",
-                    "../bilder/Logo Elf klein 2.jpg",
-                    "../bilder/Musterbeispiel 1.jpg"
+                    "../bilder/Buch Praenumerik.jpg",
+                    "../bilder/Buch ZR 20.jpg",
+                    "../bilder/Buch ZR 100.jpg",
                 ]
             },
             cd: {
@@ -217,8 +217,9 @@
                 price: "19,95 €",
                 delivery: "Lieferbar ab 01.05.2025",
                 images: [
-                    "../bilder/Musterbeispiel 1.jpg",
-                    "../bilder/Logo Elf klein 2.jpg"
+                    "../bilder/Arbeitsheft Praenumerik.jpg",
+                    "../bilder/Arbeitsheft Praenumerik Ziffern.jpg",
+                    "../bilder/Arbeitsheft ZR 20.jpg"
                 ]
             }
         };
@@ -228,6 +229,11 @@
         
         // Bilder-Navigation
         let currentImageIndex = 0;
+        
+        // Beim Seitenaufbau das erste Bild laden
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('mainProductImage').src = variants[currentVariant].images[0];
+        });
         
         function nextImage() {
             const images = variants[currentVariant].images;
