@@ -79,3 +79,19 @@ button, .btn {
 button:hover, .btn:hover {
     background-color: #9CD08F; /* Erfolgsfarbe */
 }
+
+/* Shopping Cart Icon */
+.cart-icon {
+    font-size: 1.5rem;
+    color: #72B01D; /* Highlight-Farbe (Grasgrün) */
+}
+
+.cart-link {
+    border-radius: 50%;
+    padding: 8px 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+    margin-left: auto;
+}
