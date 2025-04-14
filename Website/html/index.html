@@ -6,14 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Startseite - Erziehen-Lernen-Fördern</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/css_index.css">
+    <link rel="stylesheet" href="../css/index.css">
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <a class="navbar-brand" href="index.html">Erziehen-Lernen-Fördern</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+            aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -25,129 +27,134 @@
         </div>
     </nav>
 
-    <!-- Carousel -->
-    <div id="homeCarousel" class="carousel slide mb-5" style="margin-top: 56px;">
-        <ol class="carousel-indicators">
-            <li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#homeCarousel" data-slide-to="1"></li>
-            <li data-target="#homeCarousel" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="../bilder/Komplettlogo.jpg" class="d-block w-100" alt="Slide 1" style="height: 400px; object-fit: cover;">
+    <!-- Page Content Wrapper -->
+    <div class="page-content">
+        <!-- Carousel -->
+        <div id="homeCarousel" class="carousel slide mb-5" style="margin-top: 56px;">
+            <ol class="carousel-indicators">
+                <li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#homeCarousel" data-slide-to="1"></li>
+                <li data-target="#homeCarousel" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="../bilder/Komplettlogo.jpg" class="d-block w-100" alt="Slide 1"
+                        style="height: 400px; object-fit: cover;">
+                </div>
+                <div class="carousel-item">
+                    <img src="../bilder/Klett-Kasten.jpg" class="d-block w-100" alt="Slide 2"
+                        style="height: 400px; object-fit: cover;">
+                </div>
+                <div class="carousel-item">
+                    <img src="../bilder/Cuipsi-Quader1 klein.jpg" class="d-block w-100" alt="Slide 3"
+                        style="height: 400px; object-fit: cover;">
+                </div>
             </div>
-            <div class="carousel-item">
-                <img src="../bilder/Klett-Kasten.jpg" class="d-block w-100" alt="Slide 2" style="height: 400px; object-fit: cover;">
-            </div>
-            <div class="carousel-item">
-                <img src="../bilder/Cuipsi-Quader1 klein.jpg" class="d-block w-100" alt="Slide 3" style="height: 400px; object-fit: cover;">
-            </div>
+            <a class="carousel-control-prev" href="#homeCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Zurück</span>
+            </a>
+            <a class="carousel-control-next" href="#homeCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Weiter</span>
+            </a>
         </div>
-        <a class="carousel-control-prev" href="#homeCarousel" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Zurück</span>
-        </a>
-        <a class="carousel-control-next" href="#homeCarousel" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Weiter</span>
-        </a>
-    </div>
 
-    <!-- Content Section -->
-    <div class="container">
-        <div class="row">
-            <!-- YouTube Video -->
-            <div class="col-md-6">
-                <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" 
-                            src="https://www.youtube.com/embed/FS3ArDNP8u4" 
+        <!-- Content Section -->
+        <div class="container">
+            <div class="row">
+                <!-- YouTube Video -->
+                <div class="col-md-6">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/FS3ArDNP8u4"
                             allowfullscreen>
-                    </iframe>
+                        </iframe>
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Welcome Text Section -->
-            <div class="col-md-6">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h2 class="card-title">Willkommen bei Erziehen-Lernen-Fördern</h2>
-                        <p class="card-text">
-                            Auf den folgenden Seiten finden Sie viel Wissenswertes rund um das Thema Cuisenaire-Methode 
-                            und die von Haike Benski und Claudia Rembold-Gruss entwickelte praktische Umsetzung der 
-                            Methode für den Schulalltag.
-                        </p>
-                        <p class="card-text">
-                            Daneben finden Sie Informationen zur lerntherapeutischen Praxis von Haike Benski.
-                        </p>
-                        <p class="card-text">
-                            Und im Shop können Sie unsere Bücher zur Cuisenaire-Methode, passende Arbeitshefte für die 
-                            Schülerinnen und Schüler und unsere innovativen Weiterentwicklungen - die Cuipsi-Platten 
-                            und die Cuipsi-Quader kaufen.
-                        </p>
-                        <p class="card-text">
-                            Mit unserem bewährten Konzept "Mathe durchdringen" und vielen weiteren 
-                            Angeboten stehen wir Ihnen zur Seite. Entdecken Sie unsere Materialien 
-                            und Methoden für einen erfolgreichen Lernweg.
-                        </p>
+
+                <!-- Welcome Text Section -->
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h2 class="card-title">Willkommen bei Erziehen-Lernen-Fördern</h2>
+                            <p class="card-text">
+                                Auf den folgenden Seiten finden Sie viel Wissenswertes rund um das Thema Cuisenaire-Methode
+                                und die von Haike Benski und Claudia Rembold-Gruss entwickelte praktische Umsetzung der
+                                Methode für den Schulalltag.
+                            </p>
+                            <p class="card-text">
+                                Daneben finden Sie Informationen zur lerntherapeutischen Praxis von Haike Benski.
+                            </p>
+                            <p class="card-text">
+                                Und im Shop können Sie unsere Bücher zur Cuisenaire-Methode, passende Arbeitshefte für die
+                                Schülerinnen und Schüler und unsere innovativen Weiterentwicklungen - die Cuipsi-Platten
+                                und die Cuipsi-Quader kaufen.
+                            </p>
+                            <p class="card-text">
+                                Mit unserem bewährten Konzept "Mathe durchdringen" und vielen weiteren
+                                Angeboten stehen wir Ihnen zur Seite. Entdecken Sie unsere Materialien
+                                und Methoden für einen erfolgreichen Lernweg.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
- 
-    <!-- Verwandte Produkte -->
-    <div class="container mb-5">
-        <h2 class="mb-4">Das könnte Sie auch interessieren</h2>
-        
-        <div class="row">
-            <!-- Verwandtes Produkt 1 -->
-            <div class="col-md-3 col-6 mb-4">
-                <div class="card h-100 product-card" onclick="location.href='product.html?id=1'">
-                    <div class="related-product-img-container">
-                        <img src="../bilder/Arbeitsheft ZR 20.jpg" class="card-img-top" alt="Verwandtes Produkt 1">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Kindgerechte Förderung im Alltag</h5>
-                        <p class="card-text">19,95 €</p>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Verwandtes Produkt 2 -->
-            <div class="col-md-3 col-6 mb-4">
-                <div class="card h-100 product-card" onclick="location.href='product.html?id=2'">
-                    <div class="related-product-img-container">
-                        <img src="../bilder/Arbeitsheft ZR 100.jpg" class="card-img-top" alt="Verwandtes Produkt 2">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Spielerisch Lernen</h5>
-                        <p class="card-text">22,95 €</p>
+
+        <!-- Verwandte Produkte -->
+        <div class="container mb-5">
+            <h2 class="mb-4">Das könnte Sie auch interessieren</h2>
+
+            <div class="row">
+                <!-- Verwandtes Produkt 1 -->
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="card h-100 product-card" onclick="location.href='product.html?id=1'">
+                        <div class="related-product-img-container">
+                            <img src="../bilder/Arbeitsheft ZR 20.jpg" class="card-img-top" alt="Verwandtes Produkt 1">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Kindgerechte Förderung im Alltag</h5>
+                            <p class="card-text">19,95 €</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Verwandtes Produkt 3 -->
-            <div class="col-md-3 col-6 mb-4">
-                <div class="card h-100 product-card" onclick="location.href='product.html?id=3'">
-                    <div class="related-product-img-container">
-                        <img src="../bilder/Buch Praenumerik.jpg" class="card-img-top" alt="Verwandtes Produkt 3">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Kreativität fördern</h5>
-                        <p class="card-text">18,50 €</p>
+
+                <!-- Verwandtes Produkt 2 -->
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="card h-100 product-card" onclick="location.href='product.html?id=2'">
+                        <div class="related-product-img-container">
+                            <img src="../bilder/Arbeitsheft ZR 100.jpg" class="card-img-top" alt="Verwandtes Produkt 2">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Spielerisch Lernen</h5>
+                            <p class="card-text">22,95 €</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Verwandtes Produkt 4 -->
-            <div class="col-md-3 col-6 mb-4">
-                <div class="card h-100 product-card" onclick="location.href='product.html?id=4'">
-                    <div class="related-product-img-container">
-                        <img src="../bilder/Buch Praenumerik.jpg" class="card-img-top" alt="Verwandtes Produkt 4">
+
+                <!-- Verwandtes Produkt 3 -->
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="card h-100 product-card" onclick="location.href='product.html?id=3'">
+                        <div class="related-product-img-container">
+                            <img src="../bilder/Buch Praenumerik.jpg" class="card-img-top" alt="Verwandtes Produkt 3">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Kreativität fördern</h5>
+                            <p class="card-text">18,50 €</p>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Kommunikation mit Kindern</h5>
-                        <p class="card-text">24,95 €</p>
+                </div>
+
+                <!-- Verwandtes Produkt 4 -->
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="card h-100 product-card" onclick="location.href='product.html?id=4'">
+                        <div class="related-product-img-container">
+                            <img src="../bilder/Buch Praenumerik.jpg" class="card-img-top" alt="Verwandtes Produkt 4">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Kommunikation mit Kindern</h5>
+                            <p class="card-text">24,95 €</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -167,8 +174,12 @@
     </footer>
 
     <!-- Bootstrap JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

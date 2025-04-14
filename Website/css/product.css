@@ -1,0 +1,31 @@
+.related-product-img-container {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #f8f9fa;
+    padding-top: 10px;
+    /* Abstand oben hinzugefügt */
+}
+
+.related-product-img-container img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+/* Neue Styles für klickbare Produktkarten */
+.product-card {
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 15px;
+    /* Rundere Ecken */
+    overflow: hidden;
+    /* Damit die Bilder innerhalb des border-radius bleiben */
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}

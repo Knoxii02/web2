@@ -9,6 +9,11 @@ body {
     display: flex;
     flex-direction: column;
     background-color: #DDDBF1;
+    min-height: 100vh;
+}
+
+.page-content {
+    flex: 1 0 auto;
 }
 
 /* Farbdefinitionen */
@@ -52,6 +57,8 @@ footer {
     background-color: #0D1321; /* Primärfarbe */
     color: #FFFFFF; /* Weißer Text */
     padding: 1rem 0;
+    flex-shrink: 0;
+    width: 100%;
 }
 
 footer a {
