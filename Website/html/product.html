@@ -31,139 +31,142 @@
         </div>
     </nav>
 
-    <!-- Produktbereich -->
-    <div class="container my-5" style="margin-top: 90px;">
-        <!-- Produktname -->
-        <h1 class="mb-4">Erziehen Lernen: Der praktische Ratgeber</h1>
+    <!-- Page Content Wrapper -->
+    <div class="page-content">
+        <!-- Produktbereich -->
+        <div class="container" style="margin-top: 120px;">
+            <!-- Produktname -->
+            <h1 class="mb-4">Erziehen Lernen: Der praktische Ratgeber</h1>
 
-        <div class="row">
-            <!-- Produktbild mit Galerie -->
-            <div class="col-md-6 mb-4">
-                <div class="position-relative"
-                    style="height: 400px; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center;">
-                    <img id="mainProductImage" src="../bilder/Klett-Kasten.jpg" alt="Produktbild" class="img-fluid"
-                        style="max-height: 100%; max-width: 100%; object-fit: contain;">
+            <div class="row">
+                <!-- Produktbild mit Galerie -->
+                <div class="col-md-6 mb-4">
+                    <div class="position-relative"
+                        style="height: 400px; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center;">
+                        <img id="mainProductImage" src="../bilder/Klett-Kasten.jpg" alt="Produktbild" class="img-fluid"
+                            style="max-height: 100%; max-width: 100%; object-fit: contain;">
 
-                    <!-- Navigationspfeile mit festen Positionen -->
-                    <button
-                        class="btn btn-light rounded-circle position-absolute d-flex align-items-center justify-content-center"
-                        style="left: 10px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; padding: 0;"
-                        onclick="previousImage()">
-                        <i class="bi bi-chevron-left" style="font-size: 18px;"></i>
-                    </button>
-                    <button
-                        class="btn btn-light rounded-circle position-absolute d-flex align-items-center justify-content-center"
-                        style="right: 10px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; padding: 0;"
-                        onclick="nextImage()">
-                        <i class="bi bi-chevron-right" style="font-size: 18px;"></i>
-                    </button>
-                </div>
-
-                <!-- Produktvarianten -->
-                <div class="mt-3 d-flex justify-content-center">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-outline-primary active" id="buchVariant"
-                            onclick="switchVariant('buch')">Buch</button>
-                        <button type="button" class="btn btn-outline-primary" id="cdVariant"
-                            onclick="switchVariant('cd')">CD</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Produktbeschreibung -->
-            <div class="col-md-6">
-                <div class="mb-4">
-                    <h4>Beschreibung</h4>
-                    <p id="productDescription">Dieser praxisorientierte Ratgeber bietet Ihnen bewährte Methoden und
-                        Strategien für eine erfolgreiche Erziehung. Mit zahlreichen Beispielen aus dem Alltag und
-                        konkreten Handlungsempfehlungen unterstützt Sie dieses Werk dabei, Kinder altersgerecht zu
-                        fördern und eine vertrauensvolle Beziehung aufzubauen.</p>
-                    <p>Ideal für Eltern, Erzieher/innen und alle, die mit Kindern arbeiten.</p>
-                </div>
-
-                <!-- Lieferbarkeit -->
-                <div class="mb-4">
-                    <h5 class="text-success" id="deliveryInfo">Lieferbar ab 15.04.2025</h5>
-                </div>
-
-                <!-- Preis -->
-                <div class="mb-4">
-                    <h3 id="productPrice">24,95 €</h3>
-                </div>
-
-                <!-- Menge und Warenkorb -->
-                <div class="d-flex align-items-center">
-                    <div class="input-group mr-3" style="max-width: 150px;">
-                        <div class="input-group-prepend">
-                            <button class="btn btn-outline-secondary" type="button" id="decrementButton">-</button>
-                        </div>
-                        <input type="number" class="form-control text-center" id="quantityInput" value="1" min="1">
-                        <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" id="incrementButton">+</button>
-                        </div>
+                        <!-- Navigationspfeile mit festen Positionen -->
+                        <button
+                            class="btn btn-light rounded-circle position-absolute d-flex align-items-center justify-content-center"
+                            style="left: 10px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; padding: 0;"
+                            onclick="previousImage()">
+                            <i class="bi bi-chevron-left" style="font-size: 18px;"></i>
+                        </button>
+                        <button
+                            class="btn btn-light rounded-circle position-absolute d-flex align-items-center justify-content-center"
+                            style="right: 10px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; padding: 0;"
+                            onclick="nextImage()">
+                            <i class="bi bi-chevron-right" style="font-size: 18px;"></i>
+                        </button>
                     </div>
 
-                    <button class="btn btn-primary">
-                        <i class="bi bi-cart mr-2"></i>In den Warenkorb
-                    </button>
+                    <!-- Produktvarianten -->
+                    <div class="mt-3 d-flex justify-content-center">
+                        <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-outline-primary active" id="buchVariant"
+                                onclick="switchVariant('buch')">Buch</button>
+                            <button type="button" class="btn btn-outline-primary" id="cdVariant"
+                                onclick="switchVariant('cd')">CD</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produktbeschreibung -->
+                <div class="col-md-6">
+                    <div class="mb-4">
+                        <h4>Beschreibung</h4>
+                        <p id="productDescription">Dieser praxisorientierte Ratgeber bietet Ihnen bewährte Methoden und
+                            Strategien für eine erfolgreiche Erziehung. Mit zahlreichen Beispielen aus dem Alltag und
+                            konkreten Handlungsempfehlungen unterstützt Sie dieses Werk dabei, Kinder altersgerecht zu
+                            fördern und eine vertrauensvolle Beziehung aufzubauen.</p>
+                        <p>Ideal für Eltern, Erzieher/innen und alle, die mit Kindern arbeiten.</p>
+                    </div>
+
+                    <!-- Lieferbarkeit -->
+                    <div class="mb-4">
+                        <h5 class="text-success" id="deliveryInfo">Lieferbar ab 15.04.2025</h5>
+                    </div>
+
+                    <!-- Preis -->
+                    <div class="mb-4">
+                        <h3 id="productPrice">24,95 €</h3>
+                    </div>
+
+                    <!-- Menge und Warenkorb -->
+                    <div class="d-flex align-items-center">
+                        <div class="input-group mr-3" style="max-width: 150px;">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-outline-secondary" type="button" id="decrementButton">-</button>
+                            </div>
+                            <input type="number" class="form-control text-center" id="quantityInput" value="1" min="1">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" id="incrementButton">+</button>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary">
+                            <i class="bi bi-cart mr-2"></i>In den Warenkorb
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Verwandte Produkte -->
-    <div class="container mb-5">
-        <h2 class="mb-4">Das könnte Sie auch interessieren</h2>
+        <!-- Verwandte Produkte -->
+        <div class="container mb-5 mt-5 pt-4">
+            <h2 class="mb-4">Das könnte Sie auch interessieren</h2>
 
-        <div class="row">
-            <!-- Verwandtes Produkt 1 -->
-            <div class="col-md-3 col-6 mb-4">
-                <div class="card h-100 product-card" onclick="location.href='product.html?id=1'">
-                    <div class="related-product-img-container">
-                        <img src="../bilder/Arbeitsheft ZR 20.jpg" class="card-img-top" alt="Verwandtes Produkt 1">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Kindgerechte Förderung im Alltag</h5>
-                        <p class="card-text">19,95 €</p>
+            <div class="row">
+                <!-- Verwandtes Produkt 1 -->
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="card h-100 product-card" onclick="location.href='product.html?id=1'">
+                        <div class="related-product-img-container">
+                            <img src="../bilder/Arbeitsheft ZR 20.jpg" class="card-img-top" alt="Verwandtes Produkt 1">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Kindgerechte Förderung im Alltag</h5>
+                            <p class="card-text">19,95 €</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Verwandtes Produkt 2 -->
-            <div class="col-md-3 col-6 mb-4">
-                <div class="card h-100 product-card" onclick="location.href='product.html?id=2'">
-                    <div class="related-product-img-container">
-                        <img src="../bilder/Arbeitsheft ZR 100.jpg" class="card-img-top" alt="Verwandtes Produkt 2">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Spielerisch Lernen</h5>
-                        <p class="card-text">22,95 €</p>
+                <!-- Verwandtes Produkt 2 -->
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="card h-100 product-card" onclick="location.href='product.html?id=2'">
+                        <div class="related-product-img-container">
+                            <img src="../bilder/Arbeitsheft ZR 100.jpg" class="card-img-top" alt="Verwandtes Produkt 2">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Spielerisch Lernen</h5>
+                            <p class="card-text">22,95 €</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Verwandtes Produkt 3 -->
-            <div class="col-md-3 col-6 mb-4">
-                <div class="card h-100 product-card" onclick="location.href='product.html?id=3'">
-                    <div class="related-product-img-container">
-                        <img src="../bilder/Buch Praenumerik.jpg" class="card-img-top" alt="Verwandtes Produkt 3">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Kreativität fördern</h5>
-                        <p class="card-text">18,50 €</p>
+                <!-- Verwandtes Produkt 3 -->
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="card h-100 product-card" onclick="location.href='product.html?id=3'">
+                        <div class="related-product-img-container">
+                            <img src="../bilder/Buch Praenumerik.jpg" class="card-img-top" alt="Verwandtes Produkt 3">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Kreativität fördern</h5>
+                            <p class="card-text">18,50 €</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Verwandtes Produkt 4 -->
-            <div class="col-md-3 col-6 mb-4">
-                <div class="card h-100 product-card" onclick="location.href='product.html?id=4'">
-                    <div class="related-product-img-container">
-                        <img src="../bilder/Buch Praenumerik.jpg" class="card-img-top" alt="Verwandtes Produkt 4">
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">Kommunikation mit Kindern</h5>
-                        <p class="card-text">24,95 €</p>
+                <!-- Verwandtes Produkt 4 -->
+                <div class="col-md-3 col-6 mb-4">
+                    <div class="card h-100 product-card" onclick="location.href='product.html?id=4'">
+                        <div class="related-product-img-container">
+                            <img src="../bilder/Buch Praenumerik.jpg" class="card-img-top" alt="Verwandtes Produkt 4">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Kommunikation mit Kindern</h5>
+                            <p class="card-text">24,95 €</p>
+                        </div>
                     </div>
                 </div>
             </div>
