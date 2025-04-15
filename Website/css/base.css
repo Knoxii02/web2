@@ -14,6 +14,17 @@ body {
 
 .page-content {
     flex: 1 0 auto;
+    margin-top: 0; /* Space for fixed navbar entfernt */
+}
+
+/* Margin top for container to accommodate fixed navbar */
+.mt-navbar {
+    margin-top: 70px;
+}
+
+/* Common margin-top used across pages */
+.content-margin-top {
+    margin-top: 120px;
 }
 
 /* Farbdefinitionen */
