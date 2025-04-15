@@ -93,5 +93,4 @@ button:hover, .btn:hover {
     align-items: center;
     justify-content: center;
     transition: background-color 0.2s ease;
-    margin-left: auto;
 }
