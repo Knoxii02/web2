@@ -5,9 +5,11 @@
         price: "24,95 €",
         delivery: "Lieferbar ab 15.04.2025",
         images: [
-            "../bilder/Buch Praenumerik.jpg",
-            "../bilder/Buch ZR 20.jpg",
-            "../bilder/Buch ZR 100.jpg",
+            "../pictures/book_1/book_1_1.jpg",
+            "../pictures/book_1/book_1_2.jpg",
+            "../pictures/book_1/book_1_3.jpg",
+            "../pictures/book_1/book_1_4.jpg",
+
         ]
     },
     cd: {
@@ -15,9 +17,11 @@
         price: "19,95 €",
         delivery: "Lieferbar ab 01.05.2025",
         images: [
-            "../bilder/Arbeitsheft Praenumerik.jpg",
-            "../bilder/Arbeitsheft Praenumerik Ziffern.jpg",
-            "../bilder/Arbeitsheft ZR 20.jpg"
+            "../pictures/workbook_1/workbook_1_1.jpg",
+            "../pictures/workbook_1/workbook_1_2.png",
+            "../pictures/workbook_1/workbook_1_3.jpg",
+            "../pictures/workbook_1/workbook_1_4.jpg",
+            "../pictures/workbook_1/workbook_1_5.jpg",
         ]
     }
 };
