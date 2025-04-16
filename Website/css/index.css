@@ -1,11 +1,3 @@
-/* Grundlegende Farben */
-:root {
-    --primary-color: #220C10;
-    --secondary-color: #637074;
-    --accent-color: #CABAC8;
-    --success-color: #9CD08F;
-    --highlight-color: #72B01D;
-}
 
 /* Carousel Styling */
 .carousel {
@@ -111,7 +103,7 @@
 }
 
 .card-text {
-    color: var(--secondary-color);
+    color: var(--text-color);
     line-height: 1.6;
 }
 

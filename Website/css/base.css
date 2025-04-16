@@ -5,16 +5,32 @@ html, body {
     flex-direction: column;
 }
 
+/* Color variables - updated with new color scheme */
+:root {
+    --primary-color: #405d27;      /* Dark green for navbar */
+    --secondary-color: #82b74b;    /* Medium green for secondary elements */
+    --accent-color: #c1946a;       /* Tan/beige for accents */
+    --highlight-color: #82b74b;    /* Green highlight color */
+    --background-color: #e6dcc8;   /* Medium beige background - darker for better contrast */
+    --text-color: #333333;         /* Dark text for readability */
+    --card-bg-color: #FFFFFF;      /* White card background */
+    --footer-bg-color: #3e4444;    /* Dark charcoal gray for footer */
+    --footer-text-color: #FFFFFF;  /* White text for footer */
+}
+
 body {
     display: flex;
     flex-direction: column;
-    background-color: #DDDBF1;
+    background-color: var(--background-color);
+    color: var(--text-color);
     min-height: 100vh;
+    padding-top: 56px; /* For fixed navbar */
 }
 
 .page-content {
     flex: 1 0 auto;
     margin-top: 0; /* Space for fixed navbar entfernt */
+    padding-top: 1rem;
 }
 
 /* Margin top for container to accommodate fixed navbar */
@@ -27,74 +43,98 @@ body {
     margin-top: 120px;
 }
 
-/* Farbdefinitionen */
+/* Color Classes - updated with new colors */
 .primary-color {
-    background-color: #0D1321; /* Dunkles Rotbraun */
+    background-color: var(--primary-color);
 }
 
 .secondary-color {
-    background-color: #637074; /* Graublau */
+    background-color: var(--secondary-color);
 }
 
+/* Important: This fixes the shopping cart page background */
 .accent-color {
-    background-color: #DDDBF1; /* Hellviolett */
+    background-color: var(--background-color);
 }
 
 .success-color {
-    background-color: #9CD08F; /* Hellgrün */
+    background-color: #9CD08F;
 }
 
 .highlight-color {
-    background-color: #72B01D; /* Grasgrün */
+    background-color: var(--highlight-color);
 }
 
 /* Navbar */
 .navbar {
-    background-color: #637074; /* Sekundärfarbe */
-    color: #FFFFFF; /* Weißer Text */
+    background-color: var(--primary-color) !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .navbar a.nav-link {
-    color: #FFFFFF; /* Weißer Text */
+    color: #FFFFFF;
+    transition: color 0.2s ease;
 }
 
 .navbar a.nav-link:hover {
-    color: #72B01D; /* Highlight-Farbe */
+    color: var(--highlight-color);
+}
+
+.navbar-brand, .navbar-light .navbar-nav .nav-link {
+    color: #FFFFFF !important;
+}
+
+.navbar-light .navbar-nav .nav-link.active {
+    color: var(--highlight-color) !important;
+    font-weight: bold;
+    border-bottom: 2px solid var(--highlight-color);
+}
+
+.navbar-light .navbar-toggler {
+    border-color: rgba(255,255,255,0.5);
+}
+
+.navbar-light .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.8)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
 /* Footer */
 footer {
-    margin-top: auto;
-    background-color: #0D1321; /* Primärfarbe */
-    color: #FFFFFF; /* Weißer Text */
-    padding: 1rem 0;
+    margin-top: 3rem;
+    background-color: var(--footer-bg-color);
+    color: var(--footer-text-color);
+    padding: 2rem 0;
     flex-shrink: 0;
     width: 100%;
 }
 
 footer a {
-    color: #CABAC8; /* Akzentfarbe */
+    color: var(--highlight-color);
 }
 
 footer a:hover {
-    color: #9CD08F; /* Erfolgsfarbe */
+    color: #9cd08f;
+    text-decoration: none;
 }
 
 /* Buttons */
 button, .btn {
-    background-color: #72B01D; /* Highlight-Farbe */
-    color: #FFFFFF; /* Weißer Text */
+    background-color: var(--highlight-color);
+    color: #FFFFFF;
     border: none;
+    transition: background-color 0.2s ease;
 }
 
 button:hover, .btn:hover {
-    background-color: #9CD08F; /* Erfolgsfarbe */
+    background-color: #5d9318;
+    color: #FFFFFF;
 }
 
 /* Shopping Cart Icon */
 .cart-icon {
-    font-size: 1.5rem;
-    color: #72B01D; /* Highlight-Farbe (Grasgrün) */
+    font-size: 1.3rem;
+    color: #FFFFFF;
+    transition: color 0.2s ease;
 }
 
 .cart-link {
@@ -103,5 +143,60 @@ button:hover, .btn:hover {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.2s ease;
+    transition: color 0.2s ease;
+}
+
+.cart-link:hover {
+    background-color: transparent; /* Remove the white background */
+}
+
+.cart-link:hover .cart-icon {
+    color: var(--highlight-color); /* Use the green highlight color on hover */
+}
+
+/* Card styling */
+.card {
+    background-color: var(--card-bg-color);
+    border: none;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.card-title {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.badge-primary {
+    background-color: var(--secondary-color);
+}
+
+.badge-success {
+    background-color: var(--highlight-color);
+}
+
+.btn-primary {
+    background-color: var(--highlight-color);
+    border-color: var(--highlight-color);
+}
+
+.btn-primary:hover {
+    background-color: #5d9318;
+    border-color: #5d9318;
+}
+
+/* Special styling for buttons with outlines */
+.btn-outline-primary {
+    color: var(--highlight-color);
+    border-color: var(--highlight-color);
+    background-color: transparent;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--highlight-color);
+    color: white;
 }
