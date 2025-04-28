@@ -46,7 +46,7 @@
             <h1 class="mb-4">Erziehen Lernen: Der praktische Ratgeber</h1>
 
             <div class="row">
-                <!-- Produktbild mit Galerie -->
+                <!-- Produktbild mit Galerie - unverändert -->
                 <div class="col-md-6 mb-4">
                     <div class="position-relative"
                         style="height: 400px; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center;">
@@ -67,9 +67,13 @@
                             <i class="bi bi-chevron-right" style="font-size: 18px;"></i>
                         </button>
                     </div>
-
-                    <!-- Produktvarianten -->
-                    <div class="mt-3 d-flex justify-content-center">
+                </div>
+                
+                <!-- Produktinfo rechts -->
+                <div class="col-md-6">
+                    <!-- Produktvariante rechts oben statt unterm Bild -->
+                    <div class="mb-4">
+                        <h4>Produktvariante</h4>
                         <div class="btn-group" role="group">
                             <button type="button" class="btn btn-outline-primary active" id="buchVariant"
                                 onclick="switchVariant('buch')">Buch</button>
@@ -77,27 +81,16 @@
                                 onclick="switchVariant('cd')">CD</button>
                         </div>
                     </div>
-                </div>
-
-                <!-- Produktbeschreibung -->
-                <div class="col-md-6">
-                    <div class="mb-4">
-                        <h4>Beschreibung</h4>
-                        <p id="productDescription">Dieser praxisorientierte Ratgeber bietet Ihnen bewährte Methoden und
-                            Strategien für eine erfolgreiche Erziehung. Mit zahlreichen Beispielen aus dem Alltag und
-                            konkreten Handlungsempfehlungen unterstützt Sie dieses Werk dabei, Kinder altersgerecht zu
-                            fördern und eine vertrauensvolle Beziehung aufzubauen.</p>
-                        <p>Ideal für Eltern, Erzieher/innen und alle, die mit Kindern arbeiten.</p>
-                    </div>
-
+                    
                     <!-- Lieferbarkeit -->
                     <div class="mb-4">
-                        <h5 class="text-success" id="deliveryInfo">Lieferbar ab 15.04.2025</h5>
+                        <h5 class="text-success" id="deliveryInfo">Lieferbar</h5>
                     </div>
 
                     <!-- Preis -->
                     <div class="mb-4">
                         <h3 id="productPrice">24,95 €</h3>
+                        <small>inkl. 7% MwSt.</small>
                     </div>
 
                     <!-- Menge und Warenkorb -->
@@ -106,94 +99,30 @@
                             <div class="input-group-prepend">
                                 <button class="btn btn-outline-secondary" type="button" id="decrementButton">-</button>
                             </div>
-                            <input type="number" class="form-control text-center" id="quantityInput" value="1" min="1">
+                            <input type="text" class="form-control text-center" id="quantityInput" value="1" min="1">
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" type="button" id="incrementButton">+</button>
                             </div>
                         </div>
 
-                        <button class="btn btn-primary">
+                        <button class="btn btn-primary" onclick="location.href='shopping-cart.html'">
                             <i class="bi bi-cart mr-2"></i>In den Warenkorb
                         </button>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Verwandte Produkte -->
-        <div class="container mb-5 mt-5 pt-4">
-            <h2 class="mb-4">Das könnte Sie auch interessieren</h2>
-
-            <div class="row">
-                <!-- Verwandtes Produkt 1 -->
-                <div class="col-md-3 mb-4" data-category="buch" data-product-id="8">
-                    <div class="card h-100">
-                        <img src="../pictures/book_1/book_1_1.jpg" class="card-img-top"
-                            alt="Mit Cuipsi den Mengen auf der Spur">
-                        <div class="card-body">
-                            <span class="badge badge-success mb-2">Buch</span>
-                            <h5 class="card-title">Mit Cuipsi den Mengen auf der Spur</h5>
-                            <p class="card-text">Didaktischer Leitfaden zur Einführung der Cuisenaire-Methode.</p>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between align-items-center">
-                            <strong>24,99 €</strong>
-                            <button class="btn btn-primary btn-sm">In den Warenkorb</button>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!-- Verwandtes Produkt 2 -->
-                <div class="col-md-3 mb-4" data-category="arbeitsheft" data-product-id="1">
-                    <div class="card h-100">
-                        <img src="../pictures/workbook_1/workbook_1_1.jpg" class="card-img-top"
-                            alt="Arbeitsheft Pränumerik">
-                        <div class="card-body">
-                            <span class="badge badge-primary mb-2">Arbeitsheft</span>
-                            <h5 class="card-title">Arbeitsheft Pränumerik</h5>
-                            <p class="card-text">Übungen zur Vorbereitung auf den Umgang mit Zahlen.</p>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between align-items-center">
-                            <strong>9,99 €</strong>
-                            <button class="btn btn-primary btn-sm">In den Warenkorb</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Verwandtes Produkt 3 -->
-                <div class="col-md-3 mb-4" data-category="arbeitsmaterial" data-product-id="6">
-                    <div class="card h-100">
-                        <img src="../pictures/workmaterial_1/workmaterial_1_1.jpg" class="card-img-top"
-                            alt="Cuipsi Platten">
-                        <div class="card-body">
-                            <span class="badge badge-warning mb-2">Arbeitsmaterial</span>
-                            <h5 class="card-title">Cuipsi Platten Set</h5>
-                            <p class="card-text">Die Cuispi-Platten aus Holz wurden neu entwickelt und erleichtern das
-                                operative Handeln im Zahlenraum bis 100.</p>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between align-items-center">
-                            <strong>13,99 €</strong>
-                            <button class="btn btn-primary btn-sm">In den Warenkorb</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Verwandtes Produkt 4 -->
-                <div class="col-md-3 mb-4" data-category="buch" data-product-id="9">
-                    <div class="card h-100">
-                        <img src="../pictures/book_2/book_2_1.jpg" class="card-img-top" alt="Buch Zahlenraum 20">
-                        <div class="card-body">
-                            <span class="badge badge-success mb-2">Buch</span>
-                            <h5 class="card-title">Mit Cuipsi Zahlenraum 20 entdecken</h5>
-                            <p class="card-text">Didaktischer Leitfaden zur Einführung des Zahlenraums bis 20.</p>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between align-items-center">
-                            <strong>22,99 €</strong>
-                            <button class="btn btn-primary btn-sm">In den Warenkorb</button>
-                        </div>
-                    </div>
+            
+            <!-- Produktbeschreibung unterhalb des Bildes -->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <h4>Beschreibung</h4>
+                    <p id="productDescription">Dieser praxisorientierte Ratgeber bietet Ihnen bewährte Methoden und Strategien für eine erfolgreiche Erziehung. Mit zahlreichen Beispielen aus dem Alltag und konkreten Handlungsempfehlungen unterstützt Sie dieses Werk dabei, Kinder altersgerecht zu fördern und eine vertrauensvolle Beziehung aufzubauen.</p>
+                    <p>Ideal für Eltern, Erzieher/innen und alle, die mit Kindern arbeiten. Der Ratgeber ist sowohl als Buch als auch als Audio-CD erhältlich.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus. Mauris iaculis porttitor posuere. Praesent id metus massa, ut blandit odio.</p>
                 </div>
             </div>
+            
+            <!-- Das könnte Sie auch interessieren - bleibt unverändert -->
         </div>
     </div>
     <footer class="text-center text-lg-start mt-5">

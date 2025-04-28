@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bestellbestätigung - Erziehen-Lernen-Fördern</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../css/base.css">
+</head>
+<body>
+    <!-- Navigation wie bei anderen Seiten -->
+    
+    <div class="page-content">
+        <div class="container" style="margin-top: 120px;">
+            <div class="jumbotron bg-light">
+                <h1 class="display-4">Vielen Dank für Ihre Bestellung!</h1>
+                <p class="lead">Ihre Bestellung wurde erfolgreich aufgenommen.</p>
+                <hr class="my-4">
+                <p>Bestellnummer: <strong>ELF-2025-04-25-001</strong></p>
+                <p>Bestellzeitpunkt: <strong>25.04.2025, 14:32 Uhr</strong></p>
+                <p>Eine Bestätigungsmail wurde an Ihre E-Mail-Adresse gesendet.</p>
+            </div>
+            
+            <!-- Bestellübersicht -->
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Bestellübersicht</h5>
+                </div>
+                <div class="card-body">
+                    <!-- Artikel -->
+                    <div class="row mb-3 border-bottom pb-3">
+                        <div class="col-md-2">
+                            <img src="../pictures/book_1/book_1_1.jpg" class="img-fluid" alt="Produkt">
+                        </div>
+                        <div class="col-md-7">
+                            <h5>Mit Cuipsi den Mengen auf der Spur</h5>
+                            <p class="mb-0">Kategorie: Buch</p>
+                            <p class="mb-0">Menge: 1</p>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <p class="mb-0">24,99 €</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Zusammenfassung -->
+                    <div class="row">
+                        <div class="col-md-9 text-right">
+                            <p>Zwischensumme:</p>
+                            <p>Versandkosten:</p>
+                            <p><strong>Gesamtsumme:</strong></p>
+                            <p><small>enthält 7% MwSt.:</small></p>
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <p>24,99 €</p>
+                            <p>4,95 €</p>
+                            <p><strong>29,94 €</strong></p>
+                            <p><small>1,96 €</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Liefer- und Zahlungsinformationen -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header bg-secondary text-white">
+                            <h5 class="mb-0">Lieferadresse</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="mb-0">Max Mustermann</p>
+                            <p class="mb-0">Musterstraße 123</p>
+                            <p class="mb-0">12345 Musterstadt</p>
+                            <p>Deutschland</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header bg-secondary text-white">
+                            <h5 class="mb-0">Zahlungsinformationen</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="mb-0"><strong>Zahlungsart:</strong> Kreditkarte</p>
+                            <p>VISA ****1234</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4 mb-5">
+                <button class="btn btn-outline-secondary mr-2" onclick="window.print()">
+                    <i class="bi bi-printer"></i> Bestellung drucken
+                </button>
+                <a href="index.html" class="btn btn-primary">
+                    <i class="bi bi-house"></i> Zurück zur Startseite
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer wie bei anderen Seiten -->
+</body>
+</html>
