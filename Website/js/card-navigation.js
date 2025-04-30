@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Product click navigation - apply to all product cards
+    // Produktkarten-Navigation für alle Karten mit data-category Attribut
     const productCards = document.querySelectorAll('[data-category]');
     
     productCards.forEach(productContainer => {
         const card = productContainer.querySelector('.card');
         if (!card) return;
 
-        // Nur card-img-top und card-body sind klickbar (wie auf der Shopseite)
+        // Nur Bild und Textbereich sind klickbar für Navigation
         const cardBody = card.querySelector('.card-body');
         const cardImage = card.querySelector('.card-img-top');
 
@@ -25,10 +25,10 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
 
-        // Buttons sollen Navigation verhindern
-        const buttons = card.querySelectorAll('button');
-        buttons.forEach(button => {
-            button.addEventListener('click', function(event) {
+        // Buttons und Links mit btn-Klasse sollen nicht zur Produktdetailseite führen
+        const clickableElements = card.querySelectorAll('button, a.btn');
+        clickableElements.forEach(element => {
+            element.addEventListener('click', function(event) {
                 event.stopPropagation();
             });
         });
