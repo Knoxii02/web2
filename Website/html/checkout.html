@@ -202,9 +202,9 @@
         <div class="container p-4">
             <p>Kontakt: <a href="mailto:info@erziehen-lernen-foerdern.de">info@erziehen-lernen-foerdern.de</a></p>
             <ul class="list-inline">
-                <li class="list-inline-item"><a href="#">Impressum</a></li>
-                <li class="list-inline-item"><a href="#">Liefer- und Zahlungsbedingungen</a></li>
-                <li class="list-inline-item"><a href="#">Datenschutz</a></li>
+                <li class="list-inline-item"><a href="impressum.html">Impressum</a></li>
+                <li class="list-inline-item"><a href="zahlungsbedingungen.html">Liefer- und Zahlungsbedingungen</a></li>
+                <li class="list-inline-item"><a href="datenschutz.html">Datenschutz</a></li>
                 <li class="list-inline-item"><a href="#">Cookie-Richtlinien</a></li>
             </ul>
         </div>
@@ -231,6 +231,10 @@
                         if (form.checkValidity() === false) {
                             event.preventDefault();
                             event.stopPropagation();
+                        } else {
+                            // Wenn das Formular gültig ist, zur Bestätigungsseite weiterleiten
+                            event.preventDefault();
+                            window.location.href = 'confirmation.html';
                         }
                         form.classList.add('was-validated');
                     }, false);
@@ -250,6 +254,38 @@
                 document.getElementById(method + 'Details').style.display = 'block';
             }
         }
+        
+        // Event-Handler für den "Bestellung abschließen"-Button
+        document.addEventListener('DOMContentLoaded', function() {
+            const submitButton = document.querySelector('button[type="submit"]');
+            submitButton.addEventListener('click', function(event) {
+                const form = document.querySelector('.needs-validation');
+                if (form.checkValidity()) {
+                    // Formular ist gültig, zur Bestätigungsseite weiterleiten
+                    window.location.href = 'confirmation.html';
+                } else {
+                    // Formular-Validierung anzeigen
+                    form.classList.add('was-validated');
+                }
+                event.preventDefault();
+            });
+            
+            // Überprüfen, ob eine Zahlungsmethode ausgewählt wurde
+            const paymentMethods = document.querySelectorAll('input[name="paymentMethod"]');
+            submitButton.addEventListener('click', function(event) {
+                let paymentSelected = false;
+                paymentMethods.forEach(method => {
+                    if (method.checked) {
+                        paymentSelected = true;
+                    }
+                });
+                
+                if (!paymentSelected) {
+                    alert('Bitte wählen Sie eine Zahlungsmethode aus.');
+                    event.preventDefault();
+                }
+            });
+        });
     </script>
 </body>
 
