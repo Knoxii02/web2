@@ -43,10 +43,10 @@
         <!-- Produktbereich -->
         <div class="container" style="margin-top: 120px;">
             <!-- Produktname -->
-            <h1 class="mb-4">Erziehen Lernen: Der praktische Ratgeber</h1>
+            <h1 class="mb-4">Mit Cuipsi den Mengen auf der Spur</h1>
 
             <div class="row">
-                <!-- Produktbild mit Galerie - unverändert -->
+                <!-- Produktbild mit Galerie -->
                 <div class="col-md-6 mb-4">
                     <div class="position-relative"
                         style="height: 400px; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center;">
@@ -71,17 +71,6 @@
                 
                 <!-- Produktinfo rechts -->
                 <div class="col-md-6">
-                    <!-- Produktvariante rechts oben statt unterm Bild -->
-                    <div class="mb-4">
-                        <h4>Produktvariante</h4>
-                        <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-outline-primary active" id="buchVariant"
-                                onclick="switchVariant('buch')">Buch</button>
-                            <button type="button" class="btn btn-outline-primary" id="cdVariant"
-                                onclick="switchVariant('cd')">CD</button>
-                        </div>
-                    </div>
-                    
                     <!-- Lieferbarkeit -->
                     <div class="mb-4">
                         <h5 class="text-success" id="deliveryInfo">Lieferbar</h5>
@@ -116,23 +105,100 @@
             <div class="row mt-4">
                 <div class="col-12">
                     <h4>Beschreibung</h4>
-                    <p id="productDescription">Dieser praxisorientierte Ratgeber bietet Ihnen bewährte Methoden und Strategien für eine erfolgreiche Erziehung. Mit zahlreichen Beispielen aus dem Alltag und konkreten Handlungsempfehlungen unterstützt Sie dieses Werk dabei, Kinder altersgerecht zu fördern und eine vertrauensvolle Beziehung aufzubauen.</p>
-                    <p>Ideal für Eltern, Erzieher/innen und alle, die mit Kindern arbeiten. Der Ratgeber ist sowohl als Buch als auch als Audio-CD erhältlich.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor. Ut in nulla enim. Phasellus molestie magna non est bibendum non venenatis nisl tempor. Suspendisse dictum feugiat nisl ut dapibus. Mauris iaculis porttitor posuere. Praesent id metus massa, ut blandit odio.</p>
+                    <p id="productDescription">Dieser praxisorientierte Ratgeber bietet Ihnen bewährte Methoden für eine erfolgreiche mathematische Bildung. Der Leitfaden zur Einführung der Cuisenaire-Methode unterstützt Sie dabei, Kindern einen anschaulichen Zugang zu mathematischen Konzepten zu vermitteln.</p>
+                    <p>Das Werk "Mit Cuipsi den Mengen auf der Spur" ist ideal für Lehrkräfte, Erzieher/innen und alle, die mit Kindern im Bereich der mathematischen Frühförderung arbeiten.</p>
+                    <p>Der didaktische Leitfaden bietet:</p>
+                    <ul>
+                        <li>Praxisnahe Übungen und Aktivitäten für den Mathematikunterricht</li>
+                        <li>Anschauliche Beispiele zum Einsatz der Cuisenaire-Stäbe</li>
+                        <li>Systematisch aufbauendes Curriculum für den Anfangsunterricht</li>
+                        <li>Differenzierte Materialien für die individuelle Förderung</li>
+                    </ul>
                 </div>
             </div>
-            
-            <!-- Das könnte Sie auch interessieren - bleibt unverändert -->
         </div>
     </div>
+    <!-- Verwandte Produkte -->
+    <div class="container mb-5 mt-5 pt-4">
+        <h2 class="mb-4">Das könnte Sie auch interessieren</h2>
+
+        <div class="row">
+            <!-- Produkt 1 -->
+            <div class="col-md-3 mb-4" data-category="arbeitsheft" data-product-id="1">
+                <div class="card h-100">
+                    <img src="../pictures/workbook_1/workbook_1_1.jpg" class="card-img-top"
+                        alt="Arbeitsheft Pränumerik">
+                    <div class="card-body">
+                        <span class="badge badge-primary mb-2">Arbeitsheft</span>
+                        <h5 class="card-title">Arbeitsheft Pränumerik</h5>
+                        <p class="card-text">Übungen zur Vorbereitung auf den Umgang mit Zahlen.</p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between align-items-center">
+                        <strong>9,99 €</strong>
+                        <button class="btn btn-primary btn-sm" onclick="location.href='shopping-cart.html'">In den Warenkorb</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Produkt 2 -->
+            <div class="col-md-3 mb-4" data-category="arbeitsheft" data-product-id="2">
+                <div class="card h-100">
+                    <img src="../pictures/workbook_2/workbook_2_1.jpg" class="card-img-top" alt="Arbeitsheft ZR 20">
+                    <div class="card-body">
+                        <span class="badge badge-primary mb-2">Arbeitsheft</span>
+                        <h5 class="card-title">Arbeitsheft Zahlenraum 20</h5>
+                        <p class="card-text">Das Arbeitsheft für den ZR -20 enthält alle nötigen Schritte, um den ZR - 20 fundiert aufzubauen.</p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between align-items-center">
+                        <strong>11,99 €</strong>
+                        <button class="btn btn-primary btn-sm" onclick="location.href='shopping-cart.html'">In den Warenkorb</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Produkt 3 -->
+            <div class="col-md-3 mb-4" data-category="arbeitsheft" data-product-id="3">
+                <div class="card h-100">
+                    <img src="../pictures/workbook_3/workbook_3_1.jpg" class="card-img-top" alt="Arbeitsheft ZR 100">
+                    <div class="card-body">
+                        <span class="badge badge-primary mb-2">Arbeitsheft</span>
+                        <h5 class="card-title">Arbeitsheft Zahlenraum 100</h5>
+                        <p class="card-text">Übungen und Aufgaben zum Rechnen im Zahlenraum bis 100. Ideal für
+                            Grundschüler.</p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between align-items-center">
+                        <strong>12,49 €</strong>
+                        <button class="btn btn-primary btn-sm" onclick="location.href='shopping-cart.html'">In den Warenkorb</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Produkt 4 -->
+            <div class="col-md-3 mb-4" data-category="arbeitsheft" data-product-id="4">
+                <div class="card h-100">
+                    <img src="../pictures/workbook_4/workbook_4_1.png" class="card-img-top" alt="Arbeitsheft ZR 1000">
+                    <div class="card-body">
+                        <span class="badge badge-primary mb-2">Arbeitsheft</span>
+                        <h5 class="card-title">Arbeitsheft Zahlenraum 1000</h5>
+                        <p class="card-text">Übungen und Aufgaben zum Rechnen im Zahlenraum bis 1000 Perfekt für
+                            Drittklässler.</p>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between align-items-center">
+                        <strong>11,99 €</strong>
+                        <button class="btn btn-primary btn-sm" onclick="location.href='shopping-cart.html'">In den Warenkorb</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     <footer class="text-center text-lg-start mt-5">
         <div class="container p-4">
             <p>Kontakt: <a href="mailto:info@erziehen-lernen-foerdern.de">info@erziehen-lernen-foerdern.de</a></p>
             <ul class="list-inline">
-                <li class="list-inline-item"><a href="impressum.html">Impressum</a></li>
-                <li class="list-inline-item"><a href="zahlungsbedingungen.html">Liefer- und Zahlungsbedingungen</a></li>
-                <li class="list-inline-item"><a href="datenschutz.html">Datenschutz</a></li>
-                <li class="list-inline-item"><a href="#">Cookie-Richtlinien</a></li>
+                <li class="list-inline-item"><a href="imprint.html">Impressum</a></li>
+                <li class="list-inline-item"><a href="payment-terms.html">Liefer- und Zahlungsbedingungen</a></li>
+                <li class="list-inline-item"><a href="privacy-policy.html">Datenschutz</a></li>
             </ul>
         </div>
     </footer>
