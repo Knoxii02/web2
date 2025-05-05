@@ -45,120 +45,162 @@
             </div>
 
             <div class="row">
-                <div class="col-md-4 order-md-2 mb-4">
-                    <h4 class="d-flex justify-content-between align-items-center mb-3">
-                        <span class="text-muted">Warenkorb</span>
-                        <span class="badge badge-primary badge-pill">2</span>
-                    </h4>
-                    <ul class="list-group mb-3">
-                        <li class="list-group-item d-flex justify-content-between lh-condensed">
-                            <div>
-                                <h6 class="my-0">Arbeitsheft Zahlenraum 20</h6>
-                                <small class="text-muted">1 Stück</small>
-                            </div>
-                            <span class="text-muted">€11,99</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-condensed">
-                            <div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0">Übersicht</h5>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="my-0">Arbeitsheft Zahlenraum 20</h6>
+                            <small class="text-muted">1 Stück</small>
+                            <div class="mt-2 mb-2">
                                 <h6 class="my-0">Cuipsi Platten Set</h6>
                                 <small class="text-muted">1 Stück</small>
                             </div>
-                            <span class="text-muted">€13,99</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between">
-                            <span>Gesamtsumme</span>
-                            <strong>€25,98</strong>
-                        </li>
-                    </ul>
+                            <div class="d-flex justify-content-between mt-3 mb-2">
+                                <span>Zwischensumme:</span>
+                                <span>24,99 €</span>
+                            </div>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Versandkosten:</span>
+                                <span>4,95 €</span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between mb-2">
+                                <strong>Gesamtsumme:</strong>
+                                <strong>29,94 €</strong>
+                            </div>
+                            <div class="text-right">
+                                <small class="text-muted">enthält 7% MwSt.: 1,96 €</small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
+
                 <div class="col-md-8 order-md-1">
-                    <h4 class="mb-3">Rechnungsadresse</h4>
-                    <form class="needs-validation" novalidate>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="firstName">Vorname</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
-                                <div class="invalid-feedback">
-                                    Bitte geben Sie Ihren Vornamen ein.
+                    <div class="mb-4">
+                        <h5>Lieferadresse</h5>
+                        <form class="needs-validation" novalidate>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="firstName">Vorname</label>
+                                    <input type="text" class="form-control" id="firstName" required>
+                                    <div class="invalid-feedback">
+                                        Bitte geben Sie Ihren Vornamen ein.
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="lastName">Nachname</label>
+                                    <input type="text" class="form-control" id="lastName" required>
+                                    <div class="invalid-feedback">
+                                        Bitte geben Sie Ihren Nachnamen ein.
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="lastName">Nachname</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
+
+                            <div class="mb-3">
+                                <label for="email">E-Mail</label>
+                                <input type="email" class="form-control" id="email" required>
                                 <div class="invalid-feedback">
-                                    Bitte geben Sie Ihren Nachnamen ein.
+                                    Bitte geben Sie eine gültige E-Mail-Adresse ein.
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="mb-3">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
-                            <div class="invalid-feedback">
-                                Bitte geben Sie eine gültige E-Mail-Adresse ein.
+                            <div class="mb-3">
+                                <label for="address">Straße und Hausnummer</label>
+                                <input type="text" class="form-control" id="address" required>
+                                <div class="invalid-feedback">
+                                    Bitte geben Sie Ihre Adresse ein.
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="mb-3">
-                            <label for="address">Adresse</label>
-                            <input type="text" class="form-control" id="address" placeholder="Musterstraße 1" required>
-                            <div class="invalid-feedback">
-                                Bitte geben Sie Ihre Adresse ein.
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="zip">PLZ</label>
+                                    <input type="text" class="form-control" id="zip" required>
+                                    <div class="invalid-feedback">
+                                        Bitte geben Sie eine Postleitzahl ein.
+                                    </div>
+                                </div>
+                                <div class="col-md-8 mb-3">
+                                    <label for="city">Ort</label>
+                                    <input type="text" class="form-control" id="city" required>
+                                    <div class="invalid-feedback">
+                                        Bitte geben Sie eine Stadt ein.
+                                    </div>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="col-md-5 mb-3">
+                            <div class="mb-3">
                                 <label for="country">Land</label>
-                                <select class="custom-select d-block w-100" id="country" required>
+                                <select class="custom-select" id="country" required>
                                     <option value="">Auswählen...</option>
-                                    <option>Deutschland</option>
-                                    <option>Österreich</option>
-                                    <option>Schweiz</option>
+                                    <option value="DE" selected>Deutschland</option>
+                                    <option value="AT">Österreich</option>
+                                    <option value="CH">Schweiz</option>
                                 </select>
                                 <div class="invalid-feedback">
                                     Bitte wählen Sie ein Land.
                                 </div>
                             </div>
-                            <div class="col-md-3 mb-3">
-                                <label for="zip">Postleitzahl</label>
-                                <input type="text" class="form-control" id="zip" placeholder="" required>
-                                <div class="invalid-feedback">
-                                    Bitte geben Sie eine Postleitzahl ein.
-                                </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="city">Stadt</label>
-                                <input type="text" class="form-control" id="city" placeholder="" required>
-                                <div class="invalid-feedback">
-                                    Bitte geben Sie eine Stadt ein.
-                                </div>
-                            </div>
-                        </div>
+                        </form>
+                    </div>
 
-                        <hr class="mb-4">
-
-                        <h4 class="mb-3">Bezahlung</h4>
-
-                        <div class="d-block my-3">
-                            <div class="custom-control custom-radio">
-                                <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+                    <div class="mb-4">
+                        <h5>Zahlungsmethode</h5>
+                        <div class="payment-methods">
+                            <!-- Kreditkarte -->
+                            <div class="custom-control custom-radio mb-2">
+                                <input type="radio" id="credit" name="paymentMethod" class="custom-control-input" onchange="showPaymentDetails('credit')" checked>
                                 <label class="custom-control-label" for="credit">Kreditkarte</label>
                             </div>
-                            <div class="custom-control custom-radio">
-                                <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required>
-                                <label class="custom-control-label" for="debit">Lastschrift</label>
+                            <div id="creditDetails" class="payment-details ml-4 mb-3">
+                                <div class="row">
+                                    <div class="col-md-6 mb-2">
+                                        <label for="cc-number">Kartennummer</label>
+                                        <input type="text" class="form-control" id="cc-number">
+                                    </div>
+                                    <div class="col-md-3 mb-2">
+                                        <label for="cc-expiration">Gültig bis</label>
+                                        <input type="text" class="form-control" id="cc-expiration" placeholder="MM/JJ">
+                                    </div>
+                                    <div class="col-md-3 mb-2">
+                                        <label for="cc-cvv">CVV</label>
+                                        <input type="text" class="form-control" id="cc-cvv">
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="cc-name">Karteninhaber</label>
+                                    <input type="text" class="form-control" id="cc-name">
+                                </div>
                             </div>
+
+                            <!-- Vorkasse statt Lastschrift -->
+                            <div class="custom-control custom-radio mb-2">
+                                <input type="radio" id="vorkasse" name="paymentMethod" class="custom-control-input" onchange="showPaymentDetails('vorkasse')">
+                                <label class="custom-control-label" for="vorkasse">Vorkasse</label>
+                            </div>
+                            <div id="vorkasseDetails" class="payment-details ml-4 mb-3" style="display: none;">
+                                <div class="alert alert-info">
+                                    <p class="mb-0">Bitte überweisen Sie den Betrag an:</p>
+                                    <p class="mb-0">Kontoinhaber: Erziehen-Lernen-Fördern GmbH</p>
+                                    <p class="mb-0">IBAN: DE12 3456 7890 1234 5678 90</p>
+                                    <p class="mb-0">BIC: DEUTDEDBXXX</p>
+                                    <p class="mb-0">Verwendungszweck: Ihre Bestellnummer (wird nach Abschluss angezeigt)</p>
+                                </div>
+                            </div>
+
+                            <!-- PayPal -->
                             <div class="custom-control custom-radio">
-                                <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
+                                <input type="radio" id="paypal" name="paymentMethod" class="custom-control-input" onchange="showPaymentDetails('paypal')">
                                 <label class="custom-control-label" for="paypal">PayPal</label>
                             </div>
+                            <!-- Keine zusätzlichen Details für PayPal -->
                         </div>
+                    </div>
 
-                        <hr class="mb-4">
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">Bestellung abschließen</button>
-                    </form>
+                    <hr class="mb-4">
+                    <button class="btn btn-primary btn-lg btn-block" type="submit">Bestellung abschließen</button>
                 </div>
             </div>
         </div>
@@ -168,10 +210,9 @@
         <div class="container p-4">
             <p>Kontakt: <a href="mailto:info@erziehen-lernen-foerdern.de">info@erziehen-lernen-foerdern.de</a></p>
             <ul class="list-inline">
-                <li class="list-inline-item"><a href="#">Impressum</a></li>
-                <li class="list-inline-item"><a href="#">Liefer- und Zahlungsbedingungen</a></li>
-                <li class="list-inline-item"><a href="#">Datenschutz</a></li>
-                <li class="list-inline-item"><a href="#">Cookie-Richtlinien</a></li>
+                <li class="list-inline-item"><a href="imprint.html">Impressum</a></li>
+                <li class="list-inline-item"><a href="payment-terms.html">Liefer- und Zahlungsbedingungen</a></li>
+                <li class="list-inline-item"><a href="privacy-policy.html">Datenschutz</a></li>
             </ul>
         </div>
     </footer>
@@ -197,12 +238,61 @@
                         if (form.checkValidity() === false) {
                             event.preventDefault();
                             event.stopPropagation();
+                        } else {
+                            // Wenn das Formular gültig ist, zur Bestätigungsseite weiterleiten
+                            event.preventDefault();
+                            window.location.href = 'confirmation.html';
                         }
                         form.classList.add('was-validated');
                     }, false);
                 });
             }, false);
         })();
+
+        // JavaScript für Zahlungsmethoden
+        function showPaymentDetails(method) {
+            // Alle Payment-Details ausblenden
+            document.querySelectorAll('.payment-details').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // Gewählte Details einblenden
+            if (method !== 'paypal') {
+                document.getElementById(method + 'Details').style.display = 'block';
+            }
+        }
+        
+        // Event-Handler für den "Bestellung abschließen"-Button
+        document.addEventListener('DOMContentLoaded', function() {
+            const submitButton = document.querySelector('button[type="submit"]');
+            submitButton.addEventListener('click', function(event) {
+                const form = document.querySelector('.needs-validation');
+                if (form.checkValidity()) {
+                    // Formular ist gültig, zur Bestätigungsseite weiterleiten
+                    window.location.href = 'confirmation.html';
+                } else {
+                    // Formular-Validierung anzeigen
+                    form.classList.add('was-validated');
+                }
+                event.preventDefault();
+            });
+            
+            // Überprüfen, ob eine Zahlungsmethode ausgewählt wurde
+            const paymentMethods = document.querySelectorAll('input[name="paymentMethod"]');
+            submitButton.addEventListener('click', function(event) {
+                let paymentSelected = false;
+                paymentMethods.forEach(method => {
+                    if (method.checked) {
+                        paymentSelected = true;
+                    }
+                });
+                
+                if (!paymentSelected) {
+                    alert('Bitte wählen Sie eine Zahlungsmethode aus.');
+                    event.preventDefault();
+                }
+            });
+        });
     </script>
 </body>
 

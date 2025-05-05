@@ -44,28 +44,41 @@
             <div class="row">
                 <!-- Product listing column -->
                 <div class="col-12 col-lg-8 mb-4">
+                    <!-- Artikel im Warenkorb -->
                     <div class="card mb-3">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <img src="../pictures/logo_1/logo_1_1.jpg" class="img-fluid" alt="Produkt">
-                                </div>
-                                <div class="col-md-6">
-                                    <h5 class="card-title">Mathe durchdringen - Grundlagen</h5>
-                                    <p class="card-text">Band 1</p>
-                                    <div class="input-group mb-3" style="max-width: 120px">
-                                        <div class="input-group-prepend">
-                                            <button class="btn btn-outline-secondary" type="button">-</button>
+                        <div class="row no-gutters">
+                            <div class="col-md-2">
+                                <a href="product.html">
+                                    <img src="../pictures/book_1/book_1_1.jpg" class="card-img" alt="Produktbild">
+                                </a>
+                            </div>
+                            <div class="col-md-10">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div>
+                                            <h5 class="card-title">Mit Cuipsi den Mengen auf der Spur</h5>
+                                            <p class="card-text">
+                                                <small class="text-muted">Kategorie: Buch</small>
+                                            </p>
                                         </div>
-                                        <input type="text" class="form-control text-center" value="1">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-outline-secondary" type="button">+</button>
+                                        <div class="text-right">
+                                            <p class="h5">24,99 €</p>
+                                            <div class="input-group input-group-sm mt-2" style="width: 120px;">
+                                                <div class="input-group-prepend">
+                                                    <button class="btn btn-outline-secondary" type="button">-</button>
+                                                </div>
+                                                <input type="text" class="form-control text-center" value="1" min="1">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-secondary" type="button">+</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-3 text-right">
-                                    <h5>29,90 €</h5>
-                                    <button class="btn btn-sm btn-outline-danger">Entfernen</button>
+                                    <div class="d-flex justify-content-end mt-3">
+                                        <button class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-trash"></i> Entfernen
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -74,23 +87,28 @@
 
                 <!-- Summary Card Column -->
                 <div class="col-12 col-lg-4">
-                    <div class="card">
+                    <div class="card mt-4">
                         <div class="card-body">
-                            <h5 class="card-title text-nowrap">Zusammenfassung</h5>
-                            <div class="d-flex justify-content-between mb-3">
-                                <span class="mr-2">Zwischensumme</span>
-                                <span>29,90 €</span>
+                            <h5 class="card-title">Zusammenfassung</h5>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Zwischensumme:</span>
+                                <span>24,99 €</span>
                             </div>
-                            <div class="d-flex justify-content-between mb-3">
-                                <span class="mr-2">Versandkosten</span>
-                                <span>0,00 €</span>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Versandkosten:</span>
+                                <span>4,95 €</span>
                             </div>
                             <hr>
-                            <div class="d-flex justify-content-between mb-3">
-                                <strong class="mr-2">Gesamtsumme</strong>
-                                <strong>29,90 €</strong>
+                            <div class="d-flex justify-content-between mb-2">
+                                <strong>Gesamtsumme:</strong>
+                                <strong>29,94 €</strong>
                             </div>
-                            <a href="checkout.html" class="btn btn-primary btn-block">Zur Kasse</a>
+                            <div class="text-right">
+                                <small class="text-muted">enthält 7% MwSt.: 1,96 €</small>
+                            </div>
+                            <div class="text-right mt-3">
+                                <a href="checkout.html" class="btn btn-primary">Zur Kasse</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -103,25 +121,7 @@
             <h2 class="mb-4">Das könnte Sie auch interessieren</h2>
 
             <div class="row">
-                <!-- Verwandtes Produkt 1 -->
-                <!-- Verwandtes Produkt 1 -->
-                <div class="col-md-3 mb-4" data-category="buch" data-product-id="8">
-                    <div class="card h-100">
-                        <img src="../pictures/book_1/book_1_1.jpg" class="card-img-top" alt="Mit Cuipsi den Mengen auf der Spur">
-                        <div class="card-body">
-                            <span class="badge badge-success mb-2">Buch</span>
-                            <h5 class="card-title">Mit Cuipsi den Mengen auf der Spur</h5>
-                            <p class="card-text">Didaktischer Leitfaden zur Einführung der Cuisenaire-Methode.</p>
-                        </div>
-                        <div class="card-footer d-flex justify-content-between align-items-center">
-                            <strong>24,99 €</strong>
-                            <button class="btn btn-primary btn-sm">In den Warenkorb</button>
-                        </div>
-                    </div>
-                </div>
-                
-
-                <!-- Verwandtes Produkt 2 -->
+                <!-- Produkt 1 -->
                 <div class="col-md-3 mb-4" data-category="arbeitsheft" data-product-id="1">
                     <div class="card h-100">
                         <img src="../pictures/workbook_1/workbook_1_1.jpg" class="card-img-top"
@@ -133,39 +133,57 @@
                         </div>
                         <div class="card-footer d-flex justify-content-between align-items-center">
                             <strong>9,99 €</strong>
-                            <button class="btn btn-primary btn-sm">In den Warenkorb</button>
+                            <a href="shopping-cart.html" class="btn btn-primary btn-sm">In den Warenkorb</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Verwandtes Produkt 3 -->
-                <div class="col-md-3 mb-4" data-category="arbeitsmaterial" data-product-id="6">
+                <!-- Produkt 2 -->
+                <div class="col-md-3 mb-4" data-category="arbeitsheft" data-product-id="2">
                     <div class="card h-100">
-                        <img src="../pictures/workmaterial_1/workmaterial_1_1.jpg" class="card-img-top" alt="Cuipsi Platten">
+                        <img src="../pictures/workbook_2/workbook_2_1.jpg" class="card-img-top" alt="Arbeitsheft ZR 20">
                         <div class="card-body">
-                            <span class="badge badge-warning mb-2">Arbeitsmaterial</span>
-                            <h5 class="card-title">Cuipsi Platten Set</h5>
-                            <p class="card-text">Die Cuispi-Platten aus Holz wurden neu entwickelt und erleichtern das operative Handeln im Zahlenraum bis 100.</p>
+                            <span class="badge badge-primary mb-2">Arbeitsheft</span>
+                            <h5 class="card-title">Arbeitsheft Zahlenraum 20</h5>
+                            <p class="card-text">Das Arbeitsheft für den ZR -20 enthält alle nötigen Schritte, um den ZR - 20 fundiert aufzubauen.</p>
                         </div>
                         <div class="card-footer d-flex justify-content-between align-items-center">
-                            <strong>13,99 €</strong>
-                            <button class="btn btn-primary btn-sm">In den Warenkorb</button>
+                            <strong>11,99 €</strong>
+                            <a href="shopping-cart.html" class="btn btn-primary btn-sm">In den Warenkorb</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Verwandtes Produkt 4 -->
-                <div class="col-md-3 mb-4" data-category="buch" data-product-id="9">
+                <!-- Produkt 3 -->
+                <div class="col-md-3 mb-4" data-category="arbeitsheft" data-product-id="3">
                     <div class="card h-100">
-                        <img src="../pictures/book_2/book_2_1.jpg" class="card-img-top" alt="Buch Zahlenraum 20">
+                        <img src="../pictures/workbook_3/workbook_3_1.jpg" class="card-img-top" alt="Arbeitsheft ZR 100">
                         <div class="card-body">
-                            <span class="badge badge-success mb-2">Buch</span>
-                            <h5 class="card-title">Mit Cuipsi Zahlenraum 20 entdecken</h5>
-                            <p class="card-text">Didaktischer Leitfaden zur Einführung des Zahlenraums bis 20.</p>
+                            <span class="badge badge-primary mb-2">Arbeitsheft</span>
+                            <h5 class="card-title">Arbeitsheft Zahlenraum 100</h5>
+                            <p class="card-text">Übungen und Aufgaben zum Rechnen im Zahlenraum bis 100. Ideal für
+                                Grundschüler.</p>
                         </div>
                         <div class="card-footer d-flex justify-content-between align-items-center">
-                            <strong>22,99 €</strong>
-                            <button class="btn btn-primary btn-sm">In den Warenkorb</button>
+                            <strong>12,49 €</strong>
+                            <a href="shopping-cart.html" class="btn btn-primary btn-sm">In den Warenkorb</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Produkt 4 -->
+                <div class="col-md-3 mb-4" data-category="arbeitsheft" data-product-id="4">
+                    <div class="card h-100">
+                        <img src="../pictures/workbook_4/workbook_4_1.png" class="card-img-top" alt="Arbeitsheft ZR 1000">
+                        <div class="card-body">
+                            <span class="badge badge-primary mb-2">Arbeitsheft</span>
+                            <h5 class="card-title">Arbeitsheft Zahlenraum 1000</h5>
+                            <p class="card-text">Übungen und Aufgaben zum Rechnen im Zahlenraum bis 1000 Perfekt für
+                                Drittklässler.</p>
+                        </div>
+                        <div class="card-footer d-flex justify-content-between align-items-center">
+                            <strong>11,99 €</strong>
+                            <a href="shopping-cart.html" class="btn btn-primary btn-sm">In den Warenkorb</a>
                         </div>
                     </div>
                 </div>
@@ -177,10 +195,9 @@
         <div class="container p-4">
             <p>Kontakt: <a href="mailto:info@erziehen-lernen-foerdern.de">info@erziehen-lernen-foerdern.de</a></p>
             <ul class="list-inline">
-                <li class="list-inline-item"><a href="#">Impressum</a></li>
-                <li class="list-inline-item"><a href="#">Liefer- und Zahlungsbedingungen</a></li>
-                <li class="list-inline-item"><a href="#">Datenschutz</a></li>
-                <li class="list-inline-item"><a href="#">Cookie-Richtlinien</a></li>
+                <li class="list-inline-item"><a href="imprint.html">Impressum</a></li>
+                <li class="list-inline-item"><a href="payment-terms.html">Liefer- und Zahlungsbedingungen</a></li>
+                <li class="list-inline-item"><a href="privacy-policy.html">Datenschutz</a></li>
             </ul>
         </div>
     </footer>
