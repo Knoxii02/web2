@@ -9,8 +9,56 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="../css/shop.css">
-
-
+    <style>
+        /* Make product cards elements more interactive */
+        .card-clickable:hover {
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+        
+        .card-title:hover {
+            color: #007bff;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        /* Ensure proper alignment in cards */
+        .card-body {
+            padding-bottom: 0.5rem;
+        }
+        
+        .card-footer {
+            background-color: white;
+            border-top: 1px solid rgba(0,0,0,.125);
+        }
+        
+        /* Add some nice hover effect */
+        .card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        /* Ensure the clickable areas show the right cursor */
+        .card-clickable {
+            cursor: pointer;
+        }
+        
+        /* Product image container for consistent height */
+        .product-img-container {
+            padding: 10px;
+            height: 200px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .product-img-container img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+    </style>
 </head>
 
 <body>
@@ -121,11 +169,10 @@
             if (existingItem) {
                 existingItem.quantity += 1;
             } else {
-                cart.push({ productId, quantity: 1 });
-            }
+                cart.push({ productId, quantity: 1 });            }
 
             saveCart(cart);
-            alert('Produkt wurde dem Warenkorb hinzugefügt!');
+            // Popup entfernt - keine Alert-Meldung mehr
         }
 
         document.addEventListener('DOMContentLoaded', async () => {
@@ -143,19 +190,20 @@
                     const filteredProducts = category === 'Alle' ? products : products.filter(product => product.category === category);
 
                     filteredProducts.forEach(product => {
-                        const badgeClass = getBadgeClass(product.category);
-                        const productHTML = `
-                            <div class="col-md-3 mb-4" data-category="${product.category}" data-product-id="${product.id}">
+                        const badgeClass = getBadgeClass(product.category);                        const productHTML = `
+                            <div class="col-md-3 mb-4" data-category="${product.category}" data-product-id="${product.id}" data-product-url="/product?id=${product.id}">
                                 <div class="card h-100">
-                                    <img src="../pictures/${product.image}" class="card-img-top" alt="${product.name}" onclick="window.location.href='product?id=${product.id}'">
-                                    <div class="card-body">
+                                    <div class="product-img-container card-clickable">
+                                        <img src="../pictures/${product.image}" class="card-img-top" alt="${product.name}">
+                                    </div>
+                                    <div class="card-body card-clickable d-flex flex-column">
                                         <span class="badge ${badgeClass} mb-2">${product.category}</span>
-                                        <a href="product?id=${product.id}" class="card-title text-decoration-none">${product.name}</a>
-                                        <p class="card-text">${product.description}</p>
+                                        <h5 class="card-title">${product.name}</h5>
+                                        <p class="card-text flex-grow-1">${product.description}</p>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between align-items-center">
                                         <strong>${product.price.toFixed(2)} €</strong>
-                                        <button class="btn btn-primary btn-sm" onclick="addToCart(${product.id})">In den Warenkorb</button>
+                                        <a href="/product?id=${product.id}" class="btn btn-primary btn-sm">Details</a>
                                     </div>
                                 </div>
                             </div>
@@ -165,9 +213,7 @@
                 }
 
                 // Initial render for all products
-                renderProducts('Alle');
-
-                // Add event listeners to dropdown items
+                renderProducts('Alle');                // Add event listeners to dropdown items
                 dropdownItems.forEach(item => {
                     item.addEventListener('click', (event) => {
                         event.preventDefault();
@@ -176,6 +222,33 @@
                         renderProducts(selectedCategory);
                     });
                 });
+                
+                // Make product cards clickable
+                function addClickEvents() {
+                    document.querySelectorAll('.col-md-3.mb-4').forEach(card => {
+                        const productURL = card.getAttribute('data-product-url');
+                        
+                        // Make the clickable elements redirect to product page
+                        card.querySelectorAll('.card-clickable').forEach(element => {
+                            element.style.cursor = 'pointer';
+                            element.addEventListener('click', () => {
+                                window.location.href = productURL;
+                            });
+                        });
+                        
+                        // Also make the card title clickable
+                        const cardTitle = card.querySelector('.card-title');
+                        if (cardTitle) {
+                            cardTitle.style.cursor = 'pointer';
+                            cardTitle.addEventListener('click', () => {
+                                window.location.href = productURL;
+                            });
+                        }
+                    });
+                }
+                
+                // Add click events after rendering products
+                setTimeout(addClickEvents, 100);
             } catch (error) {
                 console.error('Fehler beim Laden der Produkte:', error);
             }

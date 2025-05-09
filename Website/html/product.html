@@ -9,8 +9,56 @@
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/product.css">
-
+    <link rel="stylesheet" href="../css/product.css">    <style>
+        /* Make product cards elements more interactive */
+        .card-clickable:hover {
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+        
+        .card-title:hover {
+            color: #007bff;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        /* Ensure proper alignment in cards */
+        .card-body {
+            padding-bottom: 0.5rem;
+        }
+        
+        .card-footer {
+            background-color: white;
+            border-top: 1px solid rgba(0,0,0,.125);
+        }
+        
+        /* Add some nice hover effect */
+        .card:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        /* Ensure the clickable areas show the right cursor */
+        .card-clickable {
+            cursor: pointer;
+        }
+        
+        /* Product image container for consistent height */
+        .product-img-container {
+            padding: 10px;
+            height: 200px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .product-img-container img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+    </style>
 </head>
 
 <body>
@@ -127,74 +175,7 @@
     <div class="container mb-5 mt-5 pt-4">
         <h2 class="mb-4">Das könnte Sie auch interessieren</h2>
 
-        <div class="row">
-            <!-- Produkt 1 -->
-            <div class="col-md-3 mb-4" data-category="arbeitsheft" data-product-id="1">
-                <div class="card h-100">
-                    <img src="../pictures/workbook_1/workbook_1_1.jpg" class="card-img-top"
-                        alt="Arbeitsheft Pränumerik">
-                    <div class="card-body">
-                        <span class="badge badge-primary mb-2">Arbeitsheft</span>
-                        <h5 class="card-title">Arbeitsheft Pränumerik</h5>
-                        <p class="card-text">Übungen zur Vorbereitung auf den Umgang mit Zahlen.</p>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between align-items-center">
-                        <strong>9,99 €</strong>
-                        <button class="btn btn-primary btn-sm" onclick="addToCart(1)">In den Warenkorb</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Produkt 2 -->
-            <div class="col-md-3 mb-4" data-category="arbeitsheft" data-product-id="2">
-                <div class="card h-100">
-                    <img src="../pictures/workbook_2/workbook_2_1.jpg" class="card-img-top" alt="Arbeitsheft ZR 20">
-                    <div class="card-body">
-                        <span class="badge badge-primary mb-2">Arbeitsheft</span>
-                        <h5 class="card-title">Arbeitsheft Zahlenraum 20</h5>
-                        <p class="card-text">Das Arbeitsheft für den ZR -20 enthält alle nötigen Schritte, um den ZR - 20 fundiert aufzubauen.</p>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between align-items-center">
-                        <strong>11,99 €</strong>
-                        <button class="btn btn-primary btn-sm" onclick="addToCart(2)">In den Warenkorb</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Produkt 3 -->
-            <div class="col-md-3 mb-4" data-category="arbeitsheft" data-product-id="3">
-                <div class="card h-100">
-                    <img src="../pictures/workbook_3/workbook_3_1.jpg" class="card-img-top" alt="Arbeitsheft ZR 100">
-                    <div class="card-body">
-                        <span class="badge badge-primary mb-2">Arbeitsheft</span>
-                        <h5 class="card-title">Arbeitsheft Zahlenraum 100</h5>
-                        <p class="card-text">Übungen und Aufgaben zum Rechnen im Zahlenraum bis 100. Ideal für
-                            Grundschüler.</p>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between align-items-center">
-                        <strong>12,49 €</strong>
-                        <a href="/shopping-cart" class="btn btn-primary btn-sm">In den Warenkorb</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Produkt 4 -->
-            <div class="col-md-3 mb-4" data-category="arbeitsheft" data-product-id="4">
-                <div class="card h-100">
-                    <img src="../pictures/workbook_4/workbook_4_1.png" class="card-img-top" alt="Arbeitsheft ZR 1000">
-                    <div class="card-body">
-                        <span class="badge badge-primary mb-2">Arbeitsheft</span>
-                        <h5 class="card-title">Arbeitsheft Zahlenraum 1000</h5>
-                        <p class="card-text">Übungen und Aufgaben zum Rechnen im Zahlenraum bis 1000 Perfekt für
-                            Drittklässler.</p>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between align-items-center">
-                        <strong>11,99 €</strong>
-                        <a href="/shopping-cart" class="btn btn-primary btn-sm">In den Warenkorb</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div class="row"></div>
     </div>
 </div>
     <footer class="text-center text-lg-start mt-5">
@@ -267,11 +248,70 @@
                     existingItem.quantity += quantity;
                 } else {
                     cart.push({ productId, quantity });
-                }
-
-                localStorage.setItem('cart', JSON.stringify(cart));
-                alert(`${quantity} Produkt(e) wurde(n) zum Warenkorb hinzugefügt!`);
+                }                localStorage.setItem('cart', JSON.stringify(cart));
+                // Popup entfernt - keine Alert-Meldung mehr
             });
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('/api/products');
+                const products = await response.json();
+                
+                // Get current product ID
+                const urlParams = new URLSearchParams(window.location.search);
+                const currentProductId = parseInt(urlParams.get('id'), 10);
+
+                const relatedProductsContainer = document.querySelector('.container.mb-5.mt-5.pt-4 .row');
+                relatedProductsContainer.innerHTML = ''; // Clear existing static content
+                
+                // Filter out the current product and select 4 random products
+                const filteredProducts = products.filter(product => product.id !== currentProductId);
+                const randomProducts = filteredProducts.sort(() => 0.5 - Math.random()).slice(0, 4);                randomProducts.forEach(product => {
+                    const productURL = `/product?id=${product.id}`;                    const productHTML = `
+                        <div class="col-md-3 mb-4" data-category="${product.category}" data-product-id="${product.id}" data-product-url="${productURL}">
+                            <div class="card h-100">
+                                <div class="product-img-container card-clickable">
+                                    <img src="../pictures/${product.image}" class="card-img-top" alt="${product.name}">
+                                </div>
+                                <div class="card-body card-clickable d-flex flex-column">
+                                    <span class="badge badge-primary mb-2">${product.category}</span>
+                                    <h5 class="card-title">${product.name}</h5>
+                                    <p class="card-text flex-grow-1">${product.description}</p>
+                                </div>
+                                <div class="card-footer d-flex justify-content-between align-items-center">
+                                    <strong>${product.price.toFixed(2)} €</strong>
+                                    <a href="${productURL}" class="btn btn-primary btn-sm">Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    relatedProductsContainer.insertAdjacentHTML('beforeend', productHTML);
+                });                // Add click event to make product cards clickable just like in shopping cart
+                document.querySelectorAll('.col-md-3.mb-4').forEach(card => {
+                    const productURL = card.getAttribute('data-product-url');
+                    
+                    // Make the clickable elements redirect to product page
+                    card.querySelectorAll('.card-clickable').forEach(element => {
+                        element.style.cursor = 'pointer';
+                        element.addEventListener('click', () => {
+                            window.location.href = productURL;
+                        });
+                    });
+                    
+                    // Also make the card title clickable
+                    const cardTitle = card.querySelector('.card-title');
+                    if (cardTitle) {
+                        cardTitle.style.cursor = 'pointer';
+                        cardTitle.addEventListener('click', () => {
+                            window.location.href = productURL;
+                        });
+                    }
+                });
+            } catch (error) {
+                console.error('Fehler beim Laden der Produkte:', error);
+            }
         });
     </script>
 
