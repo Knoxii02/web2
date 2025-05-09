@@ -14,10 +14,10 @@
 
 <body>
     <nav class="navbar navbar-expand-md navbar-light fixed-top">
-        <a class="navbar-brand" href="index.html">Erziehen-Lernen-Fördern</a>
+        <a class="navbar-brand" href="/">Erziehen-Lernen-Fördern</a>
 
         <!-- Cart Icon moved outside collapse, before toggler -->
-        <a href="shopping-cart.html" class="cart-link nav-link ml-auto mr-3 order-md-last"> <!-- Use ml-auto to push right, mr-3 for spacing, order-md-last for large screens -->
+        <a href="/shopping-cart" class="cart-link nav-link ml-auto mr-3 order-md-last"> <!-- Use ml-auto to push right, mr-3 for spacing, order-md-last for large screens -->
             <i class="bi bi-cart cart-icon"></i>
         </a>
 
@@ -30,9 +30,9 @@
         <!-- Collapsible Content -->
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav mr-auto"> <!-- Nav links remain here -->
-                <a class="nav-link active" href="index.html">Home <span class="sr-only">(current)</span></a>
-                <a class="nav-link" href="shop.html">Shop</a>
-                <a class="nav-link" href="contact.html">Kontakt</a>
+                <a class="nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/shop">Shop</a>
+                <a class="nav-link" href="/contact">Kontakt</a>
             </div>
         </div>
     </nav>
@@ -109,88 +109,22 @@
         </div>
 
         <!-- Verwandte Produkte -->
-    <div class="container mb-5 mt-5 pt-4">
-        <h2 class="mb-4">Das könnte Sie auch interessieren</h2>
+        <div class="container mb-5 mt-5 pt-4">
+            <h2 class="mb-4">Das könnte Sie auch interessieren</h2>
 
-        <div class="row">
-            <!-- Produkt 1 -->
-            <div class="col-md-3 mb-4" data-category="arbeitsheft" data-product-id="1">
-                <div class="card h-100">
-                    <img src="../pictures/workbook_1/workbook_1_1.jpg" class="card-img-top"
-                        alt="Arbeitsheft Pränumerik">
-                    <div class="card-body">
-                        <span class="badge badge-primary mb-2">Arbeitsheft</span>
-                        <h5 class="card-title">Arbeitsheft Pränumerik</h5>
-                        <p class="card-text">Übungen zur Vorbereitung auf den Umgang mit Zahlen.</p>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between align-items-center">
-                        <strong>9,99 €</strong>
-                        <a href="shopping-cart.html" class="btn btn-primary btn-sm">In den Warenkorb</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Produkt 2 -->
-            <div class="col-md-3 mb-4" data-category="arbeitsheft" data-product-id="2">
-                <div class="card h-100">
-                    <img src="../pictures/workbook_2/workbook_2_1.jpg" class="card-img-top" alt="Arbeitsheft ZR 20">
-                    <div class="card-body">
-                        <span class="badge badge-primary mb-2">Arbeitsheft</span>
-                        <h5 class="card-title">Arbeitsheft Zahlenraum 20</h5>
-                        <p class="card-text">Das Arbeitsheft für den ZR -20 enthält alle nötigen Schritte, um den ZR - 20 fundiert aufzubauen.</p>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between align-items-center">
-                        <strong>11,99 €</strong>
-                        <a href="shopping-cart.html" class="btn btn-primary btn-sm">In den Warenkorb</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Produkt 3 -->
-            <div class="col-md-3 mb-4" data-category="arbeitsheft" data-product-id="3">
-                <div class="card h-100">
-                    <img src="../pictures/workbook_3/workbook_3_1.jpg" class="card-img-top" alt="Arbeitsheft ZR 100">
-                    <div class="card-body">
-                        <span class="badge badge-primary mb-2">Arbeitsheft</span>
-                        <h5 class="card-title">Arbeitsheft Zahlenraum 100</h5>
-                        <p class="card-text">Übungen und Aufgaben zum Rechnen im Zahlenraum bis 100. Ideal für
-                            Grundschüler.</p>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between align-items-center">
-                        <strong>12,49 €</strong>
-                        <a href="shopping-cart.html" class="btn btn-primary btn-sm">In den Warenkorb</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Produkt 4 -->
-            <div class="col-md-3 mb-4" data-category="arbeitsheft" data-product-id="4">
-                <div class="card h-100">
-                    <img src="../pictures/workbook_4/workbook_4_1.png" class="card-img-top" alt="Arbeitsheft ZR 1000">
-                    <div class="card-body">
-                        <span class="badge badge-primary mb-2">Arbeitsheft</span>
-                        <h5 class="card-title">Arbeitsheft Zahlenraum 1000</h5>
-                        <p class="card-text">Übungen und Aufgaben zum Rechnen im Zahlenraum bis 1000 Perfekt für
-                            Drittklässler.</p>
-                    </div>
-                    <div class="card-footer d-flex justify-content-between align-items-center">
-                        <strong>11,99 €</strong>
-                        <a href="shopping-cart.html" class="btn btn-primary btn-sm">In den Warenkorb</a>
-                    </div>
-                </div>
+            <div class="row featured-products">
+                <!-- Dynamically loaded products will appear here -->
             </div>
         </div>
     </div>
-</div>
 
-    </div>
     <footer class="text-center text-lg-start mt-5">
         <div class="container p-4">
             <p>Kontakt: <a href="mailto:info@erziehen-lernen-foerdern.de">info@erziehen-lernen-foerdern.de</a></p>
             <ul class="list-inline">
-                <li class="list-inline-item"><a href="imprint.html">Impressum</a></li>
-                <li class="list-inline-item"><a href="payment-terms.html">Liefer- und Zahlungsbedingungen</a></li>
-                <li class="list-inline-item"><a href="privacy-policy.html">Datenschutz</a></li>
+                <li class="list-inline-item"><a href="/imprint">Impressum</a></li>
+                <li class="list-inline-item"><a href="/payment-terms">Liefer- und Zahlungsbedingungen</a></li>
+                <li class="list-inline-item"><a href="/privacy-policy">Datenschutz</a></li>
             </ul>
         </div>
     </footer>
@@ -205,6 +139,37 @@
     
     <!-- Card Navigation Script -->
     <script src="../js/card-navigation.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('/api/products');
+                const products = await response.json();
+
+                const featuredContainer = document.querySelector('.featured-products');
+                featuredContainer.innerHTML = ''; // Clear existing static content
+
+                products.slice(0, 4).forEach(product => {
+                    const productHTML = `
+                        <div class="col-md-3 mb-4">
+                            <div class="card h-100">
+                                <img src="../pictures/${product.image}" class="card-img-top" alt="${product.name}">
+                                <div class="card-body">
+                                    <h5 class="card-title">${product.name}</h5>
+                                    <p class="card-text">${product.description}</p>
+                                    <button class="btn btn-primary" onclick="addToCart(${product.id})">In den Warenkorb</button>
+                                    <a href="/product?id=${product.id}" class="btn btn-secondary ml-2">Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    featuredContainer.insertAdjacentHTML('beforeend', productHTML);
+                });
+            } catch (error) {
+                console.error('Fehler beim Laden der Produkte:', error);
+            }
+        });
+    </script>
 </body>
 
 </html>

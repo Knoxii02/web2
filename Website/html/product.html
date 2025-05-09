@@ -15,10 +15,10 @@
 
 <body>
     <nav class="navbar navbar-expand-md navbar-light fixed-top">
-        <a class="navbar-brand" href="index.html">Erziehen-Lernen-Fördern</a>
+        <a class="navbar-brand" href="/">Erziehen-Lernen-Fördern</a>
 
         <!-- Cart Icon -->
-        <a href="shopping-cart.html" class="cart-link nav-link ml-auto mr-3 order-md-last">
+        <a href="/shopping-cart" class="cart-link nav-link ml-auto mr-3 order-md-last">
             <i class="bi bi-cart cart-icon"></i>
         </a>
 
@@ -31,9 +31,9 @@
         <!-- Collapsible Content -->
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav mr-auto">
-                <a class="nav-link" href="index.html">Home</a>
-                <a class="nav-link active" href="shop.html">Shop <span class="sr-only">(current)</span></a>
-                <a class="nav-link" href="contact.html">Kontakt</a>
+                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link active" href="/shop">Shop <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/contact">Kontakt</a>
             </div>
         </div>
     </nav>
@@ -99,7 +99,7 @@
                             </div>
                         </div>
 
-                        <a href="shopping-cart.html" class="btn btn-primary">
+                        <a href="/shopping-cart" class="btn btn-primary">
                             <i class="bi bi-cart mr-2"></i>In den Warenkorb
                         </a>
                     </div>
@@ -140,7 +140,7 @@
                     </div>
                     <div class="card-footer d-flex justify-content-between align-items-center">
                         <strong>9,99 €</strong>
-                        <a href="shopping-cart.html" class="btn btn-primary btn-sm">In den Warenkorb</a>
+                        <button class="btn btn-primary btn-sm" onclick="addToCart(1)">In den Warenkorb</button>
                     </div>
                 </div>
             </div>
@@ -156,7 +156,7 @@
                     </div>
                     <div class="card-footer d-flex justify-content-between align-items-center">
                         <strong>11,99 €</strong>
-                        <a href="shopping-cart.html" class="btn btn-primary btn-sm">In den Warenkorb</a>
+                        <button class="btn btn-primary btn-sm" onclick="addToCart(2)">In den Warenkorb</button>
                     </div>
                 </div>
             </div>
@@ -173,7 +173,7 @@
                     </div>
                     <div class="card-footer d-flex justify-content-between align-items-center">
                         <strong>12,49 €</strong>
-                        <a href="shopping-cart.html" class="btn btn-primary btn-sm">In den Warenkorb</a>
+                        <a href="/shopping-cart" class="btn btn-primary btn-sm">In den Warenkorb</a>
                     </div>
                 </div>
             </div>
@@ -190,7 +190,7 @@
                     </div>
                     <div class="card-footer d-flex justify-content-between align-items-center">
                         <strong>11,99 €</strong>
-                        <a href="shopping-cart.html" class="btn btn-primary btn-sm">In den Warenkorb</a>
+                        <a href="/shopping-cart" class="btn btn-primary btn-sm">In den Warenkorb</a>
                     </div>
                 </div>
             </div>
@@ -201,9 +201,9 @@
         <div class="container p-4">
             <p>Kontakt: <a href="mailto:info@erziehen-lernen-foerdern.de">info@erziehen-lernen-foerdern.de</a></p>
             <ul class="list-inline">
-                <li class="list-inline-item"><a href="imprint.html">Impressum</a></li>
-                <li class="list-inline-item"><a href="payment-terms.html">Liefer- und Zahlungsbedingungen</a></li>
-                <li class="list-inline-item"><a href="privacy-policy.html">Datenschutz</a></li>
+                <li class="list-inline-item"><a href="/imprint">Impressum</a></li>
+                <li class="list-inline-item"><a href="/payment-terms">Liefer- und Zahlungsbedingungen</a></li>
+                <li class="list-inline-item"><a href="/privacy-policy">Datenschutz</a></li>
             </ul>
         </div>
     </footer>
@@ -219,8 +219,62 @@
     <!-- Bildergalerie-Funktionalität -->
     <script src="../js/product.js"></script>
     <script src="../js/card-navigation.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+
+            if (!productId) {
+                console.error('Keine Produkt-ID in der URL gefunden.');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/products/${productId}`);
+                const product = await response.json();
+
+                // Update product details dynamically
+                document.querySelector('h1').textContent = product.name;
+                document.getElementById('mainProductImage').src = `../pictures/${product.image}`;
+                document.getElementById('productCategory').textContent = product.category;
+                document.getElementById('productPrice').textContent = `${product.price.toFixed(2)} €`;
+                document.getElementById('productDescription').textContent = product.description;
+            } catch (error) {
+                console.error('Fehler beim Laden des Produkts:', error);
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const addToCartButton = document.querySelector('.btn-primary');
+
+            addToCartButton.addEventListener('click', () => {
+                const urlParams = new URLSearchParams(window.location.search);
+                const productId = parseInt(urlParams.get('id'), 10);
+                const quantityInput = document.querySelector('#quantityInput'); // Assuming there's an input field with id 'quantityInput'
+                const quantity = parseInt(quantityInput?.value, 10) || 1; // Default to 1 if no input or invalid value
+
+                if (!productId) {
+                    console.error('Keine Produkt-ID gefunden.');
+                    return;
+                }
+
+                // Fetch cart from localStorage
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const existingItem = cart.find(item => item.productId === productId);
+
+                if (existingItem) {
+                    existingItem.quantity += quantity;
+                } else {
+                    cart.push({ productId, quantity });
+                }
+
+                localStorage.setItem('cart', JSON.stringify(cart));
+                alert(`${quantity} Produkt(e) wurde(n) zum Warenkorb hinzugefügt!`);
+            });
+        });
+    </script>
 
 </body>
 
 </html>
-``` 
