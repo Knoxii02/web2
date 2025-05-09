@@ -4,7 +4,7 @@
 
 ## Overview
 
-Die Erziehen-Lernen-Fördern E-Commerce Plattform ist ein Webshop-Projekt für den WEB-2 Kurs. Diese Plattform bietet einen Online-Shop für pädagogische Materialien, Arbeitshefte und Bücher zur Cuisenaire-Methode.
+Projekt für das WEBAnwendungen-2 Praktikum.
 
 ### Technologiestack
 - **Backend**: Node.js mit Express
