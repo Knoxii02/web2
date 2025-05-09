@@ -19,7 +19,7 @@ Projekt für das WEBAnwendungen-2 Praktikum.
 - [Node.js](https://nodejs.org/) (v14.x or higher)
 - [npm](https://www.npmjs.com/) (v6.x or higher)
 
-### Notwendige NPM Pakete
+### Notwendige NPM Pakete (siehe Installation)
 - **Express.js**: Web-Framework für Node.js
 - **SQLite3**: Leichtgewichtige SQL-Datenbank
 
