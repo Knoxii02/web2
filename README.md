@@ -40,6 +40,7 @@ Projekt für das WEBAnwendungen-2 Praktikum.
 
 3. Initialize the database:
    ```powershell
+   cd Website/db
    node initializeDatabase.js
    ```
 
@@ -47,6 +48,7 @@ Projekt für das WEBAnwendungen-2 Praktikum.
 
 Start the development server:
 ```powershell
+cd Website
 node server.js
 ```
 

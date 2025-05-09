@@ -3,10 +3,10 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
 const app = express();
-const db = new sqlite3.Database('./database.sqlite');
+const db = new sqlite3.Database('./db/database.sqlite');
 
-// Serve static files
-app.use(express.static(path.join(__dirname, 'Website')));
+// Serve static files from the current directory (Website folder)
+app.use(express.static(path.join(__dirname)));
 
 // API endpoint to fetch products
 app.get('/api/products', (req, res) => {
@@ -48,57 +48,57 @@ app.get('/api/cart', (req, res) => {
 
 // Serve the checkout page dynamically
 app.get('/checkout', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Website', 'html', 'checkout.html'));
+    res.sendFile(path.join(__dirname, 'html', 'checkout.html'));
 });
 
 // Serve the shop page dynamically
 app.get('/shop', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Website', 'html', 'shop.html'));
+    res.sendFile(path.join(__dirname, 'html', 'shop.html'));
 });
 
 // Serve the product page dynamically
 app.get('/product', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Website', 'html', 'product.html'));
+    res.sendFile(path.join(__dirname, 'html', 'product.html'));
 });
 
 // Serve the index page dynamically
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Website', 'html', 'index.html'));
+    res.sendFile(path.join(__dirname, 'html', 'index.html'));
 });
 
 // Serve the index page dynamically
 app.get('/index', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Website', 'html', 'index.html'));
+    res.sendFile(path.join(__dirname, 'html', 'index.html'));
 });
 
 // Serve the contact page dynamically
 app.get('/contact', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Website', 'html', 'contact.html'));
+    res.sendFile(path.join(__dirname, 'html', 'contact.html'));
 });
 
 // Serve the imprint page dynamically
 app.get('/imprint', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Website', 'html', 'imprint.html'));
+    res.sendFile(path.join(__dirname, 'html', 'imprint.html'));
 });
 
 // Serve the payment terms page dynamically
 app.get('/payment-terms', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Website', 'html', 'payment-terms.html'));
+    res.sendFile(path.join(__dirname, 'html', 'payment-terms.html'));
 });
 
 // Serve the privacy policy page dynamically
 app.get('/privacy-policy', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Website', 'html', 'privacy-policy.html'));
+    res.sendFile(path.join(__dirname, 'html', 'privacy-policy.html'));
 });
 
 // Serve the shopping cart page dynamically
 app.get('/shopping-cart', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Website', 'html', 'shopping-cart.html'));
+    res.sendFile(path.join(__dirname, 'html', 'shopping-cart.html'));
 });
 
 // Serve the confirmation page dynamically
 app.get('/confirmation', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Website', 'html', 'confirmation.html'));
+    res.sendFile(path.join(__dirname, 'html', 'confirmation.html'));
 });
 
 const PORT = 3000;
