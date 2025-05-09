@@ -1,38 +1,42 @@
 # Erziehen-Lernen-Fördern E-Commerce Platform
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
 
 ## Overview
 
-This is the codebase for the Erziehen-Lernen-Fördern e-commerce platform, an educational materials shop specializing in teaching resources, workbooks, and learning materials. The platform features a dynamic shopping cart system, product management, and a clean, responsive user interface.
+Die Erziehen-Lernen-Fördern E-Commerce Plattform ist ein Webshop-Projekt für den WEB-2 Kurs. Diese Plattform bietet einen Online-Shop für pädagogische Materialien, Arbeitshefte und Bücher zur Cuisenaire-Methode.
 
-## Features
+### Technologiestack
+- **Backend**: Node.js mit Express
+- **Datenbank**: SQLite3
+- **Frontend**: HTML, CSS, JavaScript mit Bootstrap 4
+- **Persistenz**: LocalStorage für Warenkorbdaten
 
-- Responsive design for all devices
-- Dynamic product catalog with search and filters
-- Interactive product pages with image galleries
-- Shopping cart with persistent local storage
-- Checkout process with order management
-- Consistent UI/UX across all pages
+
 
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/) (v14.x or higher)
 - [npm](https://www.npmjs.com/) (v6.x or higher)
 
+### Notwendige NPM Pakete
+- **Express.js**: Web-Framework für Node.js
+- **SQLite3**: Leichtgewichtige SQL-Datenbank
+
 ## Installation
 
 1. Clone the repository:
    ```powershell
-   git clone https://github.com/your-repo/web2.git
+   git clone https://github.com/Knoxii02/web2.git
    cd web2
    ```
 
-2. Install dependencies:
+2. Install required dependencies:
    ```powershell
-   npm install
+   npm install express sqlite3
    ```
+
+   Dieses Projekt benötigt Express.js als Web-Framework und SQLite3 für die Datenbankfunktionalität. Beide werden mit dem obigen Befehl installiert.
 
 3. Initialize the database:
    ```powershell
@@ -46,13 +50,8 @@ Start the development server:
 node server.js
 ```
 
-The application will be available at `http://localhost:3000`.
+The application will be available at `http://localhost:3000/index`.
 
-For production environments, consider using a process manager like PM2:
-```powershell
-npm install -g pm2
-pm2 start server.js --name "elf-shop"
-```
 
 ## Project Structure
 
@@ -69,28 +68,3 @@ pm2 start server.js --name "elf-shop"
 - `GET /api/products` - Returns all products
 - `GET /api/products/:id` - Returns a specific product by ID
 - `POST /api/orders` - Creates a new order
-
-## Development
-
-The site uses vanilla JavaScript with Bootstrap 4 for styling. The server is built on Node.js with Express.
-
-To modify the product database:
-```powershell
-node initializeDatabase.js
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Contact
-
-Project Maintainer - [Your Name](mailto:your.email@example.com)
