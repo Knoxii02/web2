@@ -1,6 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./database.sqlite');
-
+const path = require('path');
+const db = new sqlite3.Database(path.join(__dirname, 'db', 'database.sqlite'));
 db.serialize(() => {
     // Create products table
     db.run(`CREATE TABLE IF NOT EXISTS products (

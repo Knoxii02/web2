@@ -40,7 +40,7 @@ Projekt für das WEBAnwendungen-2 Praktikum.
 
 3. Initialize the database:
    ```powershell
-   cd Website/db
+   cd Website
    node initializeDatabase.js
    ```
 
