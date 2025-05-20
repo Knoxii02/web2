@@ -71,6 +71,11 @@ app.get('/index', (req, res) => {
     res.sendFile(path.join(__dirname, 'html', 'index.html'));
 });
 
+// Serve the index page dynamically
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'html', 'index.html'));
+});
+
 // Serve the contact page dynamically
 app.get('/contact', (req, res) => {
     res.sendFile(path.join(__dirname, 'html', 'contact.html'));
