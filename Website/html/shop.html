@@ -192,14 +192,12 @@
                     filteredProducts.forEach(product => {
                         const badgeClass = getBadgeClass(product.category);                        const productHTML = `
                             <div class="col-md-3 mb-4" data-category="${product.category}" data-product-id="${product.id}" data-product-url="/product?id=${product.id}">
-                                <div class="card h-100">
-                                    <div class="product-img-container card-clickable">
-                                        <img src="../pictures/${product.image}" class="card-img-top" alt="${product.name}">
+                                <div class="card h-100">                                    <div class="product-img-container card-clickable">
+                                        <img src="../pictures/${product.image_folder}/${product.firstImage}" class="card-img-top" alt="${product.name}">
                                     </div>
-                                    <div class="card-body card-clickable d-flex flex-column">
-                                        <span class="badge ${badgeClass} mb-2">${product.category}</span>
+                                    <div class="card-body card-clickable d-flex flex-column">                                        <span class="badge ${badgeClass} mb-2">${product.category}</span>
                                         <h5 class="card-title">${product.name}</h5>
-                                        <p class="card-text flex-grow-1">${product.short_description}</p>
+                                        <p class="card-text flex-grow-1">${product.short_description || product.long_description}</p>
                                     </div>
                                     <div class="card-footer d-flex justify-content-between align-items-center">
                                         <strong>${product.price.toFixed(2)} €</strong>

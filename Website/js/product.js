@@ -1,18 +1,11 @@
-// Product images array
-const productImages = [
-    "../pictures/book_1/book_1_1.jpg",
-    "../pictures/book_1/book_1_2.jpg",
-    "../pictures/book_1/book_1_3.jpg",
-    "../pictures/book_1/book_1_4.jpg"
-];
+// Dynamic product images array - will be populated from API
+let productImages = [];
 
 // Current image index tracker
 let currentImageIndex = 0;
 
-// Load the first image when the page loads
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('mainProductImage').src = productImages[0];
-});
+// The productImages array will be populated in the product.html script that fetches the product data
+// No need to load the first image here as it's handled in product.html
 
 // Navigation functions for the image gallery
 function nextImage() {

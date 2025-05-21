@@ -207,18 +207,31 @@
             if (!productId) {
                 console.error('Keine Produkt-ID in der URL gefunden.');
                 return;
-            }
-
-            try {
+            }            try {
                 const response = await fetch(`/api/products/${productId}`);
-                const product = await response.json();
-
-                // Update product details dynamically
+                const product = await response.json();                // Update product details dynamically
                 document.querySelector('h1').textContent = product.name;
-                document.getElementById('mainProductImage').src = `../pictures/${product.image}`;
+                document.getElementById('mainProductImage').src = `../pictures/${product.image_folder}/${product.firstImage}`;
                 document.getElementById('productCategory').textContent = product.category;
                 document.getElementById('productPrice').textContent = `${product.price.toFixed(2)} €`;
-                document.getElementById('productDescription').textContent = product.description;
+                document.getElementById('productDescription').textContent = product.long_description;
+                  // Populate the productImages array for the gallery
+                try {
+                    const folderPath = `../pictures/${product.image_folder}`;
+                    const imagesResponse = await fetch(`/api/products/images/${product.image_folder}`);
+                    
+                    if (imagesResponse.ok) {
+                        const imageData = await imagesResponse.json();
+                        productImages = imageData.images.map(imagePath => `../pictures/${imagePath}`);
+                    } else {
+                        // Fallback to just the first image if we can't get all images
+                        productImages = [`${folderPath}/${product.firstImage}`];
+                    }
+                } catch (imageError) {
+                    console.error('Error loading product images:', imageError);
+                    // Fallback to just the first image if there's an error
+                    productImages = [`${folderPath}/${product.firstImage}`];
+                }
             } catch (error) {
                 console.error('Fehler beim Laden des Produkts:', error);
             }
@@ -272,12 +285,12 @@
                         <div class="col-md-3 mb-4" data-category="${product.category}" data-product-id="${product.id}" data-product-url="${productURL}">
                             <div class="card h-100">
                                 <div class="product-img-container card-clickable">
-                                    <img src="../pictures/${product.image}" class="card-img-top" alt="${product.name}">
+                                    <img src="../pictures/${product.image_folder}/${product.firstImage}" class="card-img-top" alt="${product.name}">
                                 </div>
                                 <div class="card-body card-clickable d-flex flex-column">
                                     <span class="badge badge-primary mb-2">${product.category}</span>
                                     <h5 class="card-title">${product.name}</h5>
-                                    <p class="card-text flex-grow-1">${product.description}</p>
+                                    <p class="card-text flex-grow-1">${product.short_description || product.long_description}</p>
                                 </div>
                                 <div class="card-footer d-flex justify-content-between align-items-center">
                                     <strong>${product.price.toFixed(2)} €</strong>

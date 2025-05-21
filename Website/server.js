@@ -1,12 +1,34 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 const db = new sqlite3.Database('./db/database.sqlite');
 
 // Serve static files from the current directory (Website folder)
 app.use(express.static(path.join(__dirname)));
+
+// Function to get first image alphabetically from a folder
+function getFirstImageInFolder(folderName) {
+    try {
+        const folderPath = path.join(__dirname, 'pictures', folderName);
+        
+        // Read directory contents
+        const files = fs.readdirSync(folderPath);
+        
+        // Filter for image files and sort alphabetically
+        const imageFiles = files
+            .filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file))
+            .sort();
+        
+        // Return first image or null if none found
+        return imageFiles.length > 0 ? imageFiles[0] : null;
+    } catch (error) {
+        console.error(`Error finding images in ${folderName}:`, error);
+        return null;
+    }
+}
 
 // API endpoint to fetch products
 app.get('/api/products', (req, res) => {
@@ -15,7 +37,16 @@ app.get('/api/products', (req, res) => {
             res.status(500).json({ error: err.message });
             return;
         }
-        res.json(rows);
+        
+        // Add firstImage to each product
+        const productsWithImages = rows.map(product => {
+            return {
+                ...product,
+                firstImage: getFirstImageInFolder(product.image_folder)
+            };
+        });
+        
+        res.json(productsWithImages);
     });
 });
 
@@ -31,8 +62,51 @@ app.get('/api/products/:id', (req, res) => {
             res.status(404).json({ error: 'Produkt nicht gefunden' });
             return;
         }
+        
+        // Add firstImage to product
+        row.firstImage = getFirstImageInFolder(row.image_folder);
         res.json(row);
     });
+});
+
+// Endpoint to get the first image from a folder
+app.get('/api/products/firstImage/:folder', (req, res) => {
+  const folderName = req.params.folder;
+  const firstImage = getFirstImageInFolder(folderName);
+  
+  if (firstImage) {
+    res.json({ imagePath: `${folderName}/${firstImage}` });
+  } else {
+    res.status(404).json({ error: 'No images found' });
+  }
+});
+
+// New endpoint to get all images from a folder
+app.get('/api/products/images/:folder', (req, res) => {
+  const folderName = req.params.folder;
+  
+  try {
+    const folderPath = path.join(__dirname, 'pictures', folderName);
+    
+    // Read directory contents
+    const files = fs.readdirSync(folderPath);
+    
+    // Filter for image files and sort alphabetically
+    const imageFiles = files
+      .filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file))
+      .sort();
+    
+    if (imageFiles.length > 0) {
+      // Return all image paths
+      const imagePaths = imageFiles.map(file => `${folderName}/${file}`);
+      res.json({ images: imagePaths });
+    } else {
+      res.status(404).json({ error: 'No images found' });
+    }
+  } catch (error) {
+    console.error(`Error finding images in ${folderName}:`, error);
+    res.status(500).json({ error: 'Error accessing image folder' });
+  }
 });
 
 // API endpoint to fetch cart items
