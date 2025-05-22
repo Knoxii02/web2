@@ -39,7 +39,7 @@ async function loadAndDisplayRelatedProducts(containerId, excludeProductId = nul
                             <p class="card-text flex-grow-1">${product.short_description}</p>
                         </div>
                         <div class="card-footer d-flex justify-content-between align-items-center">
-                            <strong>${product.price.toFixed(2)} €</strong>
+                            <strong>${(product.price * 1.07).toFixed(2)} €</strong>
                             <a href="${productURL}" class="btn btn-primary btn-sm">Details</a>
                         </div>
                     </div>

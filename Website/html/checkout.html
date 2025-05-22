@@ -278,28 +278,34 @@
                 const response = await fetch('/api/products');
                 const products = await response.json();
 
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
                 const productContainer = document.querySelector('.card-body');
-                productContainer.innerHTML = ''; // Clear existing static content
+                productContainer.innerHTML = '';
 
                 let subtotal = 0;
 
-                products.forEach(product => {
-                    const productHTML = `
-                        <h6 class="my-0">${product.name}</h6>
-                        <small class="text-muted">1 Stück</small>
-                        <div class="mt-2 mb-2"></div>
-                    `;
-                    productContainer.insertAdjacentHTML('beforeend', productHTML);
-                    subtotal += product.price;
+                cart.forEach(item => {
+                    const product = products.find(p => p.id === item.productId);
+                    if (product) {
+                        const productHTML = `
+                            <h6 class="my-0">${product.name}</h6>
+                            <small class="text-muted">${item.quantity} Stück</small>
+                            <div class="mt-2 mb-2"></div>
+                        `;
+                        productContainer.insertAdjacentHTML('beforeend', productHTML);
+                        subtotal += product.price * item.quantity;
+                    }
                 });
 
-                const shippingCost = 4.95;
-                const total = subtotal + shippingCost;
+                const shippingCost = 5.95;
+                const tax = subtotal * 0.07;
+                const total = subtotal + tax + shippingCost;
 
                 productContainer.insertAdjacentHTML('beforeend', `
                     <div class="d-flex justify-content-between mt-3 mb-2">
                         <span>Zwischensumme:</span>
-                        <span>${subtotal.toFixed(2)} €</span>
+                        <span>${(subtotal * 1.07).toFixed(2)} €</span>
                     </div>
                     <div class="d-flex justify-content-between mb-2">
                         <span>Versandkosten:</span>
@@ -311,7 +317,7 @@
                         <strong>${total.toFixed(2)} €</strong>
                     </div>
                     <div class="text-right">
-                        <small class="text-muted">enthält 7% MwSt.: ${(total * 0.07).toFixed(2)} €</small>
+                        <small class="text-muted">enthält 7% MwSt.: ${tax.toFixed(2)} €</small>
                     </div>
                 `);
             } catch (error) {

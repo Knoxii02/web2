@@ -162,7 +162,7 @@
                 document.querySelector('h1').textContent = product.name;
                 document.getElementById('mainProductImage').src = `../pictures/${product.image_folder}/${product.firstImage}`;
                 document.getElementById('productCategory').textContent = product.category;
-                document.getElementById('productPrice').textContent = `${product.price.toFixed(2)} €`;
+                document.getElementById('productPrice').textContent = `${(product.price * 1.07).toFixed(2)} €`;
 
                 const descriptionElement = document.getElementById('productDescription');
                 if (product.long_description) {
