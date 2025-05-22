@@ -9,40 +9,41 @@
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/product.css">    <style>
+    <link rel="stylesheet" href="../css/product.css">
+    <style>
         /* Make product cards elements more interactive */
         .card-clickable:hover {
             opacity: 0.9;
             transition: opacity 0.3s ease;
         }
-        
+
         .card-title:hover {
             color: #007bff;
             cursor: pointer;
             transition: color 0.3s ease;
         }
-        
+
         /* Ensure proper alignment in cards */
         .card-body {
             padding-bottom: 0.5rem;
         }
-        
+
         .card-footer {
             background-color: white;
-            border-top: 1px solid rgba(0,0,0,.125);
+            border-top: 1px solid rgba(0, 0, 0, .125);
         }
-        
+
         /* Add some nice hover effect */
         .card:hover {
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             transition: box-shadow 0.3s ease;
         }
-        
+
         /* Ensure the clickable areas show the right cursor */
         .card-clickable {
             cursor: pointer;
         }
-        
+
         /* Product image container for consistent height */
         .product-img-container {
             padding: 10px;
@@ -52,7 +53,7 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .product-img-container img {
             max-height: 100%;
             max-width: 100%;
@@ -87,19 +88,20 @@
     </nav>
 
     <!-- Page Content Wrapper -->
-    <div class="page-content">
-        <!-- Produktbereich -->
+    <div class="page-content"> <!-- Produktbereich -->
         <div class="container" style="margin-top: 120px;">
-            <!-- Produktname -->
-            <h1 class="mb-4">Mit Cuipsi den Mengen auf der Spur</h1>
+            <!-- Produktname - wird dynamisch geladen -->
+            <h1 class="mb-4"></h1>
 
             <div class="row">
-                <!-- Produktbild mit Galerie -->
+                <!-- Produktbild mit Galerie - wird dynamisch geladen -->
                 <div class="col-md-6 mb-4">
                     <div class="position-relative"
                         style="height: 400px; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center;">
-                        <img id="mainProductImage" src="../pictures/book_1/book_1_1.jpg" alt="Produktbild"
-                            class="img-fluid" style="max-height: 100%; max-width: 100%; object-fit: contain;">
+                        <img id="mainProductImage"
+                            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                            alt="Produktbild" class="img-fluid"
+                            style="max-height: 100%; max-width: 100%; object-fit: contain;">
 
                         <!-- Navigationspfeile mit festen Positionen -->
                         <button
@@ -116,22 +118,22 @@
                         </button>
                     </div>
                 </div>
-                
+
                 <!-- Produktinfo rechts -->
                 <div class="col-md-6">
-                    <!-- Kategorie -->
+                    <!-- Kategorie - wird dynamisch geladen -->
                     <div class="mb-3">
-                        <span class="badge badge-success" id="productCategory">Buch</span>
+                        <span class="badge badge-success" id="productCategory"></span>
                     </div>
-                    
+
                     <!-- Lieferbarkeit -->
                     <div class="mb-4">
                         <h5 class="text-success" id="deliveryInfo">Lieferbar</h5>
                     </div>
 
-                    <!-- Preis -->
+                    <!-- Preis - wird dynamisch geladen -->
                     <div class="mb-4">
-                        <h3 id="productPrice">24,95 €</h3>
+                        <h3 id="productPrice"></h3>
                         <small>inkl. 7% MwSt.</small>
                     </div>
 
@@ -147,26 +149,16 @@
                             </div>
                         </div>
 
-                        <a href="/shopping-cart" class="btn btn-primary">
+                        <button class="btn btn-primary" id="addToCartButton">
                             <i class="bi bi-cart mr-2"></i>In den Warenkorb
-                        </a>
+                        </button>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Produktbeschreibung unterhalb des Bildes -->
+            </div> <!-- Produktbeschreibung unterhalb des Bildes - wird dynamisch geladen -->
             <div class="row mt-4">
                 <div class="col-12">
                     <h4>Beschreibung</h4>
-                    <p id="productDescription">Dieser praxisorientierte Ratgeber bietet Ihnen bewährte Methoden für eine erfolgreiche mathematische Bildung. Der Leitfaden zur Einführung der Cuisenaire-Methode unterstützt Sie dabei, Kindern einen anschaulichen Zugang zu mathematischen Konzepten zu vermitteln.</p>
-                    <p>Das Werk "Mit Cuipsi den Mengen auf der Spur" ist ideal für Lehrkräfte, Erzieher/innen und alle, die mit Kindern im Bereich der mathematischen Frühförderung arbeiten.</p>
-                    <p>Der didaktische Leitfaden bietet:</p>
-                    <ul>
-                        <li>Praxisnahe Übungen und Aktivitäten für den Mathematikunterricht</li>
-                        <li>Anschauliche Beispiele zum Einsatz der Cuisenaire-Stäbe</li>
-                        <li>Systematisch aufbauendes Curriculum für den Anfangsunterricht</li>
-                        <li>Differenzierte Materialien für die individuelle Förderung</li>
-                    </ul>
+                    <div id="productDescription"></div>
                 </div>
             </div>
         </div>
@@ -206,20 +198,37 @@
 
             if (!productId) {
                 console.error('Keine Produkt-ID in der URL gefunden.');
-                return;
-            }            try {
+                return;            } try {
                 const response = await fetch(`/api/products/${productId}`);
-                const product = await response.json();                // Update product details dynamically
+                const product = await response.json();
+                
+                // Update product details dynamically
                 document.querySelector('h1').textContent = product.name;
                 document.getElementById('mainProductImage').src = `../pictures/${product.image_folder}/${product.firstImage}`;
                 document.getElementById('productCategory').textContent = product.category;
                 document.getElementById('productPrice').textContent = `${product.price.toFixed(2)} €`;
-                document.getElementById('productDescription').textContent = product.long_description;
-                  // Populate the productImages array for the gallery
+
+                // Produktbeschreibung formatiert einfügen
+                const descriptionElement = document.getElementById('productDescription');
+                if (product.long_description) {
+                    // Text in Absätze aufteilen und als separate <p>-Elemente einfügen
+                    const paragraphs = product.long_description.split('\n').filter(p => p.trim() !== '');
+                    descriptionElement.innerHTML = '';
+
+                    paragraphs.forEach(paragraph => {
+                        const p = document.createElement('p');
+                        p.textContent = paragraph;
+                        descriptionElement.appendChild(p);
+                    });
+                } else {
+                    descriptionElement.innerHTML = '<p>Keine Beschreibung verfügbar</p>';
+                }
+
+                // Populate the productImages array for the gallery
                 try {
                     const folderPath = `../pictures/${product.image_folder}`;
                     const imagesResponse = await fetch(`/api/products/images/${product.image_folder}`);
-                    
+
                     if (imagesResponse.ok) {
                         const imageData = await imagesResponse.json();
                         productImages = imageData.images.map(imagePath => `../pictures/${imagePath}`);
@@ -239,12 +248,12 @@
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const addToCartButton = document.querySelector('.btn-primary');
+            const addToCartButton = document.getElementById('addToCartButton');
 
             addToCartButton.addEventListener('click', () => {
                 const urlParams = new URLSearchParams(window.location.search);
                 const productId = parseInt(urlParams.get('id'), 10);
-                const quantityInput = document.querySelector('#quantityInput'); // Assuming there's an input field with id 'quantityInput'
+                const quantityInput = document.querySelector('#quantityInput');
                 const quantity = parseInt(quantityInput?.value, 10) || 1; // Default to 1 if no input or invalid value
 
                 if (!productId) {
@@ -260,8 +269,21 @@
                     existingItem.quantity += quantity;
                 } else {
                     cart.push({ productId, quantity });
-                }                localStorage.setItem('cart', JSON.stringify(cart));
-                // Popup entfernt - keine Alert-Meldung mehr
+                }
+                localStorage.setItem('cart', JSON.stringify(cart));
+
+                // Feedback für den Benutzer, dass das Produkt zum Warenkorb hinzugefügt wurde
+                const btnOriginalText = addToCartButton.innerHTML;
+                addToCartButton.innerHTML = '<i class="bi bi-check"></i> Hinzugefügt';
+                addToCartButton.classList.add('btn-success');
+                addToCartButton.classList.remove('btn-primary');
+
+                // Nach 2 Sekunden Button zurücksetzen
+                setTimeout(() => {
+                    addToCartButton.innerHTML = btnOriginalText;
+                    addToCartButton.classList.remove('btn-success');
+                    addToCartButton.classList.add('btn-primary');
+                }, 2000);
             });
         });
     </script>
@@ -270,18 +292,18 @@
             try {
                 const response = await fetch('/api/products');
                 const products = await response.json();
-                
+
                 // Get current product ID
                 const urlParams = new URLSearchParams(window.location.search);
                 const currentProductId = parseInt(urlParams.get('id'), 10);
 
                 const relatedProductsContainer = document.querySelector('.container.mb-5.mt-5.pt-4 .row');
                 relatedProductsContainer.innerHTML = ''; // Clear existing static content
-                
+
                 // Filter out the current product and select 4 random products
                 const filteredProducts = products.filter(product => product.id !== currentProductId);
-                const randomProducts = filteredProducts.sort(() => 0.5 - Math.random()).slice(0, 4);                randomProducts.forEach(product => {
-                    const productURL = `/product?id=${product.id}`;                    const productHTML = `
+                const randomProducts = filteredProducts.sort(() => 0.5 - Math.random()).slice(0, 4); randomProducts.forEach(product => {
+                    const productURL = `/product?id=${product.id}`; const productHTML = `
                         <div class="col-md-3 mb-4" data-category="${product.category}" data-product-id="${product.id}" data-product-url="${productURL}">
                             <div class="card h-100">
                                 <div class="product-img-container card-clickable">
@@ -303,7 +325,7 @@
                 });                // Add click event to make product cards clickable just like in shopping cart
                 document.querySelectorAll('.col-md-3.mb-4').forEach(card => {
                     const productURL = card.getAttribute('data-product-url');
-                    
+
                     // Make the clickable elements redirect to product page
                     card.querySelectorAll('.card-clickable').forEach(element => {
                         element.style.cursor = 'pointer';
@@ -311,7 +333,7 @@
                             window.location.href = productURL;
                         });
                     });
-                    
+
                     // Also make the card title clickable
                     const cardTitle = card.querySelector('.card-title');
                     if (cardTitle) {
