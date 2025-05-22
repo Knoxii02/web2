@@ -9,10 +9,7 @@
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/product.css"> <!-- Product card styles have been moved to base.css -->
-    <style>
-        /* Add any specific styles for product.html here */
-    </style>
+    <link rel="stylesheet" href="../css/product.css">
 </head>
 
 <body>
@@ -76,7 +73,6 @@
 
                 <!-- Produktinfo rechts -->
                 <div class="col-md-6">
-                    <!-- Kategorie - wird dynamisch geladen -->
                     <div class="mb-3">
                         <span class="badge badge-success" id="productCategory"></span>
                     </div>
@@ -121,7 +117,7 @@
         </div>
     </div>
     
-    <!-- Verwandte Produkte -->
+    <!-- Das könnte Sie auch interessieren -->
     <div class="container mb-5 mt-5 pt-4">
         <h2 class="mb-4">Das könnte Sie auch interessieren</h2>
 
@@ -140,15 +136,12 @@
         </div>
     </footer>
 
-    <!-- Scripts für Bootstrap-Funktionalität -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
         crossorigin="anonymous"></script>
-        
-    <!-- Scripts für Produktseiten-Funktionalität -->
     <script src="../js/product.js"></script>
     <script src="../js/card-navigation.js"></script>
     <script src="../js/related-products.js"></script>
@@ -166,7 +159,7 @@
                 const response = await fetch(`/api/products/${productId}`);
                 const product = await response.json();
 
-                // Update product details dynamically
+                // Dynamische Inhalte setzen
                 document.querySelector('h1').textContent = product.name;
                 document.getElementById('mainProductImage').src = `../pictures/${product.image_folder}/${product.firstImage}`;
                 document.getElementById('productCategory').textContent = product.category;
@@ -188,7 +181,6 @@
                     descriptionElement.innerHTML = '<p>Keine Beschreibung verfügbar</p>';
                 }
 
-                // Populate the productImages array for the gallery
                 try {
                     const folderPath = `../pictures/${product.image_folder}`;
                     const imagesResponse = await fetch(`/api/products/images/${product.image_folder}`);
@@ -197,12 +189,10 @@
                         const imageData = await imagesResponse.json();
                         productImages = imageData.images.map(imagePath => `../pictures/${imagePath}`);
                     } else {
-                        // Fallback to just the first image if we can't get all images
                         productImages = [`${folderPath}/${product.firstImage}`];
                     }
                 } catch (imageError) {
                     console.error('Error loading product images:', imageError);
-                    // Fallback to just the first image if there's an error
                     productImages = [`${folderPath}/${product.firstImage}`];
                 }
             } catch (error) {
@@ -210,6 +200,8 @@
             }
         });
     </script>
+
+    <!-- Warenkorb-Funktionalität Script-->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const addToCartButton = document.getElementById('addToCartButton');
@@ -251,12 +243,12 @@
             });
         });
     </script>
+    <!-- Das könnte Sie auch interessieren Script-->
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const urlParams = new URLSearchParams(window.location.search);
             const productId = parseInt(urlParams.get('id'), 10);
 
-            // Verwandte Produkte laden - aktuelles Produkt ausschließen
             if (productId) {
                 loadAndDisplayRelatedProducts('related-products-container', productId);
             } else {

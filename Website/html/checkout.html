@@ -234,7 +234,7 @@
                         } else {
                             // Wenn das Formular gültig ist, zur Bestätigungsseite weiterleiten
                             event.preventDefault();
-                            window.location.href = 'confirmation.html';
+                            window.location.href = '/confirmation';
                         }
                         form.classList.add('was-validated');
                     }, false);
@@ -262,7 +262,7 @@
                 const form = document.querySelector('.needs-validation');
                 if (form.checkValidity()) {
                     // Formular ist gültig, zur Bestätigungsseite weiterleiten
-                    window.location.href = 'confirmation.html';
+                    window.location.href = '/confirmation';
                 } else {
                     // Formular-Validierung anzeigen
                     form.classList.add('was-validated');
