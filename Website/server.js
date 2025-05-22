@@ -109,16 +109,8 @@ app.get('/api/products/images/:folder', (req, res) => {
   }
 });
 
-// API endpoint to fetch cart items
-app.get('/api/cart', (req, res) => {
-    db.all('SELECT * FROM cart', [], (err, rows) => {
-        if (err) {
-            res.status(500).json({ error: err.message });
-            return;
-        }
-        res.json(rows);
-    });
-});
+// Hinweis: Die Cart-API wurde entfernt, da die Warenkorb-Funktionalität jetzt ausschließlich
+// mit localStorage im Client umgesetzt ist.
 
 // Serve the checkout page dynamically
 app.get('/checkout', (req, res) => {

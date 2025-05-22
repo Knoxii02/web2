@@ -8,56 +8,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/index.css">
-    <style>
-        /* Make product cards elements more interactive */
-        .card-clickable:hover {
-            opacity: 0.9;
-            transition: opacity 0.3s ease;
-        }
-        
-        .card-title:hover {
-            color: #007bff;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-        
-        /* Ensure proper alignment in cards */
-        .card-body {
-            padding-bottom: 0.5rem;
-        }
-        
-        .card-footer {
-            background-color: white;
-            border-top: 1px solid rgba(0,0,0,.125);
-        }
-        
-        /* Add some nice hover effect */
-        .card:hover {
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            transition: box-shadow 0.3s ease;
-        }
-        
-        /* Ensure the clickable areas show the right cursor */
-        .card-clickable {
-            cursor: pointer;
-        }
-        
-        /* Product image container for consistent height */
-        .product-img-container {
-            padding: 10px;
-            height: 200px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .product-img-container img {
-            max-height: 100%;
-            max-width: 100%;
-            object-fit: contain;
-        }
+    <link rel="stylesheet" href="../css/index.css">    <style>
+        /* Andere Styles wurden in base.css verschoben */
     </style>
 </head>
 
@@ -155,16 +107,13 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>        <!-- Verwandte Produkte -->
+        
+    </div>
+    <div class="container mb-5 mt-5 pt-4">
+        <h2 class="mb-4">Das könnte Sie auch interessieren</h2>
 
-        <!-- Verwandte Produkte -->
-        <div class="container mb-5 mt-5 pt-4">
-            <h2 class="mb-4">Das könnte Sie auch interessieren</h2>
-
-            <div class="row featured-products">
-                <!-- Dynamically loaded products will appear here -->
-            </div>
-        </div>
+        <div class="row" id="related-products-container"></div>
     </div>
 
     <footer class="text-center text-lg-start mt-5">
@@ -176,9 +125,7 @@
                 <li class="list-inline-item"><a href="/privacy-policy">Datenschutz</a></li>
             </ul>
         </div>
-    </footer>
-
-    <!-- Bootstrap JavaScript -->
+    </footer>    <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -186,83 +133,12 @@
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
         crossorigin="anonymous"></script>
     
-    <!-- Card Navigation Script -->
+    <!-- Gemeinsame JavaScript-Dateien -->
     <script src="../js/card-navigation.js"></script>
-
-    <script>
-        function getBadgeClass(category) {
-            switch (category) {
-                case 'Arbeitsheft':
-                    return 'badge-primary';
-                case 'Buch':
-                    return 'badge-success';
-                case 'Arbeitsmaterial':
-                    return 'badge-warning';
-                default:
-                    return 'badge-secondary';
-            }
-        }
-        
+    <script src="../js/related-products.js"></script>    <script>
         document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                const response = await fetch('/api/products');
-                const products = await response.json();
-
-                const featuredContainer = document.querySelector('.featured-products');
-                featuredContainer.innerHTML = ''; // Clear existing static content
-
-                // Get 4 random products
-                const randomProducts = products.sort(() => 0.5 - Math.random()).slice(0, 4);
-
-                randomProducts.forEach(product => {
-                    const productURL = `/product?id=${product.id}`;
-                    const badgeClass = getBadgeClass(product.category);
-                    
-                    const productHTML = `
-                        <div class="col-md-3 mb-4" data-category="${product.category}" data-product-id="${product.id}" data-product-url="${productURL}">
-                            <div class="card h-100">
-                                <div class="product-img-container card-clickable">
-                                    <img src="../pictures/${product.image_folder}/${product.firstImage}" class="card-img-top" alt="${product.name}">
-                                    </div>
-                                <div class="card-body card-clickable d-flex flex-column">
-                                    <span class="badge ${badgeClass} mb-2">${product.category}</span>
-                                    <h5 class="card-title">${product.name}</h5>
-                                    <p class="card-text flex-grow-1">${product.short_description}</p>
-                                </div>
-                                <div class="card-footer d-flex justify-content-between align-items-center">
-                                    <strong>${product.price.toFixed(2)} €</strong>
-                                    <a href="${productURL}" class="btn btn-primary btn-sm">Details</a>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                    featuredContainer.insertAdjacentHTML('beforeend', productHTML);
-                });
-                
-                // Add click events to product cards
-                document.querySelectorAll('.col-md-3.mb-4').forEach(card => {
-                    const productURL = card.getAttribute('data-product-url');
-                    
-                    // Make the clickable elements redirect to product page
-                    card.querySelectorAll('.card-clickable').forEach(element => {
-                        element.style.cursor = 'pointer';
-                        element.addEventListener('click', () => {
-                            window.location.href = productURL;
-                        });
-                    });
-                    
-                    // Also make the card title clickable
-                    const cardTitle = card.querySelector('.card-title');
-                    if (cardTitle) {
-                        cardTitle.style.cursor = 'pointer';
-                        cardTitle.addEventListener('click', () => {
-                            window.location.href = productURL;
-                        });
-                    }
-                });
-            } catch (error) {
-                console.error('Fehler beim Laden der Produkte:', error);
-            }
+            // Verwandte Produkte laden
+            loadAndDisplayRelatedProducts('related-products-container');
         });
     </script>
 </body>

@@ -39,6 +39,102 @@ body {
 }
 
 /* Common margin-top used across pages */
+
+/* Product Card Styles - standardized across all pages */
+.card-clickable:hover {
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+}
+
+.card-title:hover {
+    color: #007bff;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+/* Ensure proper alignment in cards */
+.card-body {
+    padding-bottom: 0.5rem;
+}
+
+.card-footer {
+    background-color: white;
+    border-top: 1px solid rgba(0, 0, 0, .125);
+}
+
+/* Add some nice hover effect */
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+/* Ensure the clickable areas show the right cursor */
+.card-clickable {
+    cursor: pointer;
+}
+
+/* Product image container for consistent height */
+.product-img-container {
+    padding: 10px;
+    height: 200px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-img-container img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+/* Related product image container styles */
+.related-product-img-container {
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: #f8f9fa;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.related-product-img-container img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    padding: 10px;
+}
+
+/* Product card styles */
+.product-card {
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 15px; /* Rundere Ecken */
+    overflow: hidden; /* Damit die Bilder innerhalb des border-radius bleiben */
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Responsive product card styles */
+@media (max-width: 767px) {
+    .product-card {
+        border-radius: 10px;
+    }
+    
+    .product-card .card-title {
+        font-size: 0.9rem;
+    }
+    
+    .related-product-img-container {
+        height: 150px;
+    }
+}
 .content-margin-top {
     margin-top: 120px;
 }

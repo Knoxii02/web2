@@ -39,16 +39,9 @@
     margin: 0 5px;
 }
 
-/* Card Styling */
+/* Card Styling - Spezifisch für index Seite */
 .card {
     height: 100%;
-    border-radius: 0.25rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-5px);
 }
 
 /* YouTube Video Container */
@@ -59,58 +52,18 @@
     margin-bottom: 20px;
 }
 
-/* Verwandte Produkte Styling */
-.related-product-img-container {
-    height: 180px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background-color: #f8f9fa;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
+/* Verwandte Produkte Styling - Spezifische Anpassungen für Index */
+/* .related-product-img-container Styles wurden in base.css verschoben */
 
-.related-product-img-container img {
-    max-height: 100%;
-    max-width: 100%;
-    object-fit: contain;
-    padding: 10px;
-}
-
-/* Button Styling */
+/* Button Styling - Spezifische Anpassungen für Index */
 .btn-outline-primary {
-    color: var(--highlight-color);
-    border-color: var(--highlight-color);
     opacity: 1; /* Macht den Button permanent sichtbar */
-    transition: all 0.3s ease;
-    background-color: transparent;
     margin-top: auto; /* Schiebt den Button ans untere Ende der Card */
+    transform: none; /* Zurücksetzen für :hover */
 }
 
 .btn-outline-primary:hover {
-    background-color: var(--highlight-color);
-    border-color: var(--highlight-color);
-    color: white;
-    transform: scale(1.05);
-}
-
-/* Text Styling */
-.card-title {
-    color: var(--primary-color);
-    font-weight: 600;
-}
-
-.card-text {
-    color: var(--text-color);
-    line-height: 1.6;
-}
-
-/* Preise Styling */
-.card-text:last-child {
-    color: var(--highlight-color);
-    font-weight: bold;
-    font-size: 1.1em;
+    transform: scale(1.05); /* Spezifischer Hover-Effekt für Index */
 }
 
 /* Container Spacing */
@@ -124,52 +77,6 @@
     .carousel-item img {
         height: 300px;
     }
-    
-    .related-product-img-container {
-        height: 150px;
-    }
-}
-
-/* Card Body Anpassung für bessere Button-Positionierung */
-.card-body {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-/* Produkt Card spezifische Anpassungen */
-.related-product-img-container + .card-body {
-    padding: 1rem;
-}
-
-/* Neue Styles für klickbare Produktkarten */
-.product-card {
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-    border-radius: 15px; /* Rundere Ecken */
-    overflow: hidden; /* Damit die Bilder innerhalb des border-radius bleiben */
-}
-
-.product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-}
-
-/* Für bessere mobile Ansicht */
-@media (max-width: 767px) {
-    .product-card {
-        border-radius: 10px;
-    }
-    
-    .product-card .card-title {
-        font-size: 0.9rem;
-
-
-}    }
-
-/* Remove the gap between navbar and carousel */
-.page-content {
-    padding-top: 0 !important; /* Override the default padding */
 }
 
 /* Ensure the carousel sits right beneath the navbar */
