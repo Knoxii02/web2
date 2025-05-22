@@ -28,7 +28,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Collapsible Content -->
+        <!-- Einklappbarer Kontent -->
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav mr-auto">
                 <a class="nav-link" href="/">Home</a>
@@ -56,14 +56,12 @@
                             <h5 class="mb-0">Übersicht</h5>
                         </div>
                         <div class="card-body">
-                            <!-- Dynamische Inhalte werden hier eingefügt -->
                         </div>
                     </div>
                 </div>
 
                 <!-- Kundendaten und Zahlung -->
                 <div class="col-md-8 order-md-1">
-                    <!-- Lieferadresse -->
                     <div class="mb-4">
                         <h5>Lieferadresse</h5>
                         <form class="needs-validation" novalidate>
@@ -163,7 +161,7 @@
                                 </div>
                             </div>
 
-                            <!-- Vorkasse statt Lastschrift -->
+                            <!-- Vorkasse -->
                             <div class="custom-control custom-radio mb-2">
                                 <input type="radio" id="vorkasse" name="paymentMethod" class="custom-control-input"
                                     onchange="showPaymentDetails('vorkasse')">
@@ -186,7 +184,6 @@
                                     onchange="showPaymentDetails('paypal')">
                                 <label class="custom-control-label" for="paypal">PayPal</label>
                             </div>
-                            <!-- Keine zusätzlichen Details für PayPal -->
                         </div>
                     </div>
 
@@ -210,7 +207,6 @@
         </div>
     </footer>
 
-    <!-- Scripts für Bootstrap-Funktionalität -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -220,19 +216,16 @@
 
     <!-- Script für Formularvalidierung und Zahlungsmethoden -->
     <script>
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
         (function () {
             'use strict';
             window.addEventListener('load', function () {
                 var forms = document.getElementsByClassName('needs-validation');
-                // Loop over them and prevent submission
                 var validation = Array.prototype.filter.call(forms, function (form) {
                     form.addEventListener('submit', function (event) {
                         if (form.checkValidity() === false) {
                             event.preventDefault();
                             event.stopPropagation();
                         } else {
-                            // Wenn das Formular gültig ist, zur Bestätigungsseite weiterleiten
                             event.preventDefault();
                             window.location.href = '/confirmation';
                         }
@@ -242,35 +235,28 @@
             }, false);
         })();
 
-        // JavaScript für Zahlungsmethoden
         function showPaymentDetails(method) {
-            // Alle Payment-Details ausblenden
             document.querySelectorAll('.payment-details').forEach(el => {
                 el.style.display = 'none';
             });
 
-            // Gewählte Details einblenden
             if (method !== 'paypal') {
                 document.getElementById(method + 'Details').style.display = 'block';
             }
         }
 
-        // Event-Handler für den "Bestellung abschließen"-Button
         document.addEventListener('DOMContentLoaded', function () {
             const submitButton = document.querySelector('button[type="submit"]');
             submitButton.addEventListener('click', function (event) {
                 const form = document.querySelector('.needs-validation');
                 if (form.checkValidity()) {
-                    // Formular ist gültig, zur Bestätigungsseite weiterleiten
                     window.location.href = '/confirmation';
                 } else {
-                    // Formular-Validierung anzeigen
                     form.classList.add('was-validated');
                 }
                 event.preventDefault();
             });
 
-            // Überprüfen, ob eine Zahlungsmethode ausgewählt wurde
             const paymentMethods = document.querySelectorAll('input[name="paymentMethod"]');
             submitButton.addEventListener('click', function (event) {
                 let paymentSelected = false;
@@ -287,7 +273,6 @@
             });
         });
 
-        // Script für das Laden der Produktübersicht
         document.addEventListener('DOMContentLoaded', async () => {
             try {
                 const response = await fetch('/api/products');

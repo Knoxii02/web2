@@ -12,6 +12,7 @@
 </head>
 
 <body class="accent-color">
+    <!-- Navigation -->
     <nav class="navbar navbar-expand-md navbar-light fixed-top">
         <a class="navbar-brand" href="/">Erziehen-Lernen-Fördern</a>
 
@@ -26,7 +27,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Collapsible Content -->
+        <!-- Einklappbarer Kontent -->
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav mr-auto">
                 <a class="nav-link" href="/">Home</a>
@@ -36,38 +37,35 @@
         </div>
     </nav>
 
-    <!-- Wrap content in page-content div -->
+    <!-- Hauptinhalt -->
     <div class="page-content">
         <div class="container" style="margin-top: 120px;">
             <h1 class="text-center mb-5">Ihr Warenkorb</h1>
-
             <div class="row">
-                <!-- Product listing column -->
+                <!-- Produktliste -->
                 <div class="col-12 col-lg-8 mb-4">
-                    <!-- Dynamically loaded cart items will appear here -->
                 </div>
 
-                <!-- Summary Card Column -->
+                <!-- Zusammenfassung -->
                 <div class="col-12 col-lg-4">
                     <div class="card mt-4">
                         <div class="card-body">
-                            <!-- Dynamically updated summary will appear here -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div> <!-- Verwandte Produkte -->
-        <div class="container mb-5 mt-5 pt-4">
-            <h2 class="mb-4">Das könnte Sie auch interessieren</h2>
 
-            <div class="row" id="related-products-container">
-                <!-- Dynamically loaded related products will appear here -->
-            </div>
+    <!-- Das könnte Sie auch interessieren -->
+    <div class="container mb-5 mt-5 pt-4">
+        <h2 class="mb-4">Das könnte Sie auch interessieren</h2>
+
+        <div class="row" id="related-products-container">
         </div>
     </div>
 
+    <!-- Footer -->
     <footer class="text-center text-lg-start mt-5">
         <div class="container p-4">
             <p>Kontakt: <a href="mailto:info@erziehen-lernen-foerdern.de">info@erziehen-lernen-foerdern.de</a></p>
@@ -87,15 +85,15 @@
         crossorigin="anonymous"></script>
     <script src="../js/card-navigation.js"></script>
     <script src="../js/related-products.js"></script>
+
+    <!-- Warenkorb-Script -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const cartContainer = document.querySelector('.col-12.col-lg-8');
             const summaryContainer = document.querySelector('.col-12.col-lg-4 .card-body');
 
-            // Fetch cart data from localStorage
             const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-            // Function to render cart items
             async function renderCartItems() {
                 cartContainer.innerHTML = '';
 
@@ -104,7 +102,6 @@
                     return;
                 }
 
-                // Fetch product details from the server
                 const response = await fetch('/api/products');
                 const products = await response.json();
 
@@ -159,7 +156,6 @@
                 });
             }
 
-            // Function to update cart summary
             async function updateSummary() {
                 const response = await fetch('/api/products');
                 const products = await response.json();
@@ -169,7 +165,7 @@
                     return product ? sum + product.price * item.quantity : sum;
                 }, 0);
 
-                const shipping = 5.00; // Flat shipping rate
+                const shipping = 4.95;
                 const tax = subtotal * 0.07;
                 const total = subtotal + shipping;
 
@@ -197,7 +193,6 @@
                 `;
             }
 
-            // Event listeners for cart actions
             cartContainer.addEventListener('click', (event) => {
                 const action = event.target.dataset.action;
                 const index = parseInt(event.target.dataset.index, 10);
@@ -208,20 +203,22 @@
                     cart[index].quantity--;
                 } else if (action === 'remove') {
                     cart.splice(index, 1);
-                }
-
-                localStorage.setItem('cart', JSON.stringify(cart));
+                }                localStorage.setItem('cart', JSON.stringify(cart));
                 renderCartItems();
                 updateSummary();
             });
 
-            // Initial render
             renderCartItems();
             updateSummary();
 
-            // Load and display related products, exclude items in cart
             const cartProductIds = cart.map(item => item.productId);
             loadAndDisplayRelatedProducts('related-products-container', null, cartProductIds);
+        });
+    </script>
+
+    <!-- Das könnte Sie auch interessieren Script-->
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
         });
     </script>
 

@@ -28,7 +28,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Collapsible Content -->
+        <!-- Einklappbarer Kontent -->
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav mr-auto">
                 <a class="nav-link" href="/">Home</a>
@@ -42,11 +42,11 @@
     <div class="page-content">
         <!-- Produktbereich -->
         <div class="container" style="margin-top: 120px;">
-            <!-- Produktname - wird dynamisch geladen -->
+            <!-- Produktname -->
             <h1 class="mb-4"></h1>
 
             <div class="row">
-                <!-- Produktbilder und Galerie -->
+                <!-- Produktbilder -->
                 <div class="col-md-6 mb-4">
                     <div class="position-relative"
                         style="height: 400px; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center;">
@@ -55,7 +55,7 @@
                             alt="Produktbild" class="img-fluid"
                             style="max-height: 100%; max-width: 100%; object-fit: contain;">
 
-                        <!-- Navigationspfeile mit festen Positionen -->
+                        <!-- Navigationspfeile -->
                         <button
                             class="btn btn-light rounded-circle position-absolute d-flex align-items-center justify-content-center"
                             style="left: 10px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; padding: 0;"
@@ -82,7 +82,7 @@
                         <h5 class="text-success" id="deliveryInfo">Lieferbar</h5>
                     </div>
 
-                    <!-- Preis - wird dynamisch geladen -->
+                    <!-- Preis -->
                     <div class="mb-4">
                         <h3 id="productPrice"></h3>
                         <small>inkl. 7% MwSt.</small>
@@ -159,16 +159,13 @@
                 const response = await fetch(`/api/products/${productId}`);
                 const product = await response.json();
 
-                // Dynamische Inhalte setzen
                 document.querySelector('h1').textContent = product.name;
                 document.getElementById('mainProductImage').src = `../pictures/${product.image_folder}/${product.firstImage}`;
                 document.getElementById('productCategory').textContent = product.category;
                 document.getElementById('productPrice').textContent = `${product.price.toFixed(2)} €`;
 
-                // Produktbeschreibung formatiert einfügen
                 const descriptionElement = document.getElementById('productDescription');
                 if (product.long_description) {
-                    // Text in Absätze aufteilen und als separate <p>-Elemente einfügen
                     const paragraphs = product.long_description.split('\n').filter(p => p.trim() !== '');
                     descriptionElement.innerHTML = '';
 
@@ -210,14 +207,13 @@
                 const urlParams = new URLSearchParams(window.location.search);
                 const productId = parseInt(urlParams.get('id'), 10);
                 const quantityInput = document.querySelector('#quantityInput');
-                const quantity = parseInt(quantityInput?.value, 10) || 1; // Default to 1 if no input or invalid value
+                const quantity = parseInt(quantityInput?.value, 10) || 1;
 
                 if (!productId) {
                     console.error('Keine Produkt-ID gefunden.');
                     return;
                 }
 
-                // Fetch cart from localStorage
                 const cart = JSON.parse(localStorage.getItem('cart')) || [];
                 const existingItem = cart.find(item => item.productId === productId);
 
@@ -228,13 +224,11 @@
                 }
                 localStorage.setItem('cart', JSON.stringify(cart));
 
-                // Feedback für den Benutzer, dass das Produkt zum Warenkorb hinzugefügt wurde
                 const btnOriginalText = addToCartButton.innerHTML;
                 addToCartButton.innerHTML = '<i class="bi bi-check"></i> Hinzugefügt';
                 addToCartButton.classList.add('btn-success');
                 addToCartButton.classList.remove('btn-primary');
 
-                // Nach 2 Sekunden Button zurücksetzen
                 setTimeout(() => {
                     addToCartButton.innerHTML = btnOriginalText;
                     addToCartButton.classList.remove('btn-success');
@@ -243,6 +237,7 @@
             });
         });
     </script>
+
     <!-- Das könnte Sie auch interessieren Script-->
     <script>
         document.addEventListener('DOMContentLoaded', async () => {

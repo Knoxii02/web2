@@ -17,9 +17,8 @@
     <nav class="navbar navbar-expand-md navbar-light fixed-top">
         <a class="navbar-brand" href="/">Erziehen-Lernen-Fördern</a>
 
-        <!-- Cart Icon moved outside collapse, before toggler -->
+        <!-- Cart Icon -->
         <a href="/shopping-cart" class="cart-link nav-link ml-auto mr-3 order-md-last">
-            <!-- Use ml-auto to push right, mr-3 for spacing, order-md-last for large screens -->
             <i class="bi bi-cart cart-icon"></i>
         </a>
 
@@ -29,9 +28,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Collapsible Content -->
+        <!-- Einklappbarer Kontent -->
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav mr-auto"> <!-- Nav links remain here -->
+            <div class="navbar-nav mr-auto">
                 <a class="nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
                 <a class="nav-link" href="/shop">Shop</a>
                 <a class="nav-link" href="/contact">Kontakt</a>
@@ -111,10 +110,8 @@
                 </div>
             </div>
         </div>
-
-    </div>
-    
-    <!-- Verwandte Produkte -->
+    </div> 
+    <!-- Das könnte Sie auch interessieren -->
     <div class="container mb-5 mt-5 pt-4">
         <h2 class="mb-4">Das könnte Sie auch interessieren</h2>
 
@@ -131,9 +128,7 @@
                 <li class="list-inline-item"><a href="/privacy-policy">Datenschutz</a></li>
             </ul>
         </div>
-    </footer> 
-    
-    <!-- Scripts für Bootstrap-Funktionalität -->
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -141,14 +136,12 @@
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
         crossorigin="anonymous"></script>
 
-    <!-- Scripts für Kartenfunktionalität und Produktanzeige -->
     <script src="../js/card-navigation.js"></script>
     <script src="../js/related-products.js"></script>
-    
-    <!-- Script für das Laden verwandter Produkte -->
+
+    <!-- Das könnte Sie auch interessieren Script-->
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
-            // Verwandte Produkte laden
             loadAndDisplayRelatedProducts('related-products-container');
         });
     </script>

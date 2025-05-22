@@ -26,7 +26,22 @@ db.serialize(() => {
     const products = [
         {
             name: 'Arbeitsheft Zahlenraum 20',
-            long_description: 'Das Arbeitsheft für den ZR -20 enthält alle nötigen Schritte, um den ZR - 20 fundiert aufzubauen. Das Arbeitsheft mit praktischer Spiralbindung ist für den differenzierenden Einsatz in der Grundschule geeignet und damit auch für den Einsatz in der Förderschule. Der Umfang beträgt 161 Seiten.',
+            short_description: `🧠 Warum ist das wichtig
+                    Der Barwertfaktor hilft dir zu entscheiden: „Was ist ein zukünftiger Betrag heute wert?“
+
+                    So kannst du verschiedene Investitionen oder Kredite vergleichen, die zu unterschiedlichen Zeitpunkten Zahlungen leisten.
+
+                    💡 Merksatz:
+                    Je höher der Zinssatz oder je länger du wartest, desto kleiner ist der Barwertfaktor – und desto weniger ist eine zukünftige Zahlung heute wert.
+                    `,
+            long_description: `🧠 Warum ist das wichtig
+                    Der Barwertfaktor hilft dir zu entscheiden: „Was ist ein zukünftiger Betrag heute wert?“
+
+                    So kannst du verschiedene Investitionen oder Kredite vergleichen, die zu unterschiedlichen Zeitpunkten Zahlungen leisten.
+
+                    💡 Merksatz:
+                    Je höher der Zinssatz oder je länger du wartest, desto kleiner ist der Barwertfaktor – und desto weniger ist eine zukünftige Zahlung heute wert.
+                    `,
             price: 24.95,
             image_folder: 'workbook_1/',
             category: 'Arbeitsheft'
@@ -65,8 +80,8 @@ db.serialize(() => {
     products.forEach(product => {
         insertProduct.run(
             product.name,
-            product.long_description,
             product.short_description,
+            product.long_description,
             product.price,
             product.image_folder,
             product.category
