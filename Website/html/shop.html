@@ -184,16 +184,18 @@
                         `;
                         productContainer.insertAdjacentHTML('beforeend', productHTML);
                     });
-                }
-
-                // Initial render for all products
-                renderProducts('Alle');                // Add event listeners to dropdown items
+                }                // Initial render for all products
+                renderProducts('Alle');
+                
+                // Add event listeners to dropdown items
                 dropdownItems.forEach(item => {
                     item.addEventListener('click', (event) => {
                         event.preventDefault();
                         const selectedCategory = item.textContent;
                         categoryDropdown.textContent = selectedCategory;
                         renderProducts(selectedCategory);
+                        // Füge die Event-Listener nach dem Rendern der gefilterten Produkte hinzu
+                        setTimeout(addClickEvents, 100);
                     });
                 });
 
