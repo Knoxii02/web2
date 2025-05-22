@@ -80,7 +80,7 @@ app.get('/api/products/images/:folder', (req, res) => {
     const files = fs.readdirSync(folderPath);
     
     const imageFiles = files
-      .filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file))
+      .filter(file => /\.(jpg|png)$/i.test(file))
       .sort();
     
     if (imageFiles.length > 0) {
