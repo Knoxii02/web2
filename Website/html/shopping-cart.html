@@ -7,7 +7,8 @@
     <title>Warenkorb - Erziehen-Lernen-Fördern</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../css/base.css">
     <!-- Product card styles have been moved to base.css -->
     <style>
         /* Add any specific styles for shopping-cart.html here */
@@ -60,7 +61,8 @@
                 </div>
             </div>
         </div>
-    </div>     <div>    <!-- Verwandte Produkte -->
+    </div>
+    <div> <!-- Verwandte Produkte -->
         <div class="container mb-5 mt-5 pt-4">
             <h2 class="mb-4">Das könnte Sie auch interessieren</h2>
 
@@ -83,11 +85,13 @@
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
         crossorigin="anonymous"></script>
     <script src="../js/card-navigation.js"></script>
-    <script src="../js/related-products.js"></script>    <script>
+    <script src="../js/related-products.js"></script>
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
             const cartContainer = document.querySelector('.col-12.col-lg-8');
             const summaryContainer = document.querySelector('.col-12.col-lg-4 .card-body');
@@ -114,7 +118,7 @@
                     if (!product) {
                         console.error(`Produkt mit ID ${item.productId} nicht gefunden.`);
                         return;
-                    }                    const productCard = document.createElement('div');
+                    } const productCard = document.createElement('div');
                     productCard.className = 'card mb-3';
                     productCard.innerHTML = `
                         <div class="row no-gutters">
@@ -214,11 +218,11 @@
                 renderCartItems();
                 updateSummary();
             });
-            
+
             // Initial render
             renderCartItems();
             updateSummary();
-            
+
             // Load and display related products, exclude items in cart
             const cartProductIds = cart.map(item => item.productId);
             loadAndDisplayRelatedProducts('related-products-container', null, cartProductIds);

@@ -21,12 +21,12 @@ async function loadAndDisplayRelatedProducts(containerId, excludeProductId = nul
 
         // Produkte filtern
         let filteredProducts = products;
-        
+
         // Einzelnes Produkt ausschließen (z.B. aktuelle Produktseite)
         if (excludeProductId !== null) {
             filteredProducts = filteredProducts.filter(product => product.id !== excludeProductId);
         }
-        
+
         // Mehrere Produkte ausschließen (z.B. Produkte, die bereits im Warenkorb sind)
         if (excludeProductIds.length > 0) {
             filteredProducts = filteredProducts.filter(product => !excludeProductIds.includes(product.id));
@@ -34,7 +34,7 @@ async function loadAndDisplayRelatedProducts(containerId, excludeProductId = nul
 
         // Zufällige Produkte auswählen
         const randomProducts = filteredProducts.sort(() => 0.5 - Math.random()).slice(0, limit);
-        
+
         // Container leeren
         container.innerHTML = '';
 
@@ -42,7 +42,7 @@ async function loadAndDisplayRelatedProducts(containerId, excludeProductId = nul
         randomProducts.forEach(product => {
             const productURL = `/product?id=${product.id}`;
             const badgeClass = getBadgeClass(product.category);
-            
+
             const productHTML = `
                 <div class="col-md-3 mb-4" data-category="${product.category}" data-product-id="${product.id}" data-product-url="${productURL}">
                     <div class="card h-100">
@@ -77,7 +77,7 @@ async function loadAndDisplayRelatedProducts(containerId, excludeProductId = nul
 function addClickEventsToProductCards() {
     document.querySelectorAll('.col-md-3.mb-4').forEach(card => {
         const productURL = card.getAttribute('data-product-url');
-        
+
         // Klickbare Elemente zur Produktseite navigieren lassen
         card.querySelectorAll('.card-clickable').forEach(element => {
             element.style.cursor = 'pointer';
@@ -85,7 +85,7 @@ function addClickEventsToProductCards() {
                 window.location.href = productURL;
             });
         });
-        
+
         // Auch den Kartentitel klickbar machen
         const cardTitle = card.querySelector('.card-title');
         if (cardTitle) {

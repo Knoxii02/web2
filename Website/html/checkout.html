@@ -40,7 +40,8 @@
     <div class="page-content">
         <div class="container mt-navbar">
             <div class="py-5 text-center">
-                <img class="d-block mx-auto mb-4" src="../pictures/logo_1/logo_1_1.jpg" alt="Cuipsi Logo" width="72" height="72">
+                <img class="d-block mx-auto mb-4" src="../pictures/logo_1/logo_1_1.jpg" alt="Cuipsi Logo" width="72"
+                    height="72">
                 <h2>Bestellung abschließen</h2>
             </div>
 
@@ -130,7 +131,8 @@
                         <div class="payment-methods">
                             <!-- Kreditkarte -->
                             <div class="custom-control custom-radio mb-2">
-                                <input type="radio" id="credit" name="paymentMethod" class="custom-control-input" onchange="showPaymentDetails('credit')" checked>
+                                <input type="radio" id="credit" name="paymentMethod" class="custom-control-input"
+                                    onchange="showPaymentDetails('credit')" checked>
                                 <label class="custom-control-label" for="credit">Kreditkarte</label>
                             </div>
                             <div id="creditDetails" class="payment-details ml-4 mb-3">
@@ -156,7 +158,8 @@
 
                             <!-- Vorkasse statt Lastschrift -->
                             <div class="custom-control custom-radio mb-2">
-                                <input type="radio" id="vorkasse" name="paymentMethod" class="custom-control-input" onchange="showPaymentDetails('vorkasse')">
+                                <input type="radio" id="vorkasse" name="paymentMethod" class="custom-control-input"
+                                    onchange="showPaymentDetails('vorkasse')">
                                 <label class="custom-control-label" for="vorkasse">Vorkasse</label>
                             </div>
                             <div id="vorkasseDetails" class="payment-details ml-4 mb-3" style="display: none;">
@@ -165,13 +168,15 @@
                                     <p class="mb-0">Kontoinhaber: Erziehen-Lernen-Fördern GmbH</p>
                                     <p class="mb-0">IBAN: DE12 3456 7890 1234 5678 90</p>
                                     <p class="mb-0">BIC: DEUTDEDBXXX</p>
-                                    <p class="mb-0">Verwendungszweck: Ihre Bestellnummer (wird nach Abschluss angezeigt)</p>
+                                    <p class="mb-0">Verwendungszweck: Ihre Bestellnummer (wird nach Abschluss angezeigt)
+                                    </p>
                                 </div>
                             </div>
 
                             <!-- PayPal -->
                             <div class="custom-control custom-radio">
-                                <input type="radio" id="paypal" name="paymentMethod" class="custom-control-input" onchange="showPaymentDetails('paypal')">
+                                <input type="radio" id="paypal" name="paymentMethod" class="custom-control-input"
+                                    onchange="showPaymentDetails('paypal')">
                                 <label class="custom-control-label" for="paypal">PayPal</label>
                             </div>
                             <!-- Keine zusätzlichen Details für PayPal -->
@@ -207,13 +212,13 @@
     <!-- Custom validation script -->
     <script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields
-        (function() {
+        (function () {
             'use strict';
-            window.addEventListener('load', function() {
+            window.addEventListener('load', function () {
                 var forms = document.getElementsByClassName('needs-validation');
                 // Loop over them and prevent submission
-                var validation = Array.prototype.filter.call(forms, function(form) {
-                    form.addEventListener('submit', function(event) {
+                var validation = Array.prototype.filter.call(forms, function (form) {
+                    form.addEventListener('submit', function (event) {
                         if (form.checkValidity() === false) {
                             event.preventDefault();
                             event.stopPropagation();
@@ -234,17 +239,17 @@
             document.querySelectorAll('.payment-details').forEach(el => {
                 el.style.display = 'none';
             });
-            
+
             // Gewählte Details einblenden
             if (method !== 'paypal') {
                 document.getElementById(method + 'Details').style.display = 'block';
             }
         }
-        
+
         // Event-Handler für den "Bestellung abschließen"-Button
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const submitButton = document.querySelector('button[type="submit"]');
-            submitButton.addEventListener('click', function(event) {
+            submitButton.addEventListener('click', function (event) {
                 const form = document.querySelector('.needs-validation');
                 if (form.checkValidity()) {
                     // Formular ist gültig, zur Bestätigungsseite weiterleiten
@@ -255,17 +260,17 @@
                 }
                 event.preventDefault();
             });
-            
+
             // Überprüfen, ob eine Zahlungsmethode ausgewählt wurde
             const paymentMethods = document.querySelectorAll('input[name="paymentMethod"]');
-            submitButton.addEventListener('click', function(event) {
+            submitButton.addEventListener('click', function (event) {
                 let paymentSelected = false;
                 paymentMethods.forEach(method => {
                     if (method.checked) {
                         paymentSelected = true;
                     }
                 });
-                
+
                 if (!paymentSelected) {
                     alert('Bitte wählen Sie eine Zahlungsmethode aus.');
                     event.preventDefault();

@@ -1,7 +1,7 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Produktkarten-Navigation für alle Karten mit data-category Attribut
     const productCards = document.querySelectorAll('[data-category]');
-    
+
     productCards.forEach(productContainer => {
         const card = productContainer.querySelector('.card');
         if (!card) return;
@@ -12,14 +12,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (cardBody) {
             cardBody.style.cursor = 'pointer';
-            cardBody.addEventListener('click', function() {
+            cardBody.addEventListener('click', function () {
                 const productId = productContainer.dataset.productId;
                 window.location.href = `product.html?id=${productId}`;
             });
         }
         if (cardImage) {
             cardImage.style.cursor = 'pointer';
-            cardImage.addEventListener('click', function() {
+            cardImage.addEventListener('click', function () {
                 const productId = productContainer.dataset.productId;
                 window.location.href = `product.html?id=${productId}`;
             });
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Buttons und Links mit btn-Klasse sollen nicht zur Produktdetailseite führen
         const clickableElements = card.querySelectorAll('button, a.btn');
         clickableElements.forEach(element => {
-            element.addEventListener('click', function(event) {
+            element.addEventListener('click', function (event) {
                 event.stopPropagation();
             });
         });
