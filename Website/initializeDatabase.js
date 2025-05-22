@@ -5,7 +5,6 @@ const db = new sqlite3.Database(path.join(__dirname, 'db', 'database.sqlite'));
 db.serialize(() => {
     db.run('DROP TABLE IF EXISTS products');
     
-    // Create products table with image_folder instead of image
     db.run(`CREATE TABLE IF NOT EXISTS products (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
@@ -16,13 +15,11 @@ db.serialize(() => {
         category TEXT NOT NULL
     )`);
 
-    // Update insert statement to use image_folder
     const insertProduct = db.prepare(`
         INSERT INTO products (name, short_description, long_description, price, image_folder, category) 
         VALUES (?, ?, ?, ?, ?, ?)
     `);
 
-    // Product data with image_folder instead of image
     const products = [
         {
             name: 'Mit Cuipsi den Mengen auf der Spur',
@@ -116,7 +113,6 @@ db.serialize(() => {
         }
     ];
 
-    // Insert each product
     products.forEach(product => {
         insertProduct.run(
             product.name,
