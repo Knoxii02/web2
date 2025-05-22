@@ -1,8 +1,3 @@
-/* .related-product-img-container Styles wurden in base.css verschoben */
-
-/* .product-card Styles wurden in base.css verschoben */
-
-/* Product image container styles */
 .product-image-container {
     height: 400px;
     background-color: #f8f9fa;
@@ -17,7 +12,6 @@
     object-fit: contain;
 }
 
-/* Navigation arrows */
 .nav-arrow-left {
     left: 10px;
     top: 50%;
@@ -40,7 +34,6 @@
     font-size: 18px;
 }
 
-/* Quantity selector */
 .quantity-selector {
     max-width: 150px;
 }

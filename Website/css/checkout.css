@@ -1,10 +1,7 @@
-/* Styling for checkout page */
-
 .mt-navbar {
     margin-top: 70px;
 }
 
-/* Custom styling for the checkout page */
 .list-group-item {
     border-radius: 0;
 }
@@ -19,7 +16,6 @@
     border-bottom-right-radius: 0.25rem;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .order-md-1 {
         order: 2;

@@ -5,7 +5,6 @@ html, body {
     flex-direction: column;
 }
 
-/* Color variables - updated with new color scheme */
 :root {
     --primary-color: #405d27;      /* Dark green for navbar */
     --secondary-color: #82b74b;    /* Medium green for secondary elements */
@@ -24,23 +23,19 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     min-height: 100vh;
-    padding-top: 56px; /* For fixed navbar */
+    padding-top: 56px;
 }
 
 .page-content {
     flex: 1 0 auto;
-    margin-top: 0; /* Space for fixed navbar entfernt */
+    margin-top: 0;
     padding-top: 1rem;
 }
 
-/* Margin top for container to accommodate fixed navbar */
 .mt-navbar {
     margin-top: 70px;
 }
 
-/* Common margin-top used across pages */
-
-/* Product Card Styles - standardized across all pages */
 .card-clickable:hover {
     opacity: 0.9;
     transition: opacity 0.3s ease;
@@ -52,7 +47,6 @@ body {
     transition: color 0.3s ease;
 }
 
-/* Ensure proper alignment in cards */
 .card-body {
     padding-bottom: 0.5rem;
 }
@@ -62,18 +56,15 @@ body {
     border-top: 1px solid rgba(0, 0, 0, .125);
 }
 
-/* Add some nice hover effect */
 .card:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
 }
 
-/* Ensure the clickable areas show the right cursor */
 .card-clickable {
     cursor: pointer;
 }
 
-/* Product image container for consistent height */
 .product-img-container {
     padding: 10px;
     height: 200px;
@@ -89,7 +80,6 @@ body {
     object-fit: contain;
 }
 
-/* Related product image container styles */
 .related-product-img-container {
     height: 180px;
     display: flex;
@@ -108,12 +98,11 @@ body {
     padding: 10px;
 }
 
-/* Product card styles */
 .product-card {
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s;
-    border-radius: 15px; /* Rundere Ecken */
-    overflow: hidden; /* Damit die Bilder innerhalb des border-radius bleiben */
+    border-radius: 15px;
+    overflow: hidden;
 }
 
 .product-card:hover {
@@ -121,7 +110,6 @@ body {
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
-/* Responsive product card styles */
 @media (max-width: 767px) {
     .product-card {
         border-radius: 10px;
@@ -139,7 +127,6 @@ body {
     margin-top: 120px;
 }
 
-/* Color Classes - updated with new colors */
 .primary-color {
     background-color: var(--primary-color);
 }
@@ -148,7 +135,6 @@ body {
     background-color: var(--secondary-color);
 }
 
-/* Important: This fixes the shopping cart page background */
 .accent-color {
     background-color: var(--background-color);
 }
@@ -161,7 +147,6 @@ body {
     background-color: var(--highlight-color);
 }
 
-/* Navbar */
 .navbar {
     background-color: var(--primary-color) !important;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -226,7 +211,6 @@ button:hover, .btn:hover {
     color: #FFFFFF;
 }
 
-/* Shopping Cart Icon */
 .cart-icon {
     font-size: 1.3rem;
     color: #FFFFFF;
@@ -243,14 +227,13 @@ button:hover, .btn:hover {
 }
 
 .cart-link:hover {
-    background-color: transparent; /* Remove the white background */
+    background-color: transparent;
 }
 
 .cart-link:hover .cart-icon {
-    color: var(--highlight-color); /* Use the green highlight color on hover */
+    color: var(--highlight-color);
 }
 
-/* Card styling */
 .card {
     background-color: var(--card-bg-color);
     border: none;
@@ -285,7 +268,6 @@ button:hover, .btn:hover {
     border-color: #5d9318;
 }
 
-/* Special styling for buttons with outlines */
 .btn-outline-primary {
     color: var(--highlight-color);
     border-color: var(--highlight-color);

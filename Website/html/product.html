@@ -16,6 +16,7 @@
 </head>
 
 <body>
+    <!-- Navigation -->
     <nav class="navbar navbar-expand-md navbar-light fixed-top">
         <a class="navbar-brand" href="/">Erziehen-Lernen-Fördern</a>
 
@@ -40,14 +41,15 @@
         </div>
     </nav>
 
-    <!-- Page Content Wrapper -->
-    <div class="page-content"> <!-- Produktbereich -->
+    <!-- Hauptinhalt -->
+    <div class="page-content">
+        <!-- Produktbereich -->
         <div class="container" style="margin-top: 120px;">
             <!-- Produktname - wird dynamisch geladen -->
             <h1 class="mb-4"></h1>
 
             <div class="row">
-                <!-- Produktbild mit Galerie - wird dynamisch geladen -->
+                <!-- Produktbilder und Galerie -->
                 <div class="col-md-6 mb-4">
                     <div class="position-relative"
                         style="height: 400px; background-color: #f8f9fa; display: flex; align-items: center; justify-content: center;">
@@ -107,7 +109,9 @@
                         </button>
                     </div>
                 </div>
-            </div> <!-- Produktbeschreibung unterhalb des Bildes - wird dynamisch geladen -->
+            </div>
+            
+            <!-- Produktbeschreibung -->
             <div class="row mt-4">
                 <div class="col-12">
                     <h4>Beschreibung</h4>
@@ -116,12 +120,15 @@
             </div>
         </div>
     </div>
+    
     <!-- Verwandte Produkte -->
     <div class="container mb-5 mt-5 pt-4">
         <h2 class="mb-4">Das könnte Sie auch interessieren</h2>
 
         <div class="row" id="related-products-container"></div>
     </div>
+    
+    <!-- Footer -->
     <footer class="text-center text-lg-start mt-5">
         <div class="container p-4">
             <p>Kontakt: <a href="mailto:info@erziehen-lernen-foerdern.de">info@erziehen-lernen-foerdern.de</a></p>
@@ -133,16 +140,20 @@
         </div>
     </footer>
 
-    <!-- Bootstrap JavaScript -->
+    <!-- Scripts für Bootstrap-Funktionalität -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
-        crossorigin="anonymous"></script> <!-- Bildergalerie-Funktionalität -->
+        crossorigin="anonymous"></script>
+        
+    <!-- Scripts für Produktseiten-Funktionalität -->
     <script src="../js/product.js"></script>
     <script src="../js/card-navigation.js"></script>
     <script src="../js/related-products.js"></script>
+    
+    <!-- Script für das Laden von Produktdetails und Bildergalerie -->
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const urlParams = new URLSearchParams(window.location.search);

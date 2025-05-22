@@ -13,6 +13,7 @@
 </head>
 
 <body class="accent-color">
+    <!-- Navigation -->
     <nav class="navbar navbar-expand-md navbar-light fixed-top">
         <a class="navbar-brand" href="/">Erziehen-Lernen-Fördern</a>
 
@@ -37,8 +38,10 @@
         </div>
     </nav>
 
+    <!-- Hauptinhalt -->
     <div class="page-content">
         <div class="container mt-navbar">
+            <!-- Seitentitel -->
             <div class="py-5 text-center">
                 <img class="d-block mx-auto mb-4" src="../pictures/logo_1/logo_1_1.jpg" alt="Cuipsi Logo" width="72"
                     height="72">
@@ -46,6 +49,7 @@
             </div>
 
             <div class="row">
+                <!-- Bestellübersicht -->
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-header">
@@ -57,7 +61,9 @@
                     </div>
                 </div>
 
+                <!-- Kundendaten und Zahlung -->
                 <div class="col-md-8 order-md-1">
+                    <!-- Lieferadresse -->
                     <div class="mb-4">
                         <h5>Lieferadresse</h5>
                         <form class="needs-validation" novalidate>
@@ -126,6 +132,7 @@
                         </form>
                     </div>
 
+                    <!-- Zahlungsmethoden -->
                     <div class="mb-4">
                         <h5>Zahlungsmethode</h5>
                         <div class="payment-methods">
@@ -183,6 +190,7 @@
                         </div>
                     </div>
 
+                    <!-- Bestellbutton -->
                     <hr class="mb-4">
                     <button class="btn btn-primary btn-lg btn-block" type="submit">Bestellung abschließen</button>
                 </div>
@@ -190,6 +198,7 @@
         </div>
     </div>
 
+    <!-- Footer -->
     <footer class="text-center text-lg-start mt-5">
         <div class="container p-4">
             <p>Kontakt: <a href="mailto:info@erziehen-lernen-foerdern.de">info@erziehen-lernen-foerdern.de</a></p>
@@ -201,7 +210,7 @@
         </div>
     </footer>
 
-    <!-- Bootstrap JavaScript -->
+    <!-- Scripts für Bootstrap-Funktionalität -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -209,7 +218,7 @@
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
         crossorigin="anonymous"></script>
 
-    <!-- Custom validation script -->
+    <!-- Script für Formularvalidierung und Zahlungsmethoden -->
     <script>
         // Example starter JavaScript for disabling form submissions if there are invalid fields
         (function () {
@@ -278,7 +287,7 @@
             });
         });
 
-        // Dynamische Inhalte für die Produktübersicht
+        // Script für das Laden der Produktübersicht
         document.addEventListener('DOMContentLoaded', async () => {
             try {
                 const response = await fetch('/api/products');
