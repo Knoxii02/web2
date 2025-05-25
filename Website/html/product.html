@@ -154,27 +154,45 @@
             if (!productId) {
                 console.error('Keine Produkt-ID in der URL gefunden.');
                 return;
-            } try {
+            } 
+            // Select the main product display areas once, to be used in both success and error cases.
+            const productContainer = document.querySelector('.container[style="margin-top: 120px;"]');
+            const productNameH1 = productContainer.querySelector('h1');
+            const productRow = productContainer.querySelector('.row'); // This is the main content row for image and details
+            const productDescriptionDiv = document.getElementById('productDescription');
+
+            try {
                 const response = await fetch(`/api/products/${productId}`);
+                if (!response.ok) {
+                    let errorMessage = 'Das gesuchte Produkt konnte nicht gefunden werden.';
+                    try {
+                        const errorData = await response.json();
+                        if (errorData && errorData.error) {
+                            errorMessage = errorData.error;
+                        }
+                    } catch (e) {
+                        // Ignore if error response is not JSON, use default message
+                    }
+                    throw new Error(errorMessage);
+                }
                 const product = await response.json();
 
-                document.querySelector('h1').textContent = product.name;
+                productNameH1.textContent = product.name;
                 document.getElementById('mainProductImage').src = `../pictures/${product.image_folder}/${product.firstImage}`;
                 document.getElementById('productCategory').textContent = product.category;
                 document.getElementById('productPrice').textContent = `${(product.price * 1.07).toFixed(2)} €`;
 
-                const descriptionElement = document.getElementById('productDescription');
                 if (product.long_description) {
                     const paragraphs = product.long_description.split('\n').filter(p => p.trim() !== '');
-                    descriptionElement.innerHTML = '';
+                    productDescriptionDiv.innerHTML = '';
 
                     paragraphs.forEach(paragraph => {
                         const p = document.createElement('p');
                         p.textContent = paragraph;
-                        descriptionElement.appendChild(p);
+                        productDescriptionDiv.appendChild(p);
                     });
                 } else {
-                    descriptionElement.innerHTML = '<p>Keine Beschreibung verfügbar</p>';
+                    productDescriptionDiv.innerHTML = '<p>Keine Beschreibung verfügbar</p>';
                 }
 
                 try {
@@ -185,14 +203,22 @@
                         const imageData = await imagesResponse.json();
                         productImages = imageData.images.map(imagePath => `../pictures/${imagePath}`);
                     } else {
-                        productImages = [`${folderPath}/${product.firstImage}`];
+                        // If fetching specific images fails, still try to use the main product image
+                        productImages = [`../pictures/${product.image_folder}/${product.firstImage}`];
                     }
                 } catch (imageError) {
                     console.error('Error loading product images:', imageError);
-                    productImages = [`${folderPath}/${product.firstImage}`];
+                     // Fallback to just the main image if image list fetching fails
+                    productImages = [`../pictures/${product.image_folder}/${product.firstImage}`];
                 }
             } catch (error) {
-                console.error('Fehler beim Laden des Produkts:', error);
+                console.error('Fehler beim Laden des Produkts:', error.message);
+                // Clear existing content and display error message
+                if (productNameH1) productNameH1.textContent = 'Fehler';
+                if (productRow) {
+                    productRow.innerHTML = `<div class="col-12"><p class="text-center">Das gesuchte Produkt konnte nicht geladen werden. Grund: ${error.message}. Bitte überprüfen Sie die URL oder versuchen Sie es später erneut.</p></div>`;
+                }
+                if (productDescriptionDiv) productDescriptionDiv.innerHTML = '';
             }
         });
     </script>

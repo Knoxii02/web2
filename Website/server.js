@@ -1,18 +1,18 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
-const fs = require('fs');
+const fs = require('fs').promises; // Import fs.promises
 
 const app = express();
 const db = new sqlite3.Database('./db/database.sqlite');
 
 app.use(express.static(path.join(__dirname)));
 
-function getFirstImageInFolder(folderName) {
+async function getFirstImageInFolder(folderName) { // Make function async
     try {
         const folderPath = path.join(__dirname, 'pictures', folderName);
         
-        const files = fs.readdirSync(folderPath);
+        const files = await fs.readdir(folderPath); // Use await and fs.readdir
         
         const imageFiles = files
             .filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file))
@@ -25,27 +25,27 @@ function getFirstImageInFolder(folderName) {
     }
 }
 
-app.get('/api/products', (req, res) => {
-    db.all('SELECT * FROM products', [], (err, rows) => {
+app.get('/api/products', async (req, res) => { // Make route handler async
+    db.all('SELECT * FROM products', [], async (err, rows) => { // Make callback async
         if (err) {
             res.status(500).json({ error: err.message });
             return;
         }
         
-        const productsWithImages = rows.map(product => {
+        const productsWithImages = await Promise.all(rows.map(async product => { // Use Promise.all and await
             return {
                 ...product,
-                firstImage: getFirstImageInFolder(product.image_folder)
+                firstImage: await getFirstImageInFolder(product.image_folder) // Use await
             };
-        });
+        }));
         
         res.json(productsWithImages);
     });
 });
 
-app.get('/api/products/:id', (req, res) => {
+app.get('/api/products/:id', async (req, res) => { // Make route handler async
     const productId = req.params.id;
-    db.get('SELECT * FROM products WHERE id = ?', [productId], (err, row) => {
+    db.get('SELECT * FROM products WHERE id = ?', [productId], async (err, row) => { // Make callback async
         if (err) {
             res.status(500).json({ error: err.message });
             return;
@@ -55,29 +55,18 @@ app.get('/api/products/:id', (req, res) => {
             return;
         }
         
-        row.firstImage = getFirstImageInFolder(row.image_folder);
+        row.firstImage = await getFirstImageInFolder(row.image_folder); // Use await
         res.json(row);
     });
 });
 
-app.get('/api/products/firstImage/:folder', (req, res) => {
-  const folderName = req.params.folder;
-  const firstImage = getFirstImageInFolder(folderName);
-  
-  if (firstImage) {
-    res.json({ imagePath: `${folderName}/${firstImage}` });
-  } else {
-    res.status(404).json({ error: 'No images found' });
-  }
-});
-
-app.get('/api/products/images/:folder', (req, res) => {
+app.get('/api/products/images/:folder', async (req, res) => { // Make route handler async
   const folderName = req.params.folder;
   
   try {
     const folderPath = path.join(__dirname, 'pictures', folderName);
     
-    const files = fs.readdirSync(folderPath);
+    const files = await fs.readdir(folderPath); // Use await and fs.readdir
     
     const imageFiles = files
       .filter(file => /\.(jpg|png)$/i.test(file))
