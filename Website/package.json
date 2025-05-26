@@ -2,11 +2,11 @@
   "name": "website",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "backend/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "init:db": "node Website/scripts/setup_db.js"
+    "start:frontend": "node frontend_server.js",
+    "init:db": "node backend/scripts/setup_db.js"
   },
   "keywords": [],
   "author": "",
