@@ -49,17 +49,14 @@
                     Alle
                 </button>
                 <div class="dropdown-menu" aria-labelledby="kategorieDropdown">
-                    <a class="dropdown-item active" href="#">Alle</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Arbeitsheft</a>
-                    <a class="dropdown-item" href="#">Buch</a>
-                    <a class="dropdown-item" href="#">Arbeitsmaterial</a>
+                    <!-- Categories will be populated here by JavaScript -->
                 </div>
             </div>
         </div>    
         <!-- Produktkarten -->
         <div class="container">
-            <div class="row">
+            <div class="row" id="product-cards-container">
+                <!-- Products will be populated here by JavaScript -->
             </div>
         </div>
 
@@ -82,11 +79,13 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
         crossorigin="anonymous"></script>    
+    <script src="../js/product.js"></script> <!-- For formatPrice -->
     
     <!-- Produktfilter- und Anzeige-Script -->
     <script>
-        function getBadgeClass(category) {
-            switch (category) {
+        function getBadgeClass(categoryName) {
+            // Assuming category_name matches the names used before, adjust if necessary
+            switch (categoryName) {
                 case 'Arbeitsheft':
                     return 'badge-primary';
                 case 'Buch':
@@ -98,79 +97,151 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', async () => {
+        async function fetchProducts(categoryId = null) {
+            let url = '/api/products';
+            if (categoryId) {
+                url += `?category_id=${categoryId}`;
+            }
             try {
-                const response = await fetch('/api/products');
-                const products = await response.json();
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('Fehler beim Laden der Produkte:', error);
+                return []; // Return empty array on error
+            }
+        }
 
-                const productContainer = document.querySelector('.row');
-                const categoryDropdown = document.getElementById('kategorieDropdown');
-                const dropdownItems = document.querySelectorAll('.dropdown-item');
+        function renderProducts(products) {
+            const productContainer = document.getElementById('product-cards-container');
+            productContainer.innerHTML = ''; // Clear existing products
 
-                function renderProducts(category) {
-                    productContainer.innerHTML = '';
-
-                    const filteredProducts = category === 'Alle' ? products : products.filter(product => product.category === category);
-
-                    filteredProducts.forEach(product => {
-                        const badgeClass = getBadgeClass(product.category); const productHTML = `
-                            <div class="col-md-3 mb-4" data-category="${product.category}" data-product-id="${product.id}" data-product-url="/product?id=${product.id}">
-                                <div class="card h-100">                                    
-                                    <div class="product-img-container card-clickable">
-                                        <img src="../pictures/${product.image_folder}/${product.firstImage}" class="card-img-top" alt="${product.name}">
-                                    </div>
-                                    <div class="card-body card-clickable d-flex flex-column">                                        
-                                        <span class="badge ${badgeClass} mb-2">${product.category}</span>
-                                        <h5 class="card-title">${product.name}</h5>
-                                        <p class="card-text flex-grow-1">${product.short_description || product.long_description}</p>
-                                    </div>
-                                    <div class="card-footer d-flex justify-content-between align-items-center">
-                                        <strong>${product.price.toFixed(2)} €</strong>
-                                        <a href="/product?id=${product.id}" class="btn btn-primary btn-sm">Details</a>
-                                    </div>
-                                </div>
+            products.forEach(product => {
+                const badgeClass = getBadgeClass(product.category_name);
+                const productHTML = `
+                    <div class="col-md-3 mb-4" data-category="${product.category_name}" data-product-id="${product.id}" data-product-url="/product?id=${product.id}">
+                        <div class="card h-100">                                    
+                            <div class="product-img-container card-clickable">
+                                <img src="${product.firstImage}" class="card-img-top" alt="${product.name}">
                             </div>
-                        `;
-                        productContainer.insertAdjacentHTML('beforeend', productHTML);
+                            <div class="card-body card-clickable d-flex flex-column">                                        
+                                <span class="badge ${badgeClass} mb-2">${product.category_name}</span>
+                                <h5 class="card-title">${product.name}</h5>
+                                <p class="card-text flex-grow-1">${product.short_description || product.long_description}</p>
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <strong>${formatPrice(product.gross_price)}</strong>
+                                    <a href="/product?id=${product.id}" class="btn btn-primary btn-sm">Details</a>
+                                </div>
+                                <small class="text-muted d-block text-right mt-1">inkl. ${product.vat_percentage}% MwSt.</small>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                productContainer.insertAdjacentHTML('beforeend', productHTML);
+            });
+            addClickEventsToCards();
+        }
+
+        function addClickEventsToCards() {
+            document.querySelectorAll('#product-cards-container .col-md-3').forEach(card => {
+                const productURL = card.getAttribute('data-product-url');
+                card.querySelectorAll('.card-clickable').forEach(element => {
+                    element.style.cursor = 'pointer';
+                    element.addEventListener('click', () => {
+                        window.location.href = productURL;
+                    });
+                });
+                const cardTitle = card.querySelector('.card-title');
+                if (cardTitle) {
+                    cardTitle.style.cursor = 'pointer';
+                    cardTitle.addEventListener('click', () => {
+                        window.location.href = productURL;
                     });
                 }
-                renderProducts('Alle');
+            });
+        }
+        
+        async function populateCategoryDropdown() {
+            const dropdownMenu = document.querySelector('.dropdown-menu[aria-labelledby="kategorieDropdown"]');
+            dropdownMenu.innerHTML = ''; // Clear static items
 
-                dropdownItems.forEach(item => {
-                    item.addEventListener('click', (event) => {
+            try {
+                const response = await fetch('/api/categories');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const categories = await response.json();
+
+                // Add "Alle" option first
+                const allOption = document.createElement('a');
+                allOption.classList.add('dropdown-item', 'active');
+                allOption.href = '#';
+                allOption.textContent = 'Alle';
+                allOption.dataset.categoryId = ''; // No ID for "Alle"
+                dropdownMenu.appendChild(allOption);
+
+                const divider = document.createElement('div');
+                divider.classList.add('dropdown-divider');
+                dropdownMenu.appendChild(divider);
+
+                categories.forEach(category => {
+                    const item = document.createElement('a');
+                    item.classList.add('dropdown-item');
+                    item.href = '#';
+                    item.textContent = category.name;
+                    item.dataset.categoryId = category.id;
+                    dropdownMenu.appendChild(item);
+                });
+                
+                // Add event listeners to new dropdown items
+                dropdownMenu.querySelectorAll('.dropdown-item').forEach(item => {
+                    item.addEventListener('click', async (event) => {
                         event.preventDefault();
-                        const selectedCategory = item.textContent;
-                        categoryDropdown.textContent = selectedCategory;
-                        renderProducts(selectedCategory);
-                        setTimeout(addClickEvents, 100);
+                        const selectedCategoryName = item.textContent;
+                        const categoryId = item.dataset.categoryId;
+                        
+                        document.getElementById('kategorieDropdown').textContent = selectedCategoryName;
+                        
+                        // Remove 'active' class from all items, then add to the clicked one
+                        dropdownMenu.querySelectorAll('.dropdown-item').forEach(i => i.classList.remove('active'));
+                        item.classList.add('active');
+
+                        const products = await fetchProducts(categoryId);
+                        renderProducts(products);
                     });
                 });
 
-                function addClickEvents() {
-                    document.querySelectorAll('.col-md-3.mb-4').forEach(card => {
-                        const productURL = card.getAttribute('data-product-url');
-
-                        card.querySelectorAll('.card-clickable').forEach(element => {
-                            element.style.cursor = 'pointer';
-                            element.addEventListener('click', () => {
-                                window.location.href = productURL;
-                            });
-                        });
-
-                        const cardTitle = card.querySelector('.card-title');
-                        if (cardTitle) {
-                            cardTitle.style.cursor = 'pointer';
-                            cardTitle.addEventListener('click', () => {
-                                window.location.href = productURL;
-                            });
-                        }
+            } catch (error) {
+                console.error('Fehler beim Laden der Kategorien:', error);
+                // Optionally, add a default "Alle" if categories fail to load
+                if (dropdownMenu.children.length === 0) {
+                    const allOption = document.createElement('a');
+                    allOption.classList.add('dropdown-item', 'active');
+                    allOption.href = '#';
+                    allOption.textContent = 'Alle';
+                    allOption.dataset.categoryId = '';
+                    dropdownMenu.appendChild(allOption);
+                     allOption.addEventListener('click', async (event) => {
+                        event.preventDefault();
+                        document.getElementById('kategorieDropdown').textContent = 'Alle';
+                        dropdownMenu.querySelectorAll('.dropdown-item').forEach(i => i.classList.remove('active'));
+                        allOption.classList.add('active');
+                        const products = await fetchProducts();
+                        renderProducts(products);
                     });
                 }
-
-                setTimeout(addClickEvents, 100);
-            } catch (error) {
-                console.error('Fehler beim Laden der Produkte:', error);
             }
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await populateCategoryDropdown();
+            // Initial load of all products
+            const initialProducts = await fetchProducts();
+            renderProducts(initialProducts);
         });
     </script>
 </body>

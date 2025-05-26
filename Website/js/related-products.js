@@ -1,4 +1,4 @@
-async function loadAndDisplayRelatedProducts(containerId, excludeProductId = null, excludeProductIds = [], limit = 4) {
+async function loadAndDisplayRelatedProducts(containerId, excludeProductId = null, limit = 4) {
     try {
         const container = document.getElementById(containerId);
         if (!container) {
@@ -6,41 +6,54 @@ async function loadAndDisplayRelatedProducts(containerId, excludeProductId = nul
             return;
         }
 
-        const response = await fetch('/api/products');
-        const products = await response.json();
+        let fetchLimit = limit;
+        if (excludeProductId !== null) {
+            fetchLimit = limit + 1; // Fetch one more to allow filtering
+        }
 
-        let filteredProducts = products;
+        const response = await fetch(`/api/products/related?limit=${fetchLimit}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        let relatedProducts = await response.json();
 
         if (excludeProductId !== null) {
-            filteredProducts = filteredProducts.filter(product => product.id !== excludeProductId);
+            relatedProducts = relatedProducts.filter(product => product.id !== excludeProductId);
+        }
+        
+        // Ensure we have the correct number of products after filtering
+        relatedProducts = relatedProducts.slice(0, limit);
+
+        container.innerHTML = ''; // Clear existing content
+
+        if (relatedProducts.length === 0) {
+            // Optionally, display a message if no related products are found
+            // container.innerHTML = '<p>Keine ähnlichen Produkte gefunden.</p>';
+            return;
         }
 
-        if (excludeProductIds.length > 0) {
-            filteredProducts = filteredProducts.filter(product => !excludeProductIds.includes(product.id));
-        }
-
-        const randomProducts = filteredProducts.sort(() => 0.5 - Math.random()).slice(0, limit);
-
-        container.innerHTML = '';
-
-        randomProducts.forEach(product => {
+        relatedProducts.forEach(product => {
             const productURL = `/product?id=${product.id}`;
-            const badgeClass = getBadgeClass(product.category);
+            // Ensure getBadgeClass is defined or imported if this script is modular
+            const badgeClass = getBadgeClass(product.category_name); 
 
             const productHTML = `
-                <div class="col-md-3 mb-4" data-category="${product.category}" data-product-id="${product.id}" data-product-url="${productURL}">
+                <div class="col-md-3 mb-4" data-category="${product.category_name}" data-product-id="${product.id}" data-product-url="${productURL}">
                     <div class="card h-100">
                         <div class="product-img-container card-clickable">
-                            <img src="../pictures/${product.image_folder}/${product.firstImage}" class="card-img-top" alt="${product.name}">
+                            <img src="${product.firstImage}" class="card-img-top" alt="${product.name}">
                         </div>
                         <div class="card-body card-clickable d-flex flex-column">
-                            <span class="badge ${badgeClass} mb-2">${product.category}</span>
+                            <span class="badge ${badgeClass} mb-2">${product.category_name}</span>
                             <h5 class="card-title">${product.name}</h5>
-                            <p class="card-text flex-grow-1">${product.short_description}</p>
+                            <p class="card-text flex-grow-1">${product.short_description || ''}</p>
                         </div>
-                        <div class="card-footer d-flex justify-content-between align-items-center">
-                            <strong>${(product.price * 1.07).toFixed(2)} €</strong>
-                            <a href="${productURL}" class="btn btn-primary btn-sm">Details</a>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <strong>${typeof formatPrice === 'function' ? formatPrice(product.gross_price) : product.gross_price.toFixed(2) + ' €'}</strong>
+                                <a href="${productURL}" class="btn btn-primary btn-sm">Details</a>
+                            </div>
+                            <small class="text-muted d-block text-right mt-1">inkl. ${product.vat_percentage}% MwSt.</small>
                         </div>
                     </div>
                 </div>
@@ -48,15 +61,33 @@ async function loadAndDisplayRelatedProducts(containerId, excludeProductId = nul
             container.insertAdjacentHTML('beforeend', productHTML);
         });
 
-        addClickEventsToProductCards();
+        addClickEventsToProductCards(); // Ensure this function is defined or imported
     } catch (error) {
-        console.error('Fehler beim Laden der Produkte:', error);
+        console.error('Fehler beim Laden der ähnlichen Produkte:', error);
     }
 }
 
+// This function might be duplicated if not managed by a module system.
+// Ensure it's available, or consider moving it to a shared utility script.
+function getBadgeClass(categoryName) {
+    switch (categoryName) {
+        case 'Arbeitsheft':
+            return 'badge-primary';
+        case 'Buch':
+            return 'badge-success';
+        case 'Arbeitsmaterial':
+            return 'badge-warning';
+        default:
+            return 'badge-secondary';
+    }
+}
 
+// Ensure addClickEventsToProductCards is defined.
+// If it's identical to the one in shop.html, consider a shared utility script.
 function addClickEventsToProductCards() {
-    document.querySelectorAll('.col-md-3.mb-4').forEach(card => {
+    // Assuming the related products container might have a different ID or class structure,
+    // this selector might need to be more specific or passed as an argument if necessary.
+    document.querySelectorAll('#' + (document.getElementById('related-products-container') ? 'related-products-container' : document.getElementById('product-cards-container') ? 'product-cards-container' : '') + ' .col-md-3.mb-4').forEach(card => {
         const productURL = card.getAttribute('data-product-url');
 
         card.querySelectorAll('.card-clickable').forEach(element => {
@@ -74,18 +105,4 @@ function addClickEventsToProductCards() {
             });
         }
     });
-}
-
-
-function getBadgeClass(category) {
-    switch (category) {
-        case 'Arbeitsheft':
-            return 'badge-primary';
-        case 'Buch':
-            return 'badge-success';
-        case 'Arbeitsmaterial':
-            return 'badge-warning';
-        default:
-            return 'badge-secondary';
-    }
 }

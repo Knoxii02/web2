@@ -85,7 +85,7 @@
                     <!-- Preis -->
                     <div class="mb-4">
                         <h3 id="productPrice"></h3>
-                        <small>inkl. 7% MwSt.</small>
+                        <small id="vatInfo">inkl. MwSt.</small>
                     </div>
 
                     <!-- Menge und Warenkorb -->
@@ -159,9 +159,11 @@
                 const product = await response.json();
 
                 document.querySelector('h1').textContent = product.name;
-                document.getElementById('mainProductImage').src = `../pictures/${product.image_folder}/${product.firstImage}`;
-                document.getElementById('productCategory').textContent = product.category;
-                document.getElementById('productPrice').textContent = `${(product.price * 1.07).toFixed(2)} €`;
+                document.getElementById('mainProductImage').src = product.firstImage; // Use full path
+                document.getElementById('productCategory').textContent = product.category_name; // Use category_name
+                document.getElementById('productCategory').className = `badge ${getBadgeClass(product.category_name)}`; // Update badge class
+                document.getElementById('productPrice').textContent = formatPrice(product.gross_price); // Use gross_price and format
+                document.getElementById('vatInfo').textContent = `inkl. ${product.vat_percentage}% MwSt.`; // Update VAT info
 
                 const descriptionElement = document.getElementById('productDescription');
                 if (product.long_description) {
@@ -178,18 +180,20 @@
                 }
 
                 try {
-                    const folderPath = `../pictures/${product.image_folder}`;
+                    // const folderPath = `../pictures/${product.image_folder}`; // No longer needed for constructing paths here
                     const imagesResponse = await fetch(`/api/products/images/${product.image_folder}`);
 
                     if (imagesResponse.ok) {
                         const imageData = await imagesResponse.json();
-                        productImages = imageData.images.map(imagePath => `../pictures/${imagePath}`);
+                        productImages = imageData.images; // Directly use full paths
                     } else {
-                        productImages = [`${folderPath}/${product.firstImage}`];
+                        // Fallback if images endpoint fails, use the main full path image
+                        productImages = product.firstImage ? [product.firstImage] : []; 
                     }
                 } catch (imageError) {
                     console.error('Error loading product images:', imageError);
-                    productImages = [`${folderPath}/${product.firstImage}`];
+                     // Fallback if images endpoint fails, use the main full path image
+                    productImages = product.firstImage ? [product.firstImage] : [];
                 }
             } catch (error) {
                 console.error('Fehler beim Laden des Produkts:', error);

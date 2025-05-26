@@ -35,3 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+function formatPrice(price) {
+    return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(price);
+}

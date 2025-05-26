@@ -1,0 +1,72 @@
+IMPORTANT: Manual Project Restructuring Required
+
+The automated tool was unable to perform file system restructuring. Please follow these steps manually to align with your professor's feedback regarding frontend/backend separation.
+
+**1. Create New Directory Structure:**
+
+   - Inside the 'Website' directory, create two new folders:
+     - `frontend`
+     - `backend`
+
+   - Inside the `Website/backend` directory, create two more folders:
+     - `db`
+     - `scripts`
+
+**2. Move Existing Files and Folders:**
+
+   - **Frontend Assets (into `Website/frontend/`):**
+     - Move `Website/css/`          -> `Website/frontend/css/`
+     - Move `Website/html/`         -> `Website/frontend/html/`
+     - Move `Website/js/`           -> `Website/frontend/js/` (client-side JS like product.js, related-products.js, bootstrap.bundle.min.js)
+     - Move `Website/pictures/`     -> `Website/frontend/pictures/`
+
+   - **Backend Assets (into `Website/backend/`):**
+     - Move `Website/server.js`             -> `Website/backend/server.js`
+     - Move `Website/db/database_setup.sql` -> `Website/backend/db/database_setup.sql`
+     - Move `Website/db/database.sqlite`    -> `Website/backend/db/database.sqlite` (if it exists after running `npm run init:db`)
+     - Move `Website/scripts/setup_db.js`   -> `Website/backend/scripts/setup_db.js`
+
+**3. Update `Website/package.json` paths:**
+
+   - Open `Website/package.json`.
+   - In the "scripts" section:
+     - Change `"init:db": "node Website/scripts/setup_db.js"` to `"init:db": "node backend/scripts/setup_db.js"`
+   - Change `"main": "server.js"` to `"main": "backend/server.js"` (or adjust as needed if you run servers differently).
+
+**4. Configure Two Server Instances (as per professor's feedback):**
+
+   This task aimed to make the current `server.js` (which will be `Website/backend/server.js`) solely an API and image server. You will need to:
+
+   a. **Backend Server (`Website/backend/server.js`):**
+      - This server should *only* handle API requests (e.g., `/api/...`) and serve product images (e.g., requests to `/pictures/...` should be routed to serve from `Website/frontend/pictures/`).
+      - **Crucially, remove all static serving of HTML files from this server.**
+        Currently, it has lines like:
+        `app.use(express.static(path.join(__dirname)));` (this serves everything from its current directory if `server.js` is in `Website/`)
+        And specific routes like:
+        `app.get('/shop', (req, res) => { res.sendFile(path.join(__dirname, 'html', 'shop.html')); });`
+        These need to be removed.
+      - **Image Serving:** After moving `server.js` to `Website/backend/server.js` and `pictures` to `Website/frontend/pictures/`, you need to ensure the backend server can serve these images. Add or modify an `express.static` middleware line in `Website/backend/server.js` to specifically serve images from the `Website/frontend/pictures/` directory under the `/pictures` route. It should look like this:
+        `app.use('/pictures', express.static(path.join(__dirname, '../frontend/pictures')));`
+        The `__dirname` in this path will refer to the `Website/backend/` directory where `server.js` is located. This setup ensures that image URLs like `/pictures/book_1/book_1_1.jpg` (as now provided by the API) are correctly handled by the backend server, serving them from `Website/frontend/pictures/book_1/book_1_1.jpg`.
+      - It should run on one port (e.g., Port 3000, as currently configured).
+
+   b. **Frontend Server (New - e.g., `Website/frontend_server.js`):**
+      - Create a new, simple Express server file (e.g., `Website/frontend_server.js` or place it at `Website/frontend/server.js`).
+      - This server's only job is to statically serve the files from the `Website/frontend` directory (HTML, CSS, client-side JS).
+        Example: `app.use(express.static(path.join(__dirname, 'frontend')));` (if `frontend_server.js` is in `Website/`)
+        OR `app.use(express.static(__dirname));` (if `frontend_server.js` is in `Website/frontend/`)
+      - It must run on a *different port* (e.g., Port 3001).
+      - Add a script to `Website/package.json` to run this, e.g., `"start:frontend": "node frontend_server.js"`.
+
+**5. Adjust Paths in Frontend Files:**
+
+   - After moving files, HTML files in `Website/frontend/html/` will try to access CSS/JS using `../css/` or `../js/`. These paths might need to change to be relative to the new `Website/frontend/` root if your frontend server serves from there. For example, `<link rel="stylesheet" href="../css/base.css">` might become `<link rel="stylesheet" href="/css/base.css">` if the frontend server serves the `css` folder at its root.
+   - Similarly, image paths in JavaScript like `../pictures/...` might need adjustment if the backend serves them from a different base URL or if the frontend server setup changes their relative access. The backend API currently returns image paths like `folderName/imageName.jpg`. If the backend serves these from `/pictures/folderName/imageName.jpg` (mapping to `Website/frontend/pictures/`), then client-side JavaScript just needs to prefix image paths with `/pictures/`.
+
+**After these changes, you should be able to run:**
+   - `npm run init:db` (from `Website/` directory, to set up the database in `Website/backend/db/`)
+   - `npm start` (or whatever script runs `Website/backend/server.js`) for the backend API.
+   - `npm run start:frontend` (for the new frontend server).
+   - Access your application via the frontend server's port (e.g., `http://localhost:3001`).
+
+This manual restructuring is essential to fully address the feedback.
