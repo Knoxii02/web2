@@ -10,7 +10,7 @@ app.use('/pictures', express.static(path.join(__dirname, '../frontend/pictures')
 
 function getFirstImageInFolder(folderName) {
     try {
-        const folderPath = path.join(__dirname, 'pictures', folderName);
+        const folderPath = path.join(__dirname, '../frontend/pictures', folderName);
         
         const files = fs.readdirSync(folderPath);
         
@@ -167,7 +167,7 @@ app.get('/api/products/images/:folder', (req, res) => {
   const folderName = req.params.folder;
   
   try {
-    const folderPath = path.join(__dirname, 'pictures', folderName);
+    const folderPath = path.join(__dirname, '../frontend/pictures', folderName);
     
     const files = fs.readdirSync(folderPath);
     
