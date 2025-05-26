@@ -4,7 +4,7 @@ const path = require('path');
 const fs = require('fs');
 
 const app = express();
-const db = new sqlite3.Database('./db/database.sqlite');
+const db = new sqlite3.Database(path.join(__dirname, 'db', 'database.sqlite'));
 
 app.use('/pictures', express.static(path.join(__dirname, '../frontend/pictures')));
 
