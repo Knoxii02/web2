@@ -6,7 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node backend/server.js",
-    "start:frontend": "node frontend/frontend_server.js",
     "init:db": "node backend/scripts/setup_db.js"
   },
   "keywords": [],

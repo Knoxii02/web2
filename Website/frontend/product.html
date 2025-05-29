@@ -15,10 +15,10 @@
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-md navbar-light fixed-top">
-        <a class="navbar-brand" href="/">Erziehen-Lernen-Fördern</a>
+        <a class="navbar-brand" href="index.html">Erziehen-Lernen-Fördern</a>
 
         <!-- Cart Icon -->
-        <a href="/shopping-cart" class="cart-link nav-link ml-auto mr-3 order-md-last">
+        <a href="shopping-cart.html" class="cart-link nav-link ml-auto mr-3 order-md-last">
             <i class="bi bi-cart cart-icon"></i>
         </a>
 
@@ -31,9 +31,9 @@
         <!-- Einklappbarer Kontent -->
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav mr-auto">
-                <a class="nav-link" href="/">Home</a>
-                <a class="nav-link active" href="/shop">Shop <span class="sr-only">(current)</span></a>
-                <a class="nav-link" href="/contact">Kontakt</a>
+                <a class="nav-link" href="index.html">Home</a>
+                <a class="nav-link active" href="shop.html">Shop <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="contact.html">Kontakt</a>
             </div>
         </div>
     </nav>
@@ -129,9 +129,9 @@
         <div class="container p-4">
             <p>Kontakt: <a href="mailto:info@erziehen-lernen-foerdern.de">info@erziehen-lernen-foerdern.de</a></p>
             <ul class="list-inline">
-                <li class="list-inline-item"><a href="/imprint">Impressum</a></li>
-                <li class="list-inline-item"><a href="/payment-terms">Liefer- und Zahlungsbedingungen</a></li>
-                <li class="list-inline-item"><a href="/privacy-policy">Datenschutz</a></li>
+                <li class="list-inline-item"><a href="imprint.html">Impressum</a></li>
+                <li class="list-inline-item"><a href="payment-terms.html">Liefer- und Zahlungsbedingungen</a></li>
+                <li class="list-inline-item"><a href="privacy-policy.html">Datenschutz</a></li>
             </ul>
         </div>
     </footer>
@@ -162,7 +162,7 @@
                 document.getElementById('mainProductImage').src = product.firstImage; // Use full path
                 document.getElementById('productCategory').textContent = product.category_name; // Use category_name
                 document.getElementById('productCategory').className = `badge ${getBadgeClass(product.category_name)}`; // Update badge class
-                document.getElementById('productPrice').textContent = formatPrice(product.gross_price); // Use gross_price and format
+                document.getElementById('productPrice').textContent = formatPriceGerman(product.gross_price) + " €"; // Use gross_price and format
                 document.getElementById('vatInfo').textContent = `inkl. ${product.vat_percentage}% MwSt.`; // Update VAT info
 
                 const descriptionElement = document.getElementById('productDescription');
@@ -181,7 +181,7 @@
 
                 try {
                     // const folderPath = `../pictures/${product.image_folder}`; // No longer needed for constructing paths here
-                    const imagesResponse = await fetch(`/api/products/images/${product.image_folder}`);
+                    const imagesResponse = await fetch(`http://localhost:3000/api/products/images/${product.image_folder}`);
 
                     if (imagesResponse.ok) {
                         const imageData = await imagesResponse.json();

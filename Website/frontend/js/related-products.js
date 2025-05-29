@@ -11,7 +11,7 @@ async function loadAndDisplayRelatedProducts(containerId, excludeProductId = nul
             fetchLimit = limit + 1; // Fetch one more to allow filtering
         }
 
-        const response = await fetch(`/api/products/related?limit=${fetchLimit}`);
+        const response = await fetch(`http://localhost:3000/api/products/related?limit=${fetchLimit}`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -33,7 +33,7 @@ async function loadAndDisplayRelatedProducts(containerId, excludeProductId = nul
         }
 
         relatedProducts.forEach(product => {
-            const productURL = `/product?id=${product.id}`;
+            const productURL = `product.html?id=${product.id}`;
             // Ensure getBadgeClass is defined or imported if this script is modular
             const badgeClass = getBadgeClass(product.category_name); 
 
@@ -50,7 +50,7 @@ async function loadAndDisplayRelatedProducts(containerId, excludeProductId = nul
                         </div>
                         <div class="card-footer">
                             <div class="d-flex justify-content-between align-items-center">
-                                <strong>${typeof formatPrice === 'function' ? formatPrice(product.gross_price) : product.gross_price.toFixed(2) + ' €'}</strong>
+                                <strong>${formatPriceGerman(product.gross_price)} €</strong>
                                 <a href="${productURL}" class="btn btn-primary btn-sm">Details</a>
                             </div>
                             <small class="text-muted d-block text-right mt-1">inkl. ${product.vat_percentage}% MwSt.</small>
@@ -105,4 +105,13 @@ function addClickEventsToProductCards() {
             });
         }
     });
+}
+
+function formatPriceGerman(price) {
+    const numericPrice = Number(price);
+    if (isNaN(numericPrice)) {
+        // console.error("Invalid price input for formatPriceGerman:", price);
+        return "N/A"; // Or some other placeholder
+    }
+    return numericPrice.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
