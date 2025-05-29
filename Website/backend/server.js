@@ -2,8 +2,10 @@ const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const fs = require('fs');
+const cors = require('cors');
 
 const app = express();
+app.use(cors());
 const db = new sqlite3.Database(path.join(__dirname, 'db', 'database.sqlite'));
 
 app.use('/pictures', express.static(path.join(__dirname, '../frontend/pictures')));
