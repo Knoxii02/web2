@@ -66,7 +66,7 @@ app.get('/api/products', (req, res) => {
             return {
                 ...product,
                 gross_price: gross_price,
-                firstImage: imageName ? `/pictures/${product.image_folder}/${imageName}` : null
+                firstImage: imageName ? `../frontend/pictures/${product.image_folder}/${imageName}` : null
             };
         });
         
@@ -103,7 +103,7 @@ app.get('/api/products/related', (req, res) => {
             return {
                 ...product,
                 gross_price: gross_price,
-                firstImage: imageName ? `/pictures/${product.image_folder}/${imageName}` : null
+                firstImage: imageName ? `../frontend/pictures/${product.image_folder}/${imageName}` : null
             };
         });
         
@@ -148,7 +148,7 @@ app.get('/api/products/:id', (req, res) => {
         const productWithDetails = {
             ...row,
             gross_price: gross_price,
-            firstImage: imageName ? `/pictures/${row.image_folder}/${imageName}` : null
+            firstImage: imageName ? `../frontend/pictures/${row.image_folder}/${imageName}` : null
         };
         res.json(productWithDetails);
     });
@@ -159,7 +159,7 @@ app.get('/api/products/firstImage/:folder', (req, res) => {
   const imageName = getFirstImageInFolder(folderName);
   
   if (imageName) {
-    res.json({ imagePath: `/pictures/${folderName}/${imageName}` });
+    res.json({ imagePath: `../frontend/pictures/${folderName}/${imageName}` });
   } else {
     res.status(404).json({ error: 'No images found' });
   }
@@ -178,7 +178,7 @@ app.get('/api/products/images/:folder', (req, res) => {
       .sort();
     
     if (imageFiles.length > 0) {
-      const imagePaths = imageFiles.map(file => `/pictures/${folderName}/${file}`); // Make paths full
+      const imagePaths = imageFiles.map(file => `../frontend/pictures/${folderName}/${file}`); // Make paths full
       res.json({ images: imagePaths });
     } else {
       res.status(404).json({ error: 'No images found' });
