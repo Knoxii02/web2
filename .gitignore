@@ -1,3 +1,4 @@
 gitignore/
 Website/db/database.sqlite
 Website/node_modules/
+Website/package-lock.json
