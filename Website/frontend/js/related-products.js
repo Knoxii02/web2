@@ -72,15 +72,16 @@ async function loadAndDisplayRelatedProducts(containerId, excludeProductIds = nu
 // This function might be duplicated if not managed by a module system.
 // Ensure it's available, or consider moving it to a shared utility script.
 function getBadgeClass(categoryName) {
+    // Assuming category_name matches the names used before, adjust if necessary
     switch (categoryName) {
         case 'Arbeitsheft':
-            return 'badge-primary';
+            return 'badge-info';
         case 'Buch':
             return 'badge-success';
         case 'Arbeitsmaterial':
             return 'badge-warning';
         default:
-            return 'badge-secondary';
+            return 'badge-success';
     }
 }
 
