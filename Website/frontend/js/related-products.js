@@ -1,4 +1,4 @@
-async function loadAndDisplayRelatedProducts(containerId, excludeProductId = null, limit = 4) {
+async function loadAndDisplayRelatedProducts(containerId, excludeProductIds = null, limit = 4) {
     try {
         const container = document.getElementById(containerId);
         if (!container) {
@@ -6,9 +6,11 @@ async function loadAndDisplayRelatedProducts(containerId, excludeProductId = nul
             return;
         }
 
+        // Berechne, wie viele zusätzliche Produkte wir laden müssen
         let fetchLimit = limit;
-        if (excludeProductId !== null) {
-            fetchLimit = limit + 1; // Fetch one more to allow filtering
+        if (excludeProductIds && Array.isArray(excludeProductIds) && excludeProductIds.length > 0) {
+            // Mehr Produkte anfordern, um nach dem Filtern genug zu haben
+            fetchLimit = limit + excludeProductIds.length;
         }
 
         const response = await fetch(`http://localhost:3000/api/products/related?limit=${fetchLimit}`);
@@ -17,11 +19,12 @@ async function loadAndDisplayRelatedProducts(containerId, excludeProductId = nul
         }
         let relatedProducts = await response.json();
 
-        if (excludeProductId !== null) {
-            relatedProducts = relatedProducts.filter(product => product.id !== excludeProductId);
+        // Jetzt korrekt die auszuschließenden Produkte filtern
+        if (excludeProductIds && Array.isArray(excludeProductIds) && excludeProductIds.length > 0) {
+            relatedProducts = relatedProducts.filter(product => !excludeProductIds.includes(product.id));
         }
         
-        // Ensure we have the correct number of products after filtering
+        // Stelle sicher, dass wir die richtige Anzahl von Produkten nach dem Filtern haben
         relatedProducts = relatedProducts.slice(0, limit);
 
         container.innerHTML = ''; // Clear existing content

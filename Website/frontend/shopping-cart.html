@@ -229,7 +229,8 @@
             updateSummary();
 
             const cartProductIds = cart.map(item => item.productId);
-            loadAndDisplayRelatedProducts('related-products-container', null, cartProductIds);
+            // Korrekter Aufruf mit den richtigen Parametern
+            loadAndDisplayRelatedProducts('related-products-container', cartProductIds, 4);
         });
     </script>
 
