@@ -103,11 +103,15 @@
 
             async function renderCartItems() {
                 cartContainer.innerHTML = '';
+                const summaryCard = document.querySelector('.col-12.col-lg-4 .card');
 
                 if (cart.length === 0) {
                     cartContainer.innerHTML = '<p class="text-center">Ihr Warenkorb ist leer.</p>';
+                    summaryCard.style.display = 'none'; // Hide summary card
                     return;
                 }
+
+                summaryCard.style.display = 'block'; // Show summary card
 
                 const response = await fetch('http://localhost:3000/api/products');
                 const products = await response.json();
@@ -164,6 +168,10 @@
             }
 
             async function updateSummary() {
+                if (cart.length === 0) {
+                    return; // Don't update summary if cart is empty
+                }
+
                 const response = await fetch('http://localhost:3000/api/products');
                 const products = await response.json();
 
