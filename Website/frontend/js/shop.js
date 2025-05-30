@@ -4,13 +4,13 @@ function getBadgeClass(categoryName) {
     // Assuming category_name matches the names used before, adjust if necessary
     switch (categoryName) {
         case 'Arbeitsheft':
-            return 'badge-primary';
+            return 'badge-info';
         case 'Buch':
             return 'badge-success';
         case 'Arbeitsmaterial':
             return 'badge-warning';
         default:
-            return 'badge-secondary';
+            return 'badge-success';
     }
 }
 
