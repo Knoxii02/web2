@@ -142,7 +142,7 @@
                                             </p>
                                         </div>
                                         <div class="text-right">
-                                            <p class="h5"><strong>${formatPriceGerman(product.price * 1.07)} €</strong></p>
+                                            <p class="h5"><strong>${formatPriceGerman(product.net_price * 1.07)} €</strong></p>
                                             <div class="input-group input-group-sm mt-2" style="width: 120px;">
                                                 <div class="input-group-prepend">
                                                     <button class="btn btn-outline-secondary" type="button" data-action="decrement" data-index="${index}">-</button>
@@ -177,7 +177,7 @@
 
                 const subtotal = cart.reduce((sum, item) => {
                     const product = products.find(p => p.id === item.productId);
-                    return product ? sum + product.price * item.quantity : sum;
+                    return product ? sum + product.net_price * item.quantity : sum;
                 }, 0);
 
                 const shipping = 5.95;
