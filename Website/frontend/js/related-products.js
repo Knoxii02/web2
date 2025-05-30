@@ -53,7 +53,6 @@ async function loadAndDisplayRelatedProducts(containerId, excludeProductId = nul
                                 <strong>${formatPriceGerman(product.gross_price)} €</strong>
                                 <a href="${productURL}" class="btn btn-primary btn-sm">Details</a>
                             </div>
-                            <small class="text-muted d-block text-right mt-1">inkl. ${product.vat_percentage}% MwSt.</small>
                         </div>
                     </div>
                 </div>

@@ -55,11 +55,10 @@ function renderProducts(products) {
                         <p class="card-text flex-grow-1">${product.short_description || product.long_description}</p>
                     </div>
                     <div class="card-footer">
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-between align-items-center w-100">
                             <strong>${displayPrice}</strong> 
                             <a href="product.html?id=${product.id}" class="btn btn-primary btn-sm">Details</a>
                         </div>
-                        <small class="text-muted d-block text-right mt-1">inkl. ${product.vat_percentage}% MwSt.</small>
                     </div>
                 </div>
             </div>
