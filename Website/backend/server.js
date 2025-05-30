@@ -28,17 +28,8 @@ function getFirstImageInFolder(folderName) {
 }
 
 app.get('/api/products', (req, res) => {
-    const sql = `
-        SELECT 
-            p.id, p.name, p.short_description, p.long_description, p.net_price, p.image_folder,
-            c.name AS category_name,
-            v.rate_percentage AS vat_percentage
-        FROM products p
-        JOIN categories c ON p.category_id = c.id
-        JOIN vat_rates v ON p.vat_rate_id = v.id
-    `;
     let params = [];
-    let baseSql = `
+    let sql = `
         SELECT 
             p.id, p.name, p.short_description, p.long_description, p.net_price, p.image_folder,
             c.name AS category_name,
@@ -50,11 +41,11 @@ app.get('/api/products', (req, res) => {
 
     const categoryId = req.query.category_id;
     if (categoryId && !isNaN(parseInt(categoryId))) {
-        baseSql += ' WHERE p.category_id = ?';
+        sql += ' WHERE p.category_id = ?';
         params.push(parseInt(categoryId));
     }
 
-    db.all(baseSql, params, (err, rows) => {
+    db.all(sql, params, (err, rows) => {
         if (err) {
             res.status(500).json({ error: err.message });
             return;
