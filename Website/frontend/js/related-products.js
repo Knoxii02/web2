@@ -23,7 +23,7 @@ async function loadAndDisplayRelatedProducts(containerId, excludeProductIds = nu
         
         relatedProducts = relatedProducts.slice(0, limit);
 
-        container.innerHTML = ''; // Clear existing content
+        container.innerHTML = ''; 
 
         if (relatedProducts.length === 0) {
             return;

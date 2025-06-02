@@ -169,7 +169,7 @@ app.get('/api/products/images/:folder', (req, res) => {
       .sort();
     
     if (imageFiles.length > 0) {
-      const imagePaths = imageFiles.map(file => `../frontend/pictures/${folderName}/${file}`); // Make paths full
+      const imagePaths = imageFiles.map(file => `../frontend/pictures/${folderName}/${file}`);
       res.json({ images: imagePaths });
     } else {
       res.status(404).json({ error: 'No images found' });

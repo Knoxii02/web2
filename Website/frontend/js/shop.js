@@ -1,4 +1,3 @@
-//移譲されたshop.htmlからのインラインスクリプトの内容：
 
 function getBadgeClass(categoryName) {
     switch (categoryName) {
