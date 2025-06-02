@@ -1,22 +1,18 @@
--- Drop existing tables if they exist
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS vat_rates;
 
--- Create categories table
 CREATE TABLE categories (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL UNIQUE
 );
 
--- Create vat_rates table
 CREATE TABLE vat_rates (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL UNIQUE,
     rate_percentage REAL NOT NULL
 );
 
--- Create products table
 CREATE TABLE products (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,
@@ -30,17 +26,13 @@ CREATE TABLE products (
     FOREIGN KEY (vat_rate_id) REFERENCES vat_rates(id)
 );
 
--- Populate vat_rates
 INSERT INTO vat_rates (name, rate_percentage) VALUES ('Standard', 19.0);
 INSERT INTO vat_rates (name, rate_percentage) VALUES ('Reduced', 7.0);
 
--- Populate categories
 INSERT INTO categories (name) VALUES ('Buch');
 INSERT INTO categories (name) VALUES ('Arbeitsheft');
 INSERT INTO categories (name) VALUES ('Arbeitsmaterial');
 
--- Populate products
--- Product 1: Mit Cuipsi den Mengen auf der Spur
 INSERT INTO products (name, short_description, long_description, net_price, image_folder, category_id, vat_rate_id)
 VALUES (
     'Mit Cuipsi den Mengen auf der Spur',
@@ -48,38 +40,35 @@ VALUES (
     '''Mit Cuipsi den Mengen auf der Spur'' (2. Auflage) richtet sich sowohl an Erzieherinnen in Kindertagesstätten, um ihrem Bildungsauftrag hinsichtlich der vorschulischen mathematischen Frühförderung der Vorschulkinder gerecht werden zu können, als auch an Grund- und SonderschullehrerInnen, um in den Eingangsklassen den pränumerischen Bereich abzudecken. Ebenso können auch Lerntherapeuten mit diesem Material die Pränumerik und damit die Grundlagen der Mathematik erarbeiten. Die in dem Werk dargestellte mathematische Förderung wurde bereits mehrfach erprobt, legt den Schwerpunkt auf handelndes und entdeckendes Lernen und vermittelt mit den eingesetzten Cuisenaire-Stäben ein intuitives mathematisches Operationsverständnis und schafft so optimale Grundlagen für den Start in die Welt der Mathematik. Das Werk bietet neben einer kurzen theoretischen Einführung einen Überblick über den Aufbau der mathematischen Kompetenzen und zum didaktischen Vorgehen in Form von Anweisungskarten mit den passenden (verkleinerten) Arbeitsblättern in verschiedenen Schwierigkeitsgraden, eine Fülle von Spielideen als Spielkartei mit den dazugehörenden Spielplänen. Zusätzlich kann mit Hilfe der Checklisten die individuelle Lernausgangslage bestimmt und der Lernfortschritt dokumentiert werden.
 
                 Das Werk gibt es entweder als Buch mit einem Umfang von 117 Seiten. Zusätzlich liegt eine CD dabei, die pdf-Vorlagen für Spielpläne, Spielkarten, Checklisten und Arbeitsblätter enthält, um diese auch farbig ausdrucken zu können. Die Buchvorlage ist schwarz-weiß. ',
-    ROUND(39.90 / (1 + (7.0 / 100)), 2), -- Net price calculation for Buch (Reduced VAT)
+    37.29,
     'book_1/',
     (SELECT id from categories WHERE name = 'Buch'),
     (SELECT id from vat_rates WHERE name = 'Reduced')
 );
 
--- Product 2: Mit Cuipsi die Zahlen bis 20 entdecken
 INSERT INTO products (name, short_description, long_description, net_price, image_folder, category_id, vat_rate_id)
 VALUES (
     'Mit Cuipsi die Zahlen bis 20 entdecken',
     'Lehrwerk für Grund- und Sonderschulen mit Differenzierungsmaterial für inklusive Klassen. Vermittelt zählfreies Rechnen mit Cuisenaire-Stäben. Enthält Arbeitsblätter, Spiele und CD mit Vorlagen.',
     'Dieses Buch baut auf dem Werk "Mit Cuipsi den Mengen auf der Spur" auf und richtet sich an LehrerInnen der Eingangsklassen von Grund- und Sonderschulen sowie an Lerntherapeuten, die mit rechenschwachen Kindern arbeiten. Besonders eignet sich das Material für inklusive Klassen, da es eine Vielzahl von Differenzierungsmaterial sowohl für schwächere als auch für stärkere SchülerInnen enthält und so den Ansprüchen eines zieldifferenten Unterrichts gerecht wird. Diese geschieht mit den Cuisenaire-Stäben, mit denen Kinder problemlos ohne Zählen Rechnen lernen, das Teile-Ganze-Konzept verinnerlichen und damit tatsächlich Mathematik begreifen können. Das Werk bietet neben einer kurzen theoretischen Einführung, die Beschreibung des didaktischen Vorgehens (so werden z.B. die verschiedenen Möglichkeiten des Zehnerübergangs genau beschrieben und jeder Schüler kann so für sich die passende Möglichkeit finden) anhand der erprobten Form der Anweisungskarten. Daneben gibt es eine Fülle von Arbeitsblättern und neu hinzugekommene Freiarbeitskarten und ''Bonbon-Arbeitsblätter'', die als Hausaufgaben eingesetzt werden können. Natürlich gibt es wieder eine Fülle von Spielideen mit den dazugehörenden Spielkarten und Spielplänen. Zusätzlich kann mit Hilfe der Checklisten die individuelle Lernausgangslage bestimmt und der Lernfortschritt dokumentiert werden. Auf der beiliegenden CD finden sich die farbigen Materialien zum Selbstausdrucken. Die Buchvorlage ist schwarz-weiß.',
-    ROUND(54.90 / (1 + (7.0 / 100)), 2), -- Net price calculation for Buch (Reduced VAT)
+    51.31,
     'book_2/',
     (SELECT id from categories WHERE name = 'Buch'),
     (SELECT id from vat_rates WHERE name = 'Reduced')
 );
 
--- Product 3: Mit Cuipsi den Zahlenraum 100 erforschen
 INSERT INTO products (name, short_description, long_description, net_price, image_folder, category_id, vat_rate_id)
 VALUES (
     'Mit Cuipsi den Zahlenraum 100 erforschen',
     'Lehrwerk zum ZR 100 für Grund- und Sonderschullehrer. Für inklusive Klassen mit Differenzierungsmaterial. Die Cuipsi-Platten fördern zählfreies Rechnen. Inklusive CD mit Druckvorlagen.',
     'Dieses Werk baut auf dem Material ''Mit Cuipsi die Zahlen bis 20 entdecken" auf und richtet sich an GrundschullehrerInnen von 2. Klassen und an SonderschullehrerInnen, die den ZR 100  erarbeiten wollen, sowie an Lerntherapeuten, die mit rechenschwachen Kindern arbeiten. Besonders eignet sich das Material für inklusive Klassen, da es eine Vielzahl von Differenzierungsmaterial sowohl für schwächere als auch für stärkere SchülerInnen enthält und so den Ansprüchen eines zieldifferenten Unterrichts gerecht wird. Durch die neu entwickelten Cuipsi-Platten erweitert die SchülerInnen ihre Kenntnisse im ZR 100 und lernen mit den Stäben Aufgaben analog zum ZR 20 mit den Cuipsi-Platten handelnd zu lösen und ein Zählen zu vermeiden. 
                 Auf der beiliegenden CD finden sich die farbigen Materialien zum Selbstausdrucken. Die Buchvorlage ist schwarz-weiß. ',
-    ROUND(39.90 / (1 + (7.0 / 100)), 2), -- Net price calculation for Buch (Reduced VAT)
+    37.29,
     'book_3/',
     (SELECT id from categories WHERE name = 'Buch'),
     (SELECT id from vat_rates WHERE name = 'Reduced')
 );
 
--- Product 4: Mit Cuipsi den Zahlenraum 1000 erkunden
 INSERT INTO products (name, short_description, long_description, net_price, image_folder, category_id, vat_rate_id)
 VALUES (
     'Mit Cuipsi den Zahlenraum 1000 erkunden',
@@ -91,13 +80,12 @@ VALUES (
                 Durch die neu entwickelten Cuipsi-Quader erweitern die SchülerInnen ihre bisher erworbenen Kenntnisse und können weiter alle Aufgaben handelnd lösen, wenn ihnen der abstrakte Umgang mit Zahlen schwer fällt.
 
                 Auf der beiliegenden CD finden sich die farbigen Materialien zum Selbstausdrucken. Die Buchvorlage ist schwarz-weiß.',
-    ROUND(39.90 / (1 + (7.0 / 100)), 2), -- Net price calculation for Buch (Reduced VAT)
+    37.29,
     'book_4/',
     (SELECT id from categories WHERE name = 'Buch'),
     (SELECT id from vat_rates WHERE name = 'Reduced')
 );
 
--- Product 5: Arbeitsheft zur Pränumerik mit Ziffernschreiblehrgang
 INSERT INTO products (name, short_description, long_description, net_price, image_folder, category_id, vat_rate_id)
 VALUES (
     'Arbeitsheft zur Pränumerik mit Ziffernschreiblehrgang',
@@ -111,13 +99,12 @@ VALUES (
  
 
                 Der Umfang beträgt 71 Seiten.',
-    ROUND(8.95 / (1 + (7.0 / 100)), 2), -- Net price calculation for Arbeitsheft (Reduced VAT)
+    8.36,
     'workbook_1/',
     (SELECT id from categories WHERE name = 'Arbeitsheft'),
     (SELECT id from vat_rates WHERE name = 'Reduced')
 );
 
--- Product 6: Arbeitsheft Zahlenraum 20
 INSERT INTO products (name, short_description, long_description, net_price, image_folder, category_id, vat_rate_id)
 VALUES (
     'Arbeitsheft Zahlenraum 20',
@@ -133,13 +120,12 @@ VALUES (
  
 
                 Der Umfang beträgt 161 Seiten.',
-    ROUND(24.95 / (1 + (7.0 / 100)), 2), -- Net price calculation for Arbeitsheft (Reduced VAT)
+    23.32,
     'workbook_2/',
     (SELECT id from categories WHERE name = 'Arbeitsheft'),
     (SELECT id from vat_rates WHERE name = 'Reduced')
 );
 
--- Product 7: Arbeitsheft Zahlenraum 100
 INSERT INTO products (name, short_description, long_description, net_price, image_folder, category_id, vat_rate_id)
 VALUES (
     'Arbeitsheft Zahlenraum 100',
@@ -150,13 +136,12 @@ VALUES (
 
 
                 Der Umfang beträgt 88 Seiten.',
-    ROUND(10.95 / (1 + (7.0 / 100)), 2), -- Net price calculation for Arbeitsheft (Reduced VAT)
+    10.23,
     'workbook_3/',
     (SELECT id from categories WHERE name = 'Arbeitsheft'),
     (SELECT id from vat_rates WHERE name = 'Reduced')
 );
 
--- Product 8: Arbeitsheft Zahlenraum 1000
 INSERT INTO products (name, short_description, long_description, net_price, image_folder, category_id, vat_rate_id)
 VALUES (
     'Arbeitsheft Zahlenraum 1000',
@@ -168,13 +153,12 @@ VALUES (
  
 
                 Der Umfang beträgt 143 Seiten, davon 53 in Farbe.',
-    ROUND(26.00 / (1 + (7.0 / 100)), 2), -- Net price calculation for Arbeitsheft (Reduced VAT)
+    24.30,
     'workbook_4/',
     (SELECT id from categories WHERE name = 'Arbeitsheft'),
     (SELECT id from vat_rates WHERE name = 'Reduced')
 );
 
--- Product 9: Cuipsi für Quereinsteiger - Das Selbstlernheft
 INSERT INTO products (name, short_description, long_description, net_price, image_folder, category_id, vat_rate_id)
 VALUES (
     'Cuipsi für Quereinsteiger - Das Selbstlernheft',
@@ -185,29 +169,27 @@ VALUES (
  
 
                 Der Umfang beträgt 104 Seiten, davon 55 in Farbe.',
-    ROUND(25.00 / (1 + (7.0 / 100)), 2), -- Net price calculation for Arbeitsheft (Reduced VAT)
+    23.36,
     'workbook_5/',
     (SELECT id from categories WHERE name = 'Arbeitsheft'),
     (SELECT id from vat_rates WHERE name = 'Reduced')
 );
 
--- Product 10: Cuipsi Platten Set
 INSERT INTO products (name, short_description, long_description, net_price, image_folder, category_id, vat_rate_id)
 VALUES (
     'Cuipsi Platten Set',
     'Holz-Plattenset für ZR 100. Fördert zählfreies Rechnen durch visuelle Zahlendarstellung. Enthält 3x 20er-Platten, je 2x 30er-90er-Platten und eine 100er-Platte. Mit Aufbewahrungsbox.',
-    'ie Cuispi-Platten aus Holz wurden neu entwickelt und erleichtern das operative Handeln im Zahlenraum bis 100. 
+    '''ie Cuispi-Platten aus Holz wurden neu entwickelt und erleichtern das operative Handeln im Zahlenraum bis 100. 
                 Sie wirken dem Zählen entgegen. Gemeinsam mit den Stäben ist eine schnelle und auf einen Blick erkennbare Zahldarstellung möglich.
                 Ein Satz enthält 3x die 20er-Platte und je 2x die 30er-, 40er-, 50er-, 60er-, 70er-, 80er-, 90er-Platte und eine 100er-Platte, Die Cuipsi-Platten werden zusammen mit einer praktischen Aufbewahrungsbox geliefert.
 
-                Bestellen Sie mindestens 8 Schülersätze, so gibt es als Bonus praktische Vorlagen dazu, mit denen das passende Tafelmaterial einfach selbst hergestellt werden kann.',
-    ROUND(27.80 / (1 + (19.0 / 100)), 2), -- Net price calculation for Arbeitsmaterial (Standard VAT)
+                Bestellen Sie mindestens 8 Schülersätze, so gibt es als Bonus praktische Vorlagen dazu, mit denen das passende Tafelmaterial einfach selbst hergestellt werden kann.''',
+    23.36,
     'workmaterial_1/',
     (SELECT id from categories WHERE name = 'Arbeitsmaterial'),
     (SELECT id from vat_rates WHERE name = 'Standard')
 );
 
--- Product 11: Cuipsi-Quader - Komplettpaket
 INSERT INTO products (name, short_description, long_description, net_price, image_folder, category_id, vat_rate_id)
 VALUES (
     'Cuipsi-Quader - Komplettpaket',
@@ -221,11 +203,8 @@ VALUES (
                 Zusätzlich enthält dieses Paket Vorlagen für das Cuipsi-Quader Tafelmaterial. Dazu können sie vergrößert auf farbiges Tonpapier gedruckt, laminiert und mit einem Magnetstreifen versehen werden. So hat die Lehrkraft ein Anschauungsmaterial für die Tafel, um einzelne Rechenschritte zu erklären oder um mit einzelnen Schüler an der Tafel zu arbeiten.
 
                 Des weiteren enthält es eine Bastelvorlage, mit der die Schüler sich selbst Cuipsi-Quader basteln können.',
-    ROUND(69.95 / (1 + (19.0 / 100)), 2), -- Net price calculation for Arbeitsmaterial (Standard VAT)
+    58.78,
     'workmaterial_2/',
     (SELECT id from categories WHERE name = 'Arbeitsmaterial'),
     (SELECT id from vat_rates WHERE name = 'Standard')
 );
-
--- Note: The initializeDatabase.js file should be considered for deletion or modification
--- as this SQL script now handles the database setup and initial data population.
