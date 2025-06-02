@@ -9,7 +9,7 @@
     "init:db": "node scripts/setup_db.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Erziehen-Lernen-Fördern",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
