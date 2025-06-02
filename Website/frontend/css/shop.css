@@ -13,26 +13,24 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    cursor: default; /* Set default cursor for the whole card */
+    cursor: default;
 }
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Style for clickable parts */
-.card .card-body, .card .card-img-top {
+.card .card-body,
+.card .card-img-top {
     cursor: pointer;
 }
 
-/* Make sure footer is not clickable for navigation */
 .card-footer {
     cursor: default;
     pointer-events: auto;
 }
 
-/* Style for buttons to make them look clickable */
 .card button {
     cursor: pointer;
 }

@@ -1,0 +1,39 @@
+.product-image-container {
+    height: 400px;
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-image {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.nav-arrow-left {
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    padding: 0;
+}
+
+.nav-arrow-right {
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    padding: 0;
+}
+
+.nav-arrow-icon {
+    font-size: 18px;
+}
+
+.quantity-selector {
+    max-width: 150px;
+}

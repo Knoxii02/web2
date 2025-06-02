@@ -1,18 +1,13 @@
-/* Styling for shopping cart page */
-
-/* Quantity input control */
 .quantity-input {
     max-width: 120px;
 }
 
-/* Product image container in cart */
 .cart-product-img {
     height: 100px;
     width: 100px;
     object-fit: contain;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .card-title {
         font-size: 1rem;
