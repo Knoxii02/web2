@@ -5,7 +5,6 @@ const path = require('path');
 const dbPath = path.join(__dirname, '..', 'db', 'database.sqlite');
 const setupSQLPath = path.join(__dirname, '..', 'db', 'database_setup.sql');
 
-// Ensure the db directory exists
 const dbDir = path.dirname(dbPath);
 if (!fs.existsSync(dbDir)) {
     fs.mkdirSync(dbDir, { recursive: true });
