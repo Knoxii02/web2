@@ -31,7 +31,7 @@ Eine vollständige E-Commerce-Plattform für pädagogische Materialien mit moder
 - **Kategorieverwaltung**: Dynamische Kategoriefilterung
 - **Produktverwaltung**: CRUD-Operationen für Produkte
 - **Bilderverwaltung**: Strukturierte Bildordner-Organisation
-- **Related Products**: Intelligente Produktempfehlungen
+- **Related Products**: Intelligente Produktempfehlungen mit SQL-basierter Zufallsauswahl
 
 ### Seiten
 - **[index.html](Website/frontend/index.html)**: Startseite mit Carousel und Featured Products
@@ -51,9 +51,11 @@ Eine vollständige E-Commerce-Plattform für pädagogische Materialien mit moder
 - [npm](https://www.npmjs.com/) (v6.x or higher)
 
 ### Notwendige NPM Pakete
-- **Express.js**: Web-Framework für Node.js
-- **SQLite3**: Leichtgewichtige SQL-Datenbank
-- **Path**: Native Node.js Modul für Pfadverwaltung
+- **express**: Web-Framework für Node.js
+- **sqlite3**: Leichtgewichtige SQL-Datenbank
+- **cors**: Cross-Origin Resource Sharing
+- **path**: Native Node.js Modul für Pfadverwaltung
+- **fs**: Native Node.js Modul für Dateisystem-Operationen
 
 ## Installation
 
@@ -66,29 +68,30 @@ Eine vollständige E-Commerce-Plattform für pädagogische Materialien mit moder
 2. Install required dependencies:
    ```powershell
    cd Website/backend
-   npm install
+   npm install express sqlite3 cors
    ```
 
 3. Initialize the database:
    ```powershell
-   npm run init:db
+   node scripts/setup_db.js
    ```
 
 ## Running the Server
 
 Start the development server:
 ```powershell
-npm run start
+cd Website/backend
+node server.js
 ```
 
-The application will be available at `http://localhost:3000/index.html`.
+The backend server will be available at `http://localhost:3000/`.
 
 ## Project Structure
 
 ```
 Website/
 ├── backend/
-│   ├── server.js              # Hauptserver mit Express.js
+│   ├── server.js              # Hauptserver mit Express.js und allen APIs
 │   ├── package.json           # NPM Abhängigkeiten
 │   ├── db/
 │   │   ├── database_setup.sql # Datenbankschema
@@ -107,64 +110,69 @@ Website/
 │   ├── js/
 │   │   ├── product.js        # Produktfunktionalitäten
 │   │   ├── shop.js           # Shop- und Kategorielogik
-│   │   ├── cart.js           # Warenkorbmanagement
-│   │   ├── checkout.js       # Checkout-Prozess
 │   │   └── related-products.js # Produktempfehlungen
 │   └── pictures/             # Produktbilder und Assets
+│       ├── book_1/           # Produktbilder für Buch 1
+│       ├── book_2/           # Produktbilder für Buch 2
+│       └── ...
 └── Mockup.pdf                # Design-Mockups
 ```
 
 ## API Endpoints
 
-### Produkte
-- `GET /api/products` - Alle Produkte (optional: `?categoryId=X` für Filterung)
-- `GET /api/products/:id` - Spezifisches Produkt nach ID
-- `GET /api/products/random/:count` - Zufällige Produktauswahl
-- `GET /api/products/images/:folder` - Produktbilder nach Ordner
+### Produkt-APIs
+- **`GET /api/products`** - Alle Produkte abrufen
+  - Optional: `?category_id=X` für Kategoriefilterung
+  - Liefert: Produktliste mit Bruttopreisen und erstem Bild
+  
+- **`GET /api/products/:id`** - Spezifisches Produkt nach ID
+  - Parameter: `id` (Produkt-ID)
+  - Liefert: Vollständige Produktdetails mit Bruttopreis
+  
+- **`GET /api/products/related`** - Zufällige Produktauswahl (Related Products)
+  - Optional: `?limit=X` (Standard: 4)
+  - Liefert: Zufällig ausgewählte Produkte für "Das könnte Sie auch interessieren"
+  
+- **`GET /api/products/firstImage/:folder`** - Erstes Bild eines Produktordners
+  - Parameter: `folder` (Ordnername)
+  - Liefert: Pfad zum ersten verfügbaren Bild
+  
+- **`GET /api/products/images/:folder`** - Alle Bilder eines Produktordners
+  - Parameter: `folder` (Ordnername)
+  - Liefert: Array aller verfügbaren Bilder für Bildergalerie
 
-### Kategorien
-- `GET /api/categories` - Alle verfügbaren Kategorien
+### Kategorie-APIs
+- **`GET /api/categories`** - Alle verfügbaren Produktkategorien
+  - Liefert: Liste aller Kategorien für Dropdown-Filter
 
 ### Statische Inhalte
-- `GET /pictures/:folder/:filename` - Bildauslieferung
-- `GET /*` - Frontend-Dateien (HTML, CSS, JS)
+- **`GET /pictures/*`** - Produktbilder und Assets
+  - Statische Auslieferung aus `frontend/pictures/`
+  
+- **`GET /*`** - Frontend-Dateien (HTML, CSS, JS)
+  - Automatische Auslieferung aller Frontend-Dateien
 
 ## Database Schema
 
-Die Datenbank verwendet ein strukturiertes Schema mit folgenden Haupttabellen:
-- **products**: Produktinformationen mit Kategoriezuordnung
-- **categories**: Produktkategorien
-- **vat_rates**: Mehrwertsteuersätze
+Die SQLite-Datenbank verwendet folgende Haupttabellen:
+
+### products
+- **id**: Primärschlüssel
+- **name**: Produktname
+- **short_description**: Kurzbeschreibung
+- **long_description**: Detaillierte Beschreibung
+- **net_price**: Nettopreis
+- **image_folder**: Ordner für Produktbilder
+- **category_id**: Referenz zur Kategorie
+- **vat_rate_id**: Referenz zum MwSt-Satz
+
+### categories
+- **id**: Primärschlüssel
+- **name**: Kategoriename
+
+### vat_rates
+- **id**: Primärschlüssel
+- **name**: MwSt-Bezeichnung
+- **rate_percentage**: MwSt-Prozentsatz
 
 Siehe [database_setup.sql](Website/backend/db/database_setup.sql) für das vollständige Schema.
-
-## Development
-
-### JavaScript Modules
-- **Modulare Architektur**: Getrennte JS-Module für verschiedene Funktionalitäten
-- **ES6 Features**: Moderne JavaScript-Syntax mit async/await
-- **Error Handling**: Umfassende Fehlerbehandlung in allen Modulen
-- **LocalStorage Integration**: Persistente Datenspecherung im Browser
-
-### CSS Architecture
-- **Bootstrap 4**: Responsive Grid-System und Komponenten
-- **Custom Styles**: Spezifische Anpassungen pro Seite
-- **Mobile-First**: Responsive Design für alle Bildschirmgrößen
-
-### Backend Features
-- **CORS Support**: Cross-Origin Resource Sharing aktiviert
-- **Static File Serving**: Automatische Auslieferung von Frontend-Assets
-- **Database Connection Management**: Sichere SQLite-Verbindungen
-- **Error Middleware**: Zentrale Fehlerbehandlung
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature-name`
-3. Commit changes: `git commit -am 'Add feature'`
-4. Push to branch: `git push origin feature-name`
-5. Submit a Pull Request
-
-## License
-
-This project is licensed under the MIT License.
