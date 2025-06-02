@@ -245,9 +245,9 @@
             const productId = parseInt(urlParams.get('id'), 10);
 
             if (productId) {
-                loadAndDisplayRelatedProducts('related-products-container', productId);
+                loadAndDisplayRelatedProducts('related-products-container', [productId], 4);
             } else {
-                loadAndDisplayRelatedProducts('related-products-container');
+                loadAndDisplayRelatedProducts('related-products-container', null, 4);
             }
         });
     </script>
