@@ -43,8 +43,7 @@ function formatPrice(price) {
 function formatPriceGerman(price) {
     const numericPrice = Number(price);
     if (isNaN(numericPrice)) {
-        // console.error("Invalid price input for formatPriceGerman:", price);
-        return "N/A"; // Or some other placeholder
+        return "N/A";
     }
     return numericPrice.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }

@@ -159,11 +159,11 @@
                 const product = await response.json();
 
                 document.querySelector('h1').textContent = product.name;
-                document.getElementById('mainProductImage').src = product.firstImage; // Use full path
-                document.getElementById('productCategory').textContent = product.category_name; // Use category_name
-                document.getElementById('productCategory').className = `badge ${getBadgeClass(product.category_name)}`; // Update badge class
-                document.getElementById('productPrice').textContent = formatPriceGerman(product.gross_price) + " €"; // Use gross_price and format
-                document.getElementById('vatInfo').textContent = `inkl. ${product.vat_percentage}% MwSt.`; // Update VAT info
+                document.getElementById('mainProductImage').src = product.firstImage;
+                document.getElementById('productCategory').textContent = product.category_name;
+                document.getElementById('productCategory').className = `badge ${getBadgeClass(product.category_name)}`;
+                document.getElementById('productPrice').textContent = formatPriceGerman(product.gross_price) + " €";
+                document.getElementById('vatInfo').textContent = `inkl. ${product.vat_percentage}% MwSt.`;
 
                 const descriptionElement = document.getElementById('productDescription');
                 if (product.long_description) {
@@ -180,19 +180,16 @@
                 }
 
                 try {
-                    // const folderPath = `../pictures/${product.image_folder}`; // No longer needed for constructing paths here
                     const imagesResponse = await fetch(`http://localhost:3000/api/products/images/${product.image_folder}`);
 
                     if (imagesResponse.ok) {
                         const imageData = await imagesResponse.json();
-                        productImages = imageData.images; // Directly use full paths
+                        productImages = imageData.images;
                     } else {
-                        // Fallback if images endpoint fails, use the main full path image
                         productImages = product.firstImage ? [product.firstImage] : []; 
                     }
                 } catch (imageError) {
                     console.error('Error loading product images:', imageError);
-                     // Fallback if images endpoint fails, use the main full path image
                     productImages = product.firstImage ? [product.firstImage] : [];
                 }
             } catch (error) {

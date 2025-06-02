@@ -107,11 +107,11 @@
 
                 if (cart.length === 0) {
                     cartContainer.innerHTML = '<p class="text-center">Ihr Warenkorb ist leer.</p>';
-                    summaryCard.style.display = 'none'; // Hide summary card
+                    summaryCard.style.display = 'none';
                     return;
                 }
 
-                summaryCard.style.display = 'block'; // Show summary card
+                summaryCard.style.display = 'block';
 
                 const response = await fetch('http://localhost:3000/api/products');
                 const products = await response.json();
@@ -169,7 +169,7 @@
 
             async function updateSummary() {
                 if (cart.length === 0) {
-                    return; // Don't update summary if cart is empty
+                    return;
                 }
 
                 const response = await fetch('http://localhost:3000/api/products');
@@ -229,7 +229,6 @@
             updateSummary();
 
             const cartProductIds = cart.map(item => item.productId);
-            // Korrekter Aufruf mit den richtigen Parametern
             loadAndDisplayRelatedProducts('related-products-container', cartProductIds, 4);
         });
     </script>

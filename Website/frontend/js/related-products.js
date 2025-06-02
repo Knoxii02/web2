@@ -6,10 +6,8 @@ async function loadAndDisplayRelatedProducts(containerId, excludeProductIds = nu
             return;
         }
 
-        // Berechne, wie viele zusätzliche Produkte wir laden müssen
         let fetchLimit = limit;
         if (excludeProductIds && Array.isArray(excludeProductIds) && excludeProductIds.length > 0) {
-            // Mehr Produkte anfordern, um nach dem Filtern genug zu haben
             fetchLimit = limit + excludeProductIds.length;
         }
 
@@ -19,25 +17,20 @@ async function loadAndDisplayRelatedProducts(containerId, excludeProductIds = nu
         }
         let relatedProducts = await response.json();
 
-        // Jetzt korrekt die auszuschließenden Produkte filtern
         if (excludeProductIds && Array.isArray(excludeProductIds) && excludeProductIds.length > 0) {
             relatedProducts = relatedProducts.filter(product => !excludeProductIds.includes(product.id));
         }
         
-        // Stelle sicher, dass wir die richtige Anzahl von Produkten nach dem Filtern haben
         relatedProducts = relatedProducts.slice(0, limit);
 
         container.innerHTML = ''; // Clear existing content
 
         if (relatedProducts.length === 0) {
-            // Optionally, display a message if no related products are found
-            // container.innerHTML = '<p>Keine ähnlichen Produkte gefunden.</p>';
             return;
         }
 
         relatedProducts.forEach(product => {
             const productURL = `product.html?id=${product.id}`;
-            // Ensure getBadgeClass is defined or imported if this script is modular
             const badgeClass = getBadgeClass(product.category_name); 
 
             const productHTML = `
@@ -63,16 +56,13 @@ async function loadAndDisplayRelatedProducts(containerId, excludeProductIds = nu
             container.insertAdjacentHTML('beforeend', productHTML);
         });
 
-        addClickEventsToProductCards(); // Ensure this function is defined or imported
+        addClickEventsToProductCards();
     } catch (error) {
         console.error('Fehler beim Laden der ähnlichen Produkte:', error);
     }
 }
 
-// This function might be duplicated if not managed by a module system.
-// Ensure it's available, or consider moving it to a shared utility script.
 function getBadgeClass(categoryName) {
-    // Assuming category_name matches the names used before, adjust if necessary
     switch (categoryName) {
         case 'Arbeitsheft':
             return 'badge-info';
@@ -85,11 +75,7 @@ function getBadgeClass(categoryName) {
     }
 }
 
-// Ensure addClickEventsToProductCards is defined.
-// If it's identical to the one in shop.html, consider a shared utility script.
 function addClickEventsToProductCards() {
-    // Assuming the related products container might have a different ID or class structure,
-    // this selector might need to be more specific or passed as an argument if necessary.
     document.querySelectorAll('#' + (document.getElementById('related-products-container') ? 'related-products-container' : document.getElementById('product-cards-container') ? 'product-cards-container' : '') + ' .col-md-3.mb-4').forEach(card => {
         const productURL = card.getAttribute('data-product-url');
 
@@ -113,8 +99,7 @@ function addClickEventsToProductCards() {
 function formatPriceGerman(price) {
     const numericPrice = Number(price);
     if (isNaN(numericPrice)) {
-        // console.error("Invalid price input for formatPriceGerman:", price);
-        return "N/A"; // Or some other placeholder
+        return "N/A";
     }
     return numericPrice.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }

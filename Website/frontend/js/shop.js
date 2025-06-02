@@ -1,7 +1,6 @@
 //移譲されたshop.htmlからのインラインスクリプトの内容：
 
 function getBadgeClass(categoryName) {
-    // Assuming category_name matches the names used before, adjust if necessary
     switch (categoryName) {
         case 'Arbeitsheft':
             return 'badge-info';
@@ -27,21 +26,19 @@ async function fetchProducts(categoryId = null) {
         return await response.json();
     } catch (error) {
         console.error('Fehler beim Laden der Produkte:', error);
-        return []; // Return empty array on error
+        return [];
     }
 }
 
 function renderProducts(products) {
     const productContainer = document.getElementById('product-cards-container');
-    productContainer.innerHTML = ''; // Clear existing products
+    productContainer.innerHTML = '';
 
     products.forEach(product => {
         const badgeClass = getBadgeClass(product.category_name);
-        // Ensure formatPriceGerman is available, assuming product.js is loaded
-        // and provides formatPriceGerman (without currency symbol)
         const displayPrice = typeof formatPriceGerman === 'function' 
                              ? formatPriceGerman(product.gross_price) + ' €' 
-                             : (product.gross_price.toFixed(2) + ' €'); // Fallback
+                             : (product.gross_price.toFixed(2) + ' €');
 
         const productHTML = `
             <div class="col-md-3 mb-4" data-category="${product.category_name}" data-product-id="${product.id}" data-product-url="product.html?id=${product.id}">
@@ -89,8 +86,8 @@ function addClickEventsToCards() {
 
 async function populateCategoryDropdown() {
     const dropdownMenu = document.querySelector('.dropdown-menu[aria-labelledby="kategorieDropdown"]');
-    const dropdownButton = document.getElementById('kategorieDropdown'); // Get the button
-    dropdownMenu.innerHTML = ''; // Clear static items
+    const dropdownButton = document.getElementById('kategorieDropdown');
+    dropdownMenu.innerHTML = '';
 
     try {
         const response = await fetch('http://localhost:3000/api/categories');
@@ -99,12 +96,11 @@ async function populateCategoryDropdown() {
         }
         const categories = await response.json();
 
-        // Add "Alle" option first
         const allOption = document.createElement('a');
         allOption.classList.add('dropdown-item', 'active');
         allOption.href = '#';
         allOption.textContent = 'Alle';
-        allOption.dataset.categoryId = ''; // No ID for "Alle"
+        allOption.dataset.categoryId = '';
         dropdownMenu.appendChild(allOption);
 
         const divider = document.createElement('div');
@@ -120,18 +116,16 @@ async function populateCategoryDropdown() {
             dropdownMenu.appendChild(item);
         });
         
-        // Add event listeners to new dropdown items
         dropdownMenu.querySelectorAll('.dropdown-item').forEach(item => {
             item.addEventListener('click', async (event) => {
                 event.preventDefault();
                 const selectedCategoryName = item.textContent;
                 const categoryId = item.dataset.categoryId;
                 
-                if (dropdownButton) { // Check if button exists
-                    dropdownButton.textContent = selectedCategoryName; // Update button text
+                if (dropdownButton) {
+                    dropdownButton.textContent = selectedCategoryName;
                 }
                 
-                // Remove 'active' class from all items, then add to the clicked one
                 dropdownMenu.querySelectorAll('.dropdown-item').forEach(i => i.classList.remove('active'));
                 item.classList.add('active');
 
@@ -142,7 +136,6 @@ async function populateCategoryDropdown() {
 
     } catch (error) {
         console.error('Fehler beim Laden der Kategorien:', error);
-        // Optionally, add a default "Alle" if categories fail to load
         if (dropdownMenu.children.length === 0) {
             const allOption = document.createElement('a');
             allOption.classList.add('dropdown-item', 'active');
@@ -152,8 +145,8 @@ async function populateCategoryDropdown() {
             dropdownMenu.appendChild(allOption);
              allOption.addEventListener('click', async (event) => {
                 event.preventDefault();
-                if (dropdownButton) { // Check if button exists
-                    dropdownButton.textContent = 'Alle'; // Update button text
+                if (dropdownButton) {
+                    dropdownButton.textContent = 'Alle';
                 }
                 dropdownMenu.querySelectorAll('.dropdown-item').forEach(i => i.classList.remove('active'));
                 allOption.classList.add('active');
@@ -165,12 +158,8 @@ async function populateCategoryDropdown() {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-    // product.js should be loaded before this script if formatPriceGerman is to be used from it.
-    // Otherwise, define formatPriceGerman within this script.
-    // For now, assuming product.js makes formatPriceGerman globally available.
     
     await populateCategoryDropdown();
-    // Initial load of all products
     const initialProducts = await fetchProducts();
     renderProducts(initialProducts);
 });
