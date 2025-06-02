@@ -179,11 +179,11 @@ INSERT INTO products (name, short_description, long_description, net_price, imag
 VALUES (
     'Cuipsi Platten Set',
     'Holz-Plattenset für ZR 100. Fördert zählfreies Rechnen durch visuelle Zahlendarstellung. Enthält 3x 20er-Platten, je 2x 30er-90er-Platten und eine 100er-Platte. Mit Aufbewahrungsbox.',
-    '''ie Cuispi-Platten aus Holz wurden neu entwickelt und erleichtern das operative Handeln im Zahlenraum bis 100. 
+    'Die Cuispi-Platten aus Holz wurden neu entwickelt und erleichtern das operative Handeln im Zahlenraum bis 100. 
                 Sie wirken dem Zählen entgegen. Gemeinsam mit den Stäben ist eine schnelle und auf einen Blick erkennbare Zahldarstellung möglich.
                 Ein Satz enthält 3x die 20er-Platte und je 2x die 30er-, 40er-, 50er-, 60er-, 70er-, 80er-, 90er-Platte und eine 100er-Platte, Die Cuipsi-Platten werden zusammen mit einer praktischen Aufbewahrungsbox geliefert.
 
-                Bestellen Sie mindestens 8 Schülersätze, so gibt es als Bonus praktische Vorlagen dazu, mit denen das passende Tafelmaterial einfach selbst hergestellt werden kann.''',
+                Bestellen Sie mindestens 8 Schülersätze, so gibt es als Bonus praktische Vorlagen dazu, mit denen das passende Tafelmaterial einfach selbst hergestellt werden kann.',
     23.36,
     'workmaterial_1/',
     (SELECT id from categories WHERE name = 'Arbeitsmaterial'),
