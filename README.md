@@ -71,15 +71,14 @@ Eine vollständige E-Commerce-Plattform für pädagogische Materialien mit moder
 
 3. Initialize the database:
    ```powershell
-   node scripts/setup_db.js
+   npm run init:db
    ```
 
 ## Running the Server
 
 Start the development server:
 ```powershell
-cd Website/backend
-node server.js
+npm run start
 ```
 
 The application will be available at `http://localhost:3000/index.html`.
