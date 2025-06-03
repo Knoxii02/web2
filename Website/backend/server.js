@@ -6,6 +6,7 @@ const cors = require('cors');
 
 const app = express();
 app.use(cors());
+app.use(express.json()); // Added JSON parsing middleware
 const db = new sqlite3.Database(path.join(__dirname, 'db', 'database.sqlite'));
 
 app.use('/pictures', express.static(path.join(__dirname, '../frontend/pictures')));
@@ -179,6 +180,185 @@ app.get('/api/products/images/:folder', (req, res) => {
     res.status(500).json({ error: 'Error accessing image folder' });
   }
 });
+
+// ### START OF NEW ENDPOINTS ###
+
+// POST /api/orders - Create a new order
+app.post('/api/orders', (req, res) => {
+    const { customerDetails, paymentMethod, cartItems, totals } = req.body;
+
+    // Basic validation (can be expanded)
+    if (!customerDetails || !paymentMethod || !cartItems || cartItems.length === 0 || !totals) {
+        return res.status(400).json({ error: 'Missing required order data.' });
+    }
+
+    const db = new sqlite3.Database(path.join(__dirname, 'db', 'database.sqlite')); // Local DB connection for this endpoint
+
+    const generateOrderNumber = () => {
+        // Simple order number generation, e.g., ELF-YYYYMMDD-HHMMSS-RANDOM
+        const d = new Date();
+        const datePart = `${d.getFullYear()}${(d.getMonth() + 1).toString().padStart(2, '0')}${d.getDate().toString().padStart(2, '0')}`;
+        const timePart = `${d.getHours().toString().padStart(2, '0')}${d.getMinutes().toString().padStart(2, '0')}${d.getSeconds().toString().padStart(2, '0')}`;
+        const randomPart = Math.random().toString(36).substring(2, 6).toUpperCase();
+        return `ELF-${datePart}-${timePart}-${randomPart}`;
+    };
+
+    const orderNumber = generateOrderNumber();
+    const orderDate = new Date().toISOString();
+
+    // Start a database transaction
+    db.serialize(() => {
+        db.run('BEGIN TRANSACTION');
+
+        const orderSql = `
+            INSERT INTO orders (
+                order_number, customer_name, customer_email,
+                address_street, address_zip, address_city, address_country,
+                payment_method, total_net_amount, total_gross_amount, shipping_costs, order_date
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        `;
+        const orderParams = [
+            orderNumber,
+            customerDetails.firstName + ' ' + customerDetails.lastName,
+            customerDetails.email,
+            customerDetails.address,
+            customerDetails.zip,
+            customerDetails.city,
+            customerDetails.country,
+            paymentMethod,
+            totals.subtotal_net,
+            totals.final_total, // This should be the grand total including shipping and all VAT
+            totals.shippingCost,
+            orderDate
+        ];
+
+        db.run(orderSql, orderParams, function(err) {
+            if (err) {
+                db.run('ROLLBACK', () => {
+                    db.close(); // Close DB after rollback
+                });
+                console.error('Error inserting order:', err.message);
+                return res.status(500).json({ error: 'Failed to create order.', details: err.message });
+            }
+
+            const orderId = this.lastID; // Get the ID of the inserted order
+
+            const itemSql = `
+                INSERT INTO order_items (
+                    order_id, product_id, quantity,
+                    net_price_at_purchase, vat_percentage_at_purchase, gross_price_at_purchase
+                ) VALUES (?, ?, ?, ?, ?, ?)
+            `;
+
+            let itemsProcessed = 0;
+            let itemInsertionError = null;
+
+            cartItems.forEach(item => {
+                if (res.headersSent || itemInsertionError) return; // Stop processing if response already sent or error occurred
+
+                const productGrossPrice = item.net_price * (1 + item.vat_percentage / 100);
+                db.run(itemSql, [
+                    orderId,
+                    item.productId,
+                    item.quantity,
+                    item.net_price,
+                    item.vat_percentage,
+                    productGrossPrice
+                ], function(itemErr) {
+                    if (itemErr && !itemInsertionError) {
+                        itemInsertionError = itemErr; // Capture first error
+                        db.run('ROLLBACK', () => {
+                            db.close(); // Close DB after rollback
+                        });
+                        console.error('Error inserting order item:', itemErr.message);
+                        if (!res.headersSent) {
+                            res.status(500).json({ error: 'Failed to create order item.', details: itemErr.message });
+                        }
+                        return;
+                    }
+
+                    if (itemInsertionError) return; // Don't proceed if an error has occurred
+
+                    itemsProcessed++;
+                    if (itemsProcessed === cartItems.length) {
+                        // All items inserted successfully
+                        db.run('COMMIT', (commitErr) => {
+                            db.close(); // Close DB after commit or commit error
+                            if (commitErr) {
+                                console.error('Error committing transaction:', commitErr.message);
+                                if (!res.headersSent) {
+                                     // Attempt rollback if commit fails, though it might not be possible
+                                    db.run('ROLLBACK'); // Best effort
+                                    res.status(500).json({ error: 'Failed to finalize order.', details: commitErr.message });
+                                }
+                                return;
+                            }
+                            if (!res.headersSent) {
+                                res.status(201).json({
+                                    message: 'Order created successfully',
+                                    orderNumber: orderNumber,
+                                    orderId: orderId
+                                });
+                            }
+                        });
+                    }
+                });
+            });
+             // Handle case where cartItems is empty after validation (should not happen due to initial check)
+            if (cartItems.length === 0 && !res.headersSent) {
+                 db.run('COMMIT', () => db.close()); // Or ROLLBACK if an empty order is invalid
+                 res.status(201).json({
+                    message: 'Order created successfully (no items)', // Or appropriate response
+                    orderNumber: orderNumber,
+                    orderId: orderId // orderId would be set if orderSql ran
+                });
+            }
+        });
+    });
+});
+
+// GET /api/orders/:order_number - Fetch order details
+app.get('/api/orders/:order_number', (req, res) => {
+    const orderNumber = req.params.order_number;
+    const db = new sqlite3.Database(path.join(__dirname, 'db', 'database.sqlite')); // Local DB connection
+
+    const orderSql = `SELECT * FROM orders WHERE order_number = ?`;
+    db.get(orderSql, [orderNumber], (err, orderRow) => {
+        if (err) {
+            db.close();
+            return res.status(500).json({ error: 'Database error fetching order.', details: err.message });
+        }
+        if (!orderRow) {
+            db.close();
+            return res.status(404).json({ error: 'Order not found.' });
+        }
+
+        const itemsSql = `
+            SELECT oi.*, p.name as product_name, p.image_folder
+            FROM order_items oi
+            JOIN products p ON oi.product_id = p.id
+            WHERE oi.order_id = ?
+        `;
+        db.all(itemsSql, [orderRow.id], (itemErr, itemRows) => {
+            db.close(); // Close DB after fetching items or if an error occurs
+            if (itemErr) {
+                return res.status(500).json({ error: 'Database error fetching order items.', details: itemErr.message });
+            }
+
+            const itemsWithImages = itemRows.map(item => {
+                const imageName = getFirstImageInFolder(item.image_folder);
+                return {
+                    ...item,
+                    firstImage: imageName ? `../frontend/pictures/${item.image_folder}/${imageName}` : null
+                };
+            });
+
+            res.json({ ...orderRow, items: itemsWithImages });
+        });
+    });
+});
+
+// ### END OF NEW ENDPOINTS ###
 
 const PORT = 3000;
 app.listen(PORT, () => {
