@@ -11,7 +11,7 @@ async function loadAndDisplayRelatedProducts(containerId, excludeProductIds = nu
             fetchLimit = limit + excludeProductIds.length;
         }
 
-        const response = await fetch(`http://localhost:3000/api/products/related?limit=${fetchLimit}`);
+        const response = await fetch(`http://localhost:3000/api/products/related/${fetchLimit}`);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }

@@ -8,11 +8,11 @@ const app = express();
 app.use(cors());
 const db = new sqlite3.Database(path.join(__dirname, 'db', 'database.sqlite'));
 
-app.use('/pictures', express.static(path.join(__dirname, '../frontend/pictures')));
+app.use('/pictures', express.static(path.join(__dirname, 'pictures')));
 
 function getFirstImageInFolder(folderName) {
     try {
-        const folderPath = path.join(__dirname, '../frontend/pictures', folderName);
+        const folderPath = path.join(__dirname, 'pictures', folderName);
         
         const files = fs.readdirSync(folderPath);
         
@@ -39,10 +39,50 @@ app.get('/api/products', (req, res) => {
         JOIN vat_rates v ON p.vat_rate_id = v.id
     `;
 
-    const categoryId = req.query.category_id;
+    // Removed categoryId logic from here
+
+    db.all(sql, params, (err, rows) => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+            return;
+        }
+
+        const productsWithDetails = rows.map(product => {
+            const gross_price = Math.round(product.net_price * (1 + product.vat_percentage / 100) * 100) / 100;
+            const imageName = getFirstImageInFolder(product.image_folder);
+            return {
+                ...product,
+                gross_price: gross_price,
+                firstImage: imageName ? `/pictures/${product.image_folder}/${imageName}` : null
+            };
+        });
+
+        res.json(productsWithDetails);
+    });
+});
+
+// New route for fetching products by category
+app.get('/api/products/byCategory/:catid', (req, res) => {
+    let params = [];
+    let sql = `
+        SELECT
+            p.id, p.name, p.short_description, p.long_description, p.net_price, p.image_folder,
+            c.name AS category_name,
+            v.rate_percentage AS vat_percentage
+        FROM products p
+        JOIN categories c ON p.category_id = c.id
+        JOIN vat_rates v ON p.vat_rate_id = v.id
+    `;
+
+    const categoryId = req.params.catid;
     if (categoryId && !isNaN(parseInt(categoryId))) {
         sql += ' WHERE p.category_id = ?';
         params.push(parseInt(categoryId));
+    } else {
+        // Optional: handle invalid or missing catid, though the SQL without WHERE will fetch all
+        // For now, if catid is invalid/missing, it will effectively ignore the filter.
+        // Or, return a 400 error:
+        // return res.status(400).json({ error: 'Invalid category ID parameter' });
     }
 
     db.all(sql, params, (err, rows) => {
@@ -57,7 +97,7 @@ app.get('/api/products', (req, res) => {
             return {
                 ...product,
                 gross_price: gross_price,
-                firstImage: imageName ? `../frontend/pictures/${product.image_folder}/${imageName}` : null
+                firstImage: imageName ? `/pictures/${product.image_folder}/${imageName}` : null
             };
         });
         
@@ -65,11 +105,20 @@ app.get('/api/products', (req, res) => {
     });
 });
 
-app.get('/api/products/related', (req, res) => {
-    const limit = req.query.limit ? parseInt(req.query.limit) : 4;
-    if (isNaN(limit) || limit <= 0) {
-        return res.status(400).json({ error: 'Invalid limit parameter' });
+app.get('/api/products/related/:limit?', (req, res) => {
+    const limitInput = req.params.limit;
+    let limit = parseInt(limitInput);
+
+    // Default to 4 if limit is not provided, NaN, or not a positive number
+    if (limitInput === undefined || isNaN(limit) || limit <= 0) {
+        limit = 4;
     }
+
+    // Optional: If you want to return an error for invalid explicit limit values instead of defaulting
+    // if (limitInput !== undefined && (isNaN(limit) || limit <= 0)) {
+    //     return res.status(400).json({ error: 'Invalid limit parameter' });
+    // }
+
 
     const sql = `
         SELECT 
@@ -94,7 +143,7 @@ app.get('/api/products/related', (req, res) => {
             return {
                 ...product,
                 gross_price: gross_price,
-                firstImage: imageName ? `../frontend/pictures/${product.image_folder}/${imageName}` : null
+                firstImage: imageName ? `/pictures/${product.image_folder}/${imageName}` : null
             };
         });
         
@@ -139,7 +188,7 @@ app.get('/api/products/:id', (req, res) => {
         const productWithDetails = {
             ...row,
             gross_price: gross_price,
-            firstImage: imageName ? `../frontend/pictures/${row.image_folder}/${imageName}` : null
+            firstImage: imageName ? `/pictures/${row.image_folder}/${imageName}` : null
         };
         res.json(productWithDetails);
     });
@@ -150,7 +199,7 @@ app.get('/api/products/firstImage/:folder', (req, res) => {
   const imageName = getFirstImageInFolder(folderName);
   
   if (imageName) {
-    res.json({ imagePath: `../frontend/pictures/${folderName}/${imageName}` });
+    res.json({ imagePath: `/pictures/${folderName}/${imageName}` });
   } else {
     res.status(404).json({ error: 'No images found' });
   }
@@ -160,7 +209,7 @@ app.get('/api/products/images/:folder', (req, res) => {
   const folderName = req.params.folder;
   
   try {
-    const folderPath = path.join(__dirname, '../frontend/pictures', folderName);
+    const folderPath = path.join(__dirname, 'pictures', folderName);
     
     const files = fs.readdirSync(folderPath);
     
@@ -169,7 +218,7 @@ app.get('/api/products/images/:folder', (req, res) => {
       .sort();
     
     if (imageFiles.length > 0) {
-      const imagePaths = imageFiles.map(file => `../frontend/pictures/${folderName}/${file}`);
+      const imagePaths = imageFiles.map(file => `/pictures/${folderName}/${file}`);
       res.json({ images: imagePaths });
     } else {
       res.status(404).json({ error: 'No images found' });

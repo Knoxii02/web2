@@ -13,9 +13,11 @@ function getBadgeClass(categoryName) {
 }
 
 async function fetchProducts(categoryId = null) {
-    let url = 'http://localhost:3000/api/products';
+    let url;
     if (categoryId) {
-        url += `?category_id=${categoryId}`;
+        url = `http://localhost:3000/api/products/byCategory/${categoryId}`;
+    } else {
+        url = 'http://localhost:3000/api/products';
     }
     try {
         const response = await fetch(url);
