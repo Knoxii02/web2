@@ -116,39 +116,6 @@ app.get('/api/categories', (req, res) => {
     });
 });
 
-app.get('/api/products/:id', (req, res) => {
-    const productId = req.params.id;
-    const sql = `
-        SELECT 
-            p.id, p.name, p.short_description, p.long_description, p.net_price, p.image_folder,
-            c.name AS category_name,
-            v.rate_percentage AS vat_percentage
-        FROM products p
-        JOIN categories c ON p.category_id = c.id
-        JOIN vat_rates v ON p.vat_rate_id = v.id
-        WHERE p.id = ?
-    `;
-    db.get(sql, [productId], (err, row) => {
-        if (err) {
-            res.status(500).json({ error: err.message });
-            return;
-        }
-        if (!row) {
-            res.status(404).json({ error: 'Produkt nicht gefunden' });
-            return;
-        }
-        
-        const gross_price = Math.round(row.net_price * (1 + row.vat_percentage / 100) * 100) / 100;
-        const imageName = getFirstImageInFolder(row.image_folder);
-        const productWithDetails = {
-            ...row,
-            gross_price: gross_price,
-            firstImage: imageName ? `http://localhost:3000/pictures/${row.image_folder}/${imageName}` : null
-        };
-        res.json(productWithDetails);
-    });
-});
-
 app.get('/api/products/firstImage/:folder', (req, res) => {
   const folderName = req.params.folder;
   const imageName = getFirstImageInFolder(folderName);
@@ -215,6 +182,39 @@ app.get('/api/products/images/:folder', (req, res) => {
     console.error(`Error finding images in ${folderName}:`, error);
     res.status(500).json({ error: 'Error accessing image folder' });
   }
+});
+
+app.get('/api/products/:id', (req, res) => {
+    const productId = req.params.id;
+    const sql = `
+        SELECT 
+            p.id, p.name, p.short_description, p.long_description, p.net_price, p.image_folder,
+            c.name AS category_name,
+            v.rate_percentage AS vat_percentage
+        FROM products p
+        JOIN categories c ON p.category_id = c.id
+        JOIN vat_rates v ON p.vat_rate_id = v.id
+        WHERE p.id = ?
+    `;
+    db.get(sql, [productId], (err, row) => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+            return;
+        }
+        if (!row) {
+            res.status(404).json({ error: 'Produkt nicht gefunden' });
+            return;
+        }
+        
+        const gross_price = Math.round(row.net_price * (1 + row.vat_percentage / 100) * 100) / 100;
+        const imageName = getFirstImageInFolder(row.image_folder);
+        const productWithDetails = {
+            ...row,
+            gross_price: gross_price,
+            firstImage: imageName ? `http://localhost:3000/pictures/${row.image_folder}/${imageName}` : null
+        };
+        res.json(productWithDetails);
+    });
 });
 
 // POST /api/orders - Create a new order
