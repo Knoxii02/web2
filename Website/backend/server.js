@@ -59,7 +59,7 @@ app.get('/api/products/byCategory/:categoryId', (req, res) => {
             return {
                 ...product,
                 gross_price: gross_price,
-                firstImage: imageName ? `/pictures/${product.image_folder}/${imageName}` : null
+                firstImage: imageName ? `http://localhost:3000/pictures/${product.image_folder}/${imageName}` : null
             };
         });
         
@@ -96,7 +96,7 @@ app.get('/api/products/related/:limit', (req, res) => {
             return {
                 ...product,
                 gross_price: gross_price,
-                firstImage: imageName ? `/pictures/${product.image_folder}/${imageName}` : null
+                firstImage: imageName ? `http://localhost:3000/pictures/${product.image_folder}/${imageName}` : null
             };
         });
         
@@ -141,7 +141,7 @@ app.get('/api/products/:id', (req, res) => {
         const productWithDetails = {
             ...row,
             gross_price: gross_price,
-            firstImage: imageName ? `/pictures/${row.image_folder}/${imageName}` : null
+            firstImage: imageName ? `http://localhost:3000/pictures/${row.image_folder}/${imageName}` : null
         };
         res.json(productWithDetails);
     });
@@ -152,17 +152,50 @@ app.get('/api/products/firstImage/:folder', (req, res) => {
   const imageName = getFirstImageInFolder(folderName);
   
   if (imageName) {
-    res.json({ imagePath: `/pictures/${folderName}/${imageName}` });
+    res.json({ imagePath: `../backend/pictures/${folderName}/${imageName}` });
   } else {
     res.status(404).json({ error: 'No images found' });
   }
 });
 
+// Add this endpoint to handle /api/products without category filter
+app.get('/api/products', (req, res) => {
+    const sql = `
+        SELECT 
+            p.id, p.name, p.short_description, p.long_description, p.net_price, p.image_folder,
+            c.name AS category_name,
+            v.rate_percentage AS vat_percentage
+        FROM products p
+        JOIN categories c ON p.category_id = c.id
+        JOIN vat_rates v ON p.vat_rate_id = v.id
+    `;
+    
+    db.all(sql, [], (err, rows) => {
+        if (err) {
+            res.status(500).json({ error: err.message });
+            return;
+        }
+        
+        const productsWithDetails = rows.map(product => {
+            const gross_price = Math.round(product.net_price * (1 + product.vat_percentage / 100) * 100) / 100;
+            const imageName = getFirstImageInFolder(product.image_folder);
+            return {
+                ...product,
+                gross_price: gross_price,
+                firstImage: imageName ? `http://localhost:3000/pictures/${product.image_folder}/${imageName}` : null
+            };
+        });
+        
+        res.json(productsWithDetails);
+    });
+});
+
+// Fix the product images endpoint
 app.get('/api/products/images/:folder', (req, res) => {
   const folderName = req.params.folder;
   
   try {
-    const folderPath = path.join(__dirname, '/pictures', folderName);
+    const folderPath = path.join(__dirname, '../backend/pictures', folderName);
     
     const files = fs.readdirSync(folderPath);
     
@@ -171,7 +204,7 @@ app.get('/api/products/images/:folder', (req, res) => {
       .sort();
     
     if (imageFiles.length > 0) {
-      const imagePaths = imageFiles.map(file => `/pictures/${folderName}/${file}`);
+      const imagePaths = imageFiles.map(file => `http://localhost:3000/pictures/${folderName}/${file}`);
       res.json({ images: imagePaths });
     } else {
       res.status(404).json({ error: 'No images found' });
