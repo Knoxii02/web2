@@ -8,11 +8,11 @@ const app = express();
 app.use(cors());
 const db = new sqlite3.Database(path.join(__dirname, 'db', 'database.sqlite'));
 
-app.use('/pictures', express.static(path.join(__dirname, '../frontend/pictures')));
+app.use('/pictures', express.static(path.join(__dirname, '/pictures')));
 
 function getFirstImageInFolder(folderName) {
     try {
-        const folderPath = path.join(__dirname, '../frontend/pictures', folderName);
+        const folderPath = path.join(__dirname, '/pictures', folderName);
         
         const files = fs.readdirSync(folderPath);
         
@@ -27,9 +27,16 @@ function getFirstImageInFolder(folderName) {
     }
 }
 
-app.get('/api/products', (req, res) => {
-    let params = [];
-    let sql = `
+
+// Add this new endpoint to handle /api/products/byCategory/:categoryId
+app.get('/api/products/byCategory/:categoryId', (req, res) => {
+    const categoryId = req.params.categoryId;
+    
+    if (!categoryId || isNaN(parseInt(categoryId))) {
+        return res.status(400).json({ error: 'Invalid category ID' });
+    }
+    
+    const sql = `
         SELECT 
             p.id, p.name, p.short_description, p.long_description, p.net_price, p.image_folder,
             c.name AS category_name,
@@ -37,15 +44,10 @@ app.get('/api/products', (req, res) => {
         FROM products p
         JOIN categories c ON p.category_id = c.id
         JOIN vat_rates v ON p.vat_rate_id = v.id
+        WHERE p.category_id = ?
     `;
-
-    const categoryId = req.query.category_id;
-    if (categoryId && !isNaN(parseInt(categoryId))) {
-        sql += ' WHERE p.category_id = ?';
-        params.push(parseInt(categoryId));
-    }
-
-    db.all(sql, params, (err, rows) => {
+    
+    db.all(sql, [parseInt(categoryId)], (err, rows) => {
         if (err) {
             res.status(500).json({ error: err.message });
             return;
@@ -57,7 +59,7 @@ app.get('/api/products', (req, res) => {
             return {
                 ...product,
                 gross_price: gross_price,
-                firstImage: imageName ? `../frontend/pictures/${product.image_folder}/${imageName}` : null
+                firstImage: imageName ? `/pictures/${product.image_folder}/${imageName}` : null
             };
         });
         
@@ -65,8 +67,8 @@ app.get('/api/products', (req, res) => {
     });
 });
 
-app.get('/api/products/related', (req, res) => {
-    const limit = req.query.limit ? parseInt(req.query.limit) : 4;
+app.get('/api/products/related/:limit', (req, res) => {
+    const limit = req.params.limit ? parseInt(req.params.limit) : 4;
     if (isNaN(limit) || limit <= 0) {
         return res.status(400).json({ error: 'Invalid limit parameter' });
     }
@@ -94,7 +96,7 @@ app.get('/api/products/related', (req, res) => {
             return {
                 ...product,
                 gross_price: gross_price,
-                firstImage: imageName ? `../frontend/pictures/${product.image_folder}/${imageName}` : null
+                firstImage: imageName ? `/pictures/${product.image_folder}/${imageName}` : null
             };
         });
         
@@ -139,7 +141,7 @@ app.get('/api/products/:id', (req, res) => {
         const productWithDetails = {
             ...row,
             gross_price: gross_price,
-            firstImage: imageName ? `../frontend/pictures/${row.image_folder}/${imageName}` : null
+            firstImage: imageName ? `/pictures/${row.image_folder}/${imageName}` : null
         };
         res.json(productWithDetails);
     });
@@ -150,7 +152,7 @@ app.get('/api/products/firstImage/:folder', (req, res) => {
   const imageName = getFirstImageInFolder(folderName);
   
   if (imageName) {
-    res.json({ imagePath: `../frontend/pictures/${folderName}/${imageName}` });
+    res.json({ imagePath: `/pictures/${folderName}/${imageName}` });
   } else {
     res.status(404).json({ error: 'No images found' });
   }
@@ -160,7 +162,7 @@ app.get('/api/products/images/:folder', (req, res) => {
   const folderName = req.params.folder;
   
   try {
-    const folderPath = path.join(__dirname, '../frontend/pictures', folderName);
+    const folderPath = path.join(__dirname, '/pictures', folderName);
     
     const files = fs.readdirSync(folderPath);
     
@@ -169,7 +171,7 @@ app.get('/api/products/images/:folder', (req, res) => {
       .sort();
     
     if (imageFiles.length > 0) {
-      const imagePaths = imageFiles.map(file => `../frontend/pictures/${folderName}/${file}`);
+      const imagePaths = imageFiles.map(file => `/pictures/${folderName}/${file}`);
       res.json({ images: imagePaths });
     } else {
       res.status(404).json({ error: 'No images found' });
