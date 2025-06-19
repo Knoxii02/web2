@@ -1,6 +1,15 @@
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS vat_rates;
+-- The above DROP TABLE statements might need to be re-ordered or new ones added
+-- if existing tables have FOREIGN KEY constraints pointing to orders or order_items.
+-- However, based on current schema, products, categories, vat_rates do not depend on orders/order_items.
+-- It's order_items that will depend on orders and products.
+-- So, if re-running this script, orders and order_items should be dropped first.
+-- For now, we'll add them and then adjust DROP statements if needed for full idempotency.
+
+DROP TABLE IF EXISTS order_items; -- Drop dependent table first
+DROP TABLE IF EXISTS orders;      -- Then drop master table
 
 CREATE TABLE categories (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -207,4 +216,34 @@ VALUES (
     'workmaterial_2/',
     (SELECT id from categories WHERE name = 'Arbeitsmaterial'),
     (SELECT id from vat_rates WHERE name = 'Standard')
+);
+
+-- Orders Table
+CREATE TABLE IF NOT EXISTS orders (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    order_number TEXT UNIQUE NOT NULL,
+    customer_name TEXT NOT NULL,
+    customer_email TEXT NOT NULL,
+    address_street TEXT NOT NULL,
+    address_zip TEXT NOT NULL,
+    address_city TEXT NOT NULL,
+    address_country TEXT NOT NULL,
+    payment_method TEXT NOT NULL,
+    total_net_amount REAL NOT NULL,
+    shipping_costs REAL NOT NULL,
+    total_gross_amount REAL NOT NULL, -- Total including VAT and shipping
+    order_date DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Order Items Table
+CREATE TABLE IF NOT EXISTS order_items (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    order_id INTEGER NOT NULL,
+    product_id INTEGER NOT NULL,
+    quantity INTEGER NOT NULL,
+    net_price_at_purchase REAL NOT NULL,
+    vat_percentage_at_purchase REAL NOT NULL,
+    gross_price_at_purchase REAL NOT NULL, -- Gross price for one item at time of purchase
+    FOREIGN KEY (order_id) REFERENCES orders(id),
+    FOREIGN KEY (product_id) REFERENCES products(id)
 );
