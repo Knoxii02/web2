@@ -197,7 +197,7 @@ app.get('/api/products/images/:folder', (req, res) => {
   const folderName = req.params.folder;
   
   try {
-    const folderPath = path.join(__dirname, '../backend/pictures', folderName);
+    const folderPath = path.join(__dirname, '/pictures', folderName);
     
     const files = fs.readdirSync(folderPath);
     
@@ -225,8 +225,6 @@ app.post('/api/orders', (req, res) => {
     if (!customerDetails || !paymentMethod || !cartItems || cartItems.length === 0 || !totals) {
         return res.status(400).json({ error: 'Missing required order data.' });
     }
-
-    const db = new sqlite3.Database(path.join(__dirname, 'db', 'database.sqlite')); // Local DB connection for this endpoint
 
     const generateOrderNumber = () => {
         // Simple order number generation, e.g., ELF-YYYYMMDD-HHMMSS-RANDOM
@@ -269,7 +267,6 @@ app.post('/api/orders', (req, res) => {
         db.run(orderSql, orderParams, function(err) {
             if (err) {
                 db.run('ROLLBACK', () => {
-                    db.close(); // Close DB after rollback
                 });
                 console.error('Error inserting order:', err.message);
                 return res.status(500).json({ error: 'Failed to create order.', details: err.message });
@@ -302,7 +299,6 @@ app.post('/api/orders', (req, res) => {
                     if (itemErr && !itemInsertionError) {
                         itemInsertionError = itemErr; // Capture first error
                         db.run('ROLLBACK', () => {
-                            db.close(); // Close DB after rollback
                         });
                         console.error('Error inserting order item:', itemErr.message);
                         if (!res.headersSent) {
@@ -317,7 +313,6 @@ app.post('/api/orders', (req, res) => {
                     if (itemsProcessed === cartItems.length) {
                         // All items inserted successfully
                         db.run('COMMIT', (commitErr) => {
-                            db.close(); // Close DB after commit or commit error
                             if (commitErr) {
                                 console.error('Error committing transaction:', commitErr.message);
                                 if (!res.headersSent) {
@@ -340,7 +335,7 @@ app.post('/api/orders', (req, res) => {
             });
              // Handle case where cartItems is empty after validation (should not happen due to initial check)
             if (cartItems.length === 0 && !res.headersSent) {
-                 db.run('COMMIT', () => db.close()); // Or ROLLBACK if an empty order is invalid
+                 db.run('COMMIT'); // Or ROLLBACK if an empty order is invalid
                  res.status(201).json({
                     message: 'Order created successfully (no items)', // Or appropriate response
                     orderNumber: orderNumber,
@@ -354,16 +349,13 @@ app.post('/api/orders', (req, res) => {
 // GET /api/orders/:order_number - Fetch order details
 app.get('/api/orders/:order_number', (req, res) => {
     const orderNumber = req.params.order_number;
-    const db = new sqlite3.Database(path.join(__dirname, 'db', 'database.sqlite')); // Local DB connection
 
     const orderSql = `SELECT * FROM orders WHERE order_number = ?`;
     db.get(orderSql, [orderNumber], (err, orderRow) => {
         if (err) {
-            db.close();
             return res.status(500).json({ error: 'Database error fetching order.', details: err.message });
         }
         if (!orderRow) {
-            db.close();
             return res.status(404).json({ error: 'Order not found.' });
         }
 
@@ -374,7 +366,6 @@ app.get('/api/orders/:order_number', (req, res) => {
             WHERE oi.order_id = ?
         `;
         db.all(itemsSql, [orderRow.id], (itemErr, itemRows) => {
-            db.close(); // Close DB after fetching items or if an error occurs
             if (itemErr) {
                 return res.status(500).json({ error: 'Database error fetching order items.', details: itemErr.message });
             }
@@ -383,7 +374,7 @@ app.get('/api/orders/:order_number', (req, res) => {
                 const imageName = getFirstImageInFolder(item.image_folder);
                 return {
                     ...item,
-                    firstImage: imageName ? `../frontend/pictures/${item.image_folder}/${imageName}` : null
+                firstImage: imageName ? `http://localhost:3000/pictures/${item.image_folder}/${imageName}` : null
                 };
             });
 
