@@ -245,41 +245,9 @@
             }
         }
 
-        // This specific DOMContentLoaded listener for the submit button will be removed
-        // and its logic integrated into the main async DOMContentLoaded below.
-        // document.addEventListener('DOMContentLoaded', function () {
-        //     const submitButton = document.querySelector('button[type="submit"]');
-        //     submitButton.addEventListener('click', function (event) {
-        //         const form = document.querySelector('.needs-validation');
-        //         if (form.checkValidity()) {
-        //             window.location.href = 'confirmation.html';
-        //         } else {
-        //             form.classList.add('was-validated');
-        //         }
-        //         event.preventDefault();
-        //     });
-        //
-        //     const paymentMethods = document.querySelectorAll('input[name="paymentMethod"]');
-        //     submitButton.addEventListener('click', function (event) {
-        //         let paymentSelected = false;
-        //         paymentMethods.forEach(method => {
-        //             if (method.checked) {
-        //                 paymentSelected = true;
-        //             }
-        //         });
-        //
-        //         if (!paymentSelected) {
-        //             alert('Bitte wählen Sie eine Zahlungsmethode aus.');
-        //             event.preventDefault();
-        //         }
-        //     });
-        // });
-
-        // Funktion um nur spezifische Produkte zu laden (wie in shopping-cart.html)
         async function fetchProductsByIds(productIds) {
             const products = [];
             
-            // Parallele Anfragen für bessere Performance
             const promises = productIds.map(async (id) => {
                 try {
                     const response = await fetch(`http://localhost:3000/api/products/${id}`);
@@ -308,15 +276,13 @@
         }
 
         document.addEventListener('DOMContentLoaded', async () => {
-            // Variables declared at a higher scope to be accessible by summary and submit logic
             let products = [];
             let cart = [];
             let subtotal_net = 0;
             let total_gross_subtotal = 0;
             let final_total = 0;
-            const shippingCost = 5.95; // This is constant as per previous steps
+            const shippingCost = 5.95;
             let vat_amounts_by_rate = {};            try {
-                // Nur die Produkte laden, die im Warenkorb sind
                 cart = JSON.parse(localStorage.getItem('cart')) || [];
                 
                 if (cart.length === 0) {
@@ -329,9 +295,8 @@
                 products = await fetchProductsByIds(productIds);
 
                 const productContainer = document.querySelector('.card-body');
-                productContainer.innerHTML = ''; // Clear previous summary items
+                productContainer.innerHTML = '';
 
-                // Recalculate summary details and store them in scoped variables
                 subtotal_net = 0;
                 vat_amounts_by_rate = {};
 
@@ -369,7 +334,6 @@
                         vatDetailsHtml += `<small class="text-muted">enthält ${rate}% MwSt.: ${formatPriceGerman(vat_amounts_by_rate[rate])} €</small><br>`;
                     }
                 }
-                // Remove trailing <br> if it exists
                 if (vatDetailsHtml.endsWith('<br>')) {
                     vatDetailsHtml = vatDetailsHtml.slice(0, -4);
                 }
@@ -398,14 +362,12 @@
                 productContainer.innerHTML = '<p class="text-danger">Fehler beim Laden der Bestellübersicht.</p>';
             }
 
-            // New submit handler logic
             const submitButton = document.querySelector('button[type="submit"]');
             const form = document.querySelector('.needs-validation');
 
             submitButton.addEventListener('click', async function (event) {
                 event.preventDefault(); // Prevent default form submission in all cases for AJAX handling
 
-                // Check payment method selection
                 let paymentMethod = '';
                 const paymentMethodRadios = document.querySelectorAll('input[name="paymentMethod"]');
                 paymentMethodRadios.forEach(radio => {
@@ -420,14 +382,12 @@
                     return;
                 }
 
-                // Validate form fields
                 if (form.checkValidity() === false) {
                     form.classList.add('was-validated');
                     return;
                 }
-                form.classList.add('was-validated'); // Add class for styling, even if valid, before submission attempt
+                form.classList.add('was-validated');
 
-                // Collect data
                 const customerDetails = {
                     firstName: document.getElementById('firstName').value,
                     lastName: document.getElementById('lastName').value,
@@ -456,7 +416,6 @@
                     final_total: final_total
                 };
 
-                // Send data to backend
                 try {
                     const response = await fetch('http://localhost:3000/api/orders', {
                         method: 'POST',
@@ -488,7 +447,6 @@
                         errorDiv = document.createElement('div');
                         errorDiv.id = 'checkout-error-message';
                         errorDiv.className = 'alert alert-danger mt-3';
-                        // Insert it before the submit button's container or a prominent place
                         const buttonContainer = submitButton.parentNode;
                         buttonContainer.parentNode.insertBefore(errorDiv, buttonContainer.nextSibling); // Place it after the button or its container
                     }

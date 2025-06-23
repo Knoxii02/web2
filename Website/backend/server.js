@@ -30,7 +30,6 @@ function getFirstImageInFolder(folderName) {
 }
 
 
-// Add this new endpoint to handle /api/products/byCategory/:categoryId
 app.get('/api/products/byCategory/:categoryId', (req, res) => {
     const categoryId = req.params.categoryId;
     
@@ -127,7 +126,6 @@ app.get('/api/products/firstImage/:folder', (req, res) => {
   }
 });
 
-// Add this endpoint to handle /api/products without category filter
 app.get('/api/products', (req, res) => {
     const sql = `
         SELECT 
@@ -159,7 +157,6 @@ app.get('/api/products', (req, res) => {
     });
 });
 
-// Fix the product images endpoint
 app.get('/api/products/images/:folder', (req, res) => {
   const folderName = req.params.folder;
   
@@ -217,17 +214,14 @@ app.get('/api/products/:id', (req, res) => {
     });
 });
 
-// POST /api/orders - Create a new order
 app.post('/api/orders', (req, res) => {
     const { customerDetails, paymentMethod, cartItems, totals } = req.body;
 
-    // Basic validation (can be expanded)
     if (!customerDetails || !paymentMethod || !cartItems || cartItems.length === 0 || !totals) {
         return res.status(400).json({ error: 'Missing required order data.' });
     }
 
     const generateOrderNumber = () => {
-        // Simple order number generation, e.g., ELF-YYYYMMDD-HHMMSS-RANDOM
         const d = new Date();
         const datePart = `${d.getFullYear()}${(d.getMonth() + 1).toString().padStart(2, '0')}${d.getDate().toString().padStart(2, '0')}`;
         const timePart = `${d.getHours().toString().padStart(2, '0')}${d.getMinutes().toString().padStart(2, '0')}${d.getSeconds().toString().padStart(2, '0')}`;
@@ -238,7 +232,6 @@ app.post('/api/orders', (req, res) => {
     const orderNumber = generateOrderNumber();
     const orderDate = new Date().toISOString();
 
-    // Start a database transaction
     db.serialize(() => {
         db.run('BEGIN TRANSACTION');
 
@@ -259,7 +252,7 @@ app.post('/api/orders', (req, res) => {
             customerDetails.country,
             paymentMethod,
             totals.subtotal_net,
-            totals.final_total, // This should be the grand total including shipping and all VAT
+            totals.final_total,
             totals.shippingCost,
             orderDate
         ];
@@ -272,7 +265,7 @@ app.post('/api/orders', (req, res) => {
                 return res.status(500).json({ error: 'Failed to create order.', details: err.message });
             }
 
-            const orderId = this.lastID; // Get the ID of the inserted order
+            const orderId = this.lastID;
 
             const itemSql = `
                 INSERT INTO order_items (
@@ -285,7 +278,7 @@ app.post('/api/orders', (req, res) => {
             let itemInsertionError = null;
 
             cartItems.forEach(item => {
-                if (res.headersSent || itemInsertionError) return; // Stop processing if response already sent or error occurred
+                if (res.headersSent || itemInsertionError) return;
 
                 const productGrossPrice = item.net_price * (1 + item.vat_percentage / 100);
                 db.run(itemSql, [
@@ -297,7 +290,7 @@ app.post('/api/orders', (req, res) => {
                     productGrossPrice
                 ], function(itemErr) {
                     if (itemErr && !itemInsertionError) {
-                        itemInsertionError = itemErr; // Capture first error
+                        itemInsertionError = itemErr;
                         db.run('ROLLBACK', () => {
                         });
                         console.error('Error inserting order item:', itemErr.message);
@@ -307,17 +300,15 @@ app.post('/api/orders', (req, res) => {
                         return;
                     }
 
-                    if (itemInsertionError) return; // Don't proceed if an error has occurred
+                    if (itemInsertionError) return;
 
                     itemsProcessed++;
                     if (itemsProcessed === cartItems.length) {
-                        // All items inserted successfully
                         db.run('COMMIT', (commitErr) => {
                             if (commitErr) {
                                 console.error('Error committing transaction:', commitErr.message);
                                 if (!res.headersSent) {
-                                     // Attempt rollback if commit fails, though it might not be possible
-                                    db.run('ROLLBACK'); // Best effort
+                                    db.run('ROLLBACK');
                                     res.status(500).json({ error: 'Failed to finalize order.', details: commitErr.message });
                                 }
                                 return;
@@ -333,20 +324,18 @@ app.post('/api/orders', (req, res) => {
                     }
                 });
             });
-             // Handle case where cartItems is empty after validation (should not happen due to initial check)
             if (cartItems.length === 0 && !res.headersSent) {
-                 db.run('COMMIT'); // Or ROLLBACK if an empty order is invalid
+                 db.run('COMMIT'); 
                  res.status(201).json({
-                    message: 'Order created successfully (no items)', // Or appropriate response
+                    message: 'Order created successfully (no items)',
                     orderNumber: orderNumber,
-                    orderId: orderId // orderId would be set if orderSql ran
+                    orderId: orderId
                 });
             }
         });
     });
 });
 
-// GET /api/orders/:order_number - Fetch order details
 app.get('/api/orders/:order_number', (req, res) => {
     const orderNumber = req.params.order_number;
 

@@ -85,11 +85,9 @@
         crossorigin="anonymous"></script>
     <script src="js/related-products.js"></script>    <!-- Warenkorb-Script -->
     <script>
-        // Funktion um nur spezifische Produkte zu laden
         async function fetchProductsByIds(productIds) {
             const products = [];
             
-            // Parallele Anfragen für bessere Performance
             const promises = productIds.map(async (id) => {
                 try {
                     const response = await fetch(`http://localhost:3000/api/products/${id}`);
@@ -133,7 +131,6 @@
 
                 summaryCard.style.display = 'block';
 
-                // Nur die Produkte laden, die im Warenkorb sind
                 const productIds = cart.map(item => item.productId);
                 const products = await fetchProductsByIds(productIds);
 
@@ -195,7 +192,6 @@
                     return;
                 }
 
-                // Nur die Produkte laden, die im Warenkorb sind
                 const productIds = cart.map(item => item.productId);
                 const products = await fetchProductsByIds(productIds);
 

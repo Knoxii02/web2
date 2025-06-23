@@ -153,7 +153,6 @@
         }
 
         function renderOrderConfirmation(orderDetails) {
-            // Populate Header (Jumbotron)
             const jumbotron = document.querySelector('.jumbotron');
             if (jumbotron) {
                 const strongElements = jumbotron.querySelectorAll('p strong');
@@ -167,7 +166,6 @@
                 if (paragraphs.length > 2) paragraphs[2].textContent = `Eine Bestätigungsmail wurde an ${orderDetails.customer_email} gesendet.`;
             }
 
-            // Populate Order Items & Price Summary
             const orderOverviewCardBody = document.querySelector('.card .card-body'); // Assumes this is the "Bestellübersicht" card
             if (!orderOverviewCardBody) {
                 console.error("Bestellübersicht Card Body nicht gefunden.");
@@ -176,7 +174,6 @@
 
             let itemsHtml = '';
             orderDetails.items.forEach(item => {
-                // Use a local placeholder if firstImage is not available or construct full URL if needed
                 const imageUrl = item.firstImage ? item.firstImage : './pictures/logo_1/logo_1_1.jpg'; // Default placeholder
                 itemsHtml += `
                     <div class="row mb-3 border-bottom pb-3">
@@ -238,8 +235,6 @@
 
             orderOverviewCardBody.innerHTML = itemsHtml + summaryHtml;
 
-            // Populate Delivery Address
-            // These selectors are based on the provided HTML structure (first and second .col-md-6 .card-body)
             const infoCards = document.querySelectorAll('.row .col-md-6 .card .card-body');
             if (infoCards.length > 0 && infoCards[0]) {
                  infoCards[0].innerHTML = `
@@ -252,7 +247,6 @@
                 console.error("Lieferadresse Card Body nicht gefunden.");
             }
 
-            // Populate Payment Information
             if (infoCards.length > 1 && infoCards[1]) {
                 let paymentMethodDisplay = orderDetails.payment_method;
                 const paymentMethodMap = {
@@ -265,7 +259,6 @@
                 infoCards[1].innerHTML = `
                     <p class="mb-0"><strong>Zahlungsart:</strong> ${paymentMethodDisplay}</p>
                 `;
-                 // Optionally, add more payment details if available and needed, e.g., last 4 digits for credit card
             } else {
                 console.error("Zahlungsinformationen Card Body nicht gefunden.");
             }
