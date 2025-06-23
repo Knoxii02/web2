@@ -83,10 +83,32 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
         crossorigin="anonymous"></script>
-    <script src="js/related-products.js"></script>
-
-    <!-- Warenkorb-Script -->
+    <script src="js/related-products.js"></script>    <!-- Warenkorb-Script -->
     <script>
+        // Funktion um nur spezifische Produkte zu laden
+        async function fetchProductsByIds(productIds) {
+            const products = [];
+            
+            // Parallele Anfragen für bessere Performance
+            const promises = productIds.map(async (id) => {
+                try {
+                    const response = await fetch(`http://localhost:3000/api/products/${id}`);
+                    if (response.ok) {
+                        return await response.json();
+                    } else {
+                        console.error(`Produkt mit ID ${id} nicht gefunden`);
+                        return null;
+                    }
+                } catch (error) {
+                    console.error(`Fehler beim Laden von Produkt ${id}:`, error);
+                    return null;
+                }
+            });
+            
+            const results = await Promise.all(promises);
+            return results.filter(product => product !== null);
+        }
+
         function formatPriceGerman(price) {
             const numericPrice = Number(price);
             if (isNaN(numericPrice)) {
@@ -99,9 +121,7 @@
             const cartContainer = document.querySelector('.col-12.col-lg-8');
             const summaryContainer = document.querySelector('.col-12.col-lg-4 .card-body');
 
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-            async function renderCartItems() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];            async function renderCartItems() {
                 cartContainer.innerHTML = '';
                 const summaryCard = document.querySelector('.col-12.col-lg-4 .card');
 
@@ -113,8 +133,9 @@
 
                 summaryCard.style.display = 'block';
 
-                const response = await fetch('http://localhost:3000/api/products');
-                const products = await response.json();
+                // Nur die Produkte laden, die im Warenkorb sind
+                const productIds = cart.map(item => item.productId);
+                const products = await fetchProductsByIds(productIds);
 
                 cart.forEach((item, index) => {
                     const product = products.find(p => p.id === item.productId);
@@ -169,15 +190,14 @@
                     `;
                     cartContainer.appendChild(productCard);
                 });
-            }
-
-            async function updateSummary() {
+            }            async function updateSummary() {
                 if (cart.length === 0) {
                     return;
                 }
 
-                const response = await fetch('http://localhost:3000/api/products');
-                const products = await response.json();
+                // Nur die Produkte laden, die im Warenkorb sind
+                const productIds = cart.map(item => item.productId);
+                const products = await fetchProductsByIds(productIds);
 
                 let subtotal_net = 0;
                 const vat_amounts_by_rate = {};

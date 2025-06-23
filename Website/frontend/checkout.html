@@ -275,6 +275,30 @@
         //     });
         // });
 
+        // Funktion um nur spezifische Produkte zu laden (wie in shopping-cart.html)
+        async function fetchProductsByIds(productIds) {
+            const products = [];
+            
+            // Parallele Anfragen für bessere Performance
+            const promises = productIds.map(async (id) => {
+                try {
+                    const response = await fetch(`http://localhost:3000/api/products/${id}`);
+                    if (response.ok) {
+                        return await response.json();
+                    } else {
+                        console.error(`Produkt mit ID ${id} nicht gefunden`);
+                        return null;
+                    }
+                } catch (error) {
+                    console.error(`Fehler beim Laden von Produkt ${id}:`, error);
+                    return null;
+                }
+            });
+            
+            const results = await Promise.all(promises);
+            return results.filter(product => product !== null);
+        }
+
         function formatPriceGerman(price) {
             const numericPrice = Number(price);
             if (isNaN(numericPrice)) {
@@ -291,12 +315,18 @@
             let total_gross_subtotal = 0;
             let final_total = 0;
             const shippingCost = 5.95; // This is constant as per previous steps
-            let vat_amounts_by_rate = {};
-
-            try {
-                const productsResponse = await fetch('http://localhost:3000/api/products');
-                products = await productsResponse.json(); // Assign to scoped products
+            let vat_amounts_by_rate = {};            try {
+                // Nur die Produkte laden, die im Warenkorb sind
                 cart = JSON.parse(localStorage.getItem('cart')) || [];
+                
+                if (cart.length === 0) {
+                    const productContainer = document.querySelector('.card-body');
+                    productContainer.innerHTML = '<p class="text-warning">Ihr Warenkorb ist leer.</p>';
+                    return;
+                }
+                
+                const productIds = cart.map(item => item.productId);
+                products = await fetchProductsByIds(productIds);
 
                 const productContainer = document.querySelector('.card-body');
                 productContainer.innerHTML = ''; // Clear previous summary items
